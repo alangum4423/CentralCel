@@ -78,6 +78,9 @@
     <EmbeddedResource Include="Formularios\1. Acceso y Administracion\MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\2.Inventario\FormCatalogosInventario.resx">
+      <DependentUpon>FormCatalogosInventario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\2.Inventario\FormInventario.resx">
       <DependentUpon>FormInventario.cs</DependentUpon>
     </EmbeddedResource>
