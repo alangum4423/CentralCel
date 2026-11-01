@@ -46,25 +46,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Formularios\Login.cs">
+    <Compile Include="Formularios\1. Acceso y Administracion\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\Login.Designer.cs">
+    <Compile Include="Formularios\1. Acceso y Administracion\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\MenuPrincipal.cs">
+    <Compile Include="Formularios\1. Acceso y Administracion\MenuPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formularios\MenuPrincipal.Designer.cs">
+    <Compile Include="Formularios\1. Acceso y Administracion\MenuPrincipal.Designer.cs">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\2.Inventario\FormCatalogosInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\2.Inventario\FormCatalogosInventario.Designer.cs">
+      <DependentUpon>FormCatalogosInventario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\2.Inventario\FormInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\2.Inventario\FormInventario.Designer.cs">
+      <DependentUpon>FormInventario.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Formularios\Login.resx">
+    <EmbeddedResource Include="Formularios\1. Acceso y Administracion\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\MenuPrincipal.resx">
+    <EmbeddedResource Include="Formularios\1. Acceso y Administracion\MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\2.Inventario\FormInventario.resx">
+      <DependentUpon>FormInventario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
