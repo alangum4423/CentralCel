@@ -19,19 +19,17 @@ namespace CentralCel
         {
             InitializeComponent();
         }
-
+// Funcion del Boton Salir
         private void btnSalir_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
+// Funcion del btoton Ingresar
         private void btnIngresar_Click(object sender, EventArgs e)
         {
             string usuario = txtUsuario.Text.Trim();
             string contraseña = txtPassword.Text;
             string rol = cmbRol.Text;
-
-            lblAlerta.Text = "";
 
             // Validacion de campos
             if (string.IsNullOrEmpty(usuario) ||
@@ -67,8 +65,7 @@ namespace CentralCel
                     {
                         cmd.Parameters.AddWithValue("@usuario", usuario);
 
-                        string rolRegistrado =
-                            Convert.ToString(cmd.ExecuteScalar());
+                        string rolRegistrado = Convert.ToString(cmd.ExecuteScalar());
 
                         if (string.IsNullOrEmpty(rolRegistrado))
                         {
@@ -77,9 +74,7 @@ namespace CentralCel
                             return;
                         }
 
-                        if (!string.Equals(
-                            rol, rolRegistrado,
-                            StringComparison.OrdinalIgnoreCase))
+                        if (!string.Equals(rol, rolRegistrado, StringComparison.OrdinalIgnoreCase))
                         {
                             lblAlerta.Text = "El rol no corresponde a su cuenta.";
                             lblAlerta.ForeColor = Color.Red;
@@ -90,15 +85,13 @@ namespace CentralCel
             }
             catch (SqlException)
             {
-                lblAlerta.Text =
-                    "No se pudo ingresar. Revise sus credenciales " +
-                    "y la conexión con SQL Server.";
+                lblAlerta.Text = "No se pudo ingresar. Revise sus credenciales";
 
                 lblAlerta.ForeColor = Color.Red;
                 return;
             }
 
-            // Se abre el menú después de comprobar las validaciones
+            // Apertura del menú después de las validaciones
             this.Hide();
 
             using (MenuPrincipal menu = new MenuPrincipal())

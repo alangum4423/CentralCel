@@ -17,7 +17,7 @@ namespace CentralCel.Formularios
             InitializeComponent();
         }
 
-        private void productosToolStripMenuItem_Click(object sender, EventArgs e)
+        private void menuProductosExistencias_Click(object sender, EventArgs e)
         {
 
         }

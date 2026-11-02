@@ -114,6 +114,11 @@
   <ItemGroup>
     <None Include="Recursos\background_blured_login.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Recursos\CentralCel Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Recursos\banner.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
