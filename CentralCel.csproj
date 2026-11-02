@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Datos\Conexion.cs" />
     <Compile Include="Formularios\1. Acceso y Administracion\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,8 +114,6 @@
   <ItemGroup>
     <None Include="Recursos\background_blured_login.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Datos\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

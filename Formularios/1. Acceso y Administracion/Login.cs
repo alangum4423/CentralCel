@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CentralCel.Datos;
 using CentralCel.Formularios;
 
 namespace CentralCel
@@ -30,37 +31,81 @@ namespace CentralCel
             string contraseña = txtPassword.Text;
             string rol = cmbRol.Text;
 
-            // Validacion de datos (evita que los campos esten vacios)
-            if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(contraseña))
+            lblAlerta.Text = "";
+
+            // Validacion de campos
+            if (string.IsNullOrEmpty(usuario) ||
+                string.IsNullOrEmpty(contraseña) ||
+                string.IsNullOrEmpty(rol))
             {
-                lblAlerta.Text = "Error. Debe ingresar con su usuario y contraseña.";
-                lblAlerta.ForeColor = Color.Blue;
+                lblAlerta.Text = "Complete usuario, contraseña y rol.";
+                lblAlerta.ForeColor = Color.Red;
                 return;
             }
 
-            // Define y permite las credenciales de usuario
-            string cadena = $@"Server=localhost;Database=CentralCel;User Id={usuario};Password={contraseña}";
-
             try
             {
-                using (SqlConnection conn = new SqlConnection(cadena))
+                // Comprobacion de SQL del usuario y la contraseña
+                Conexion.Configurar(usuario, contraseña);
+
+                using (SqlConnection conn = Conexion.ObtenerConexion())
                 {
                     conn.Open();
-                    lblAlerta.Text = "Conexión exitosa. Bienvenido " + usuario;
-                    lblAlerta.ForeColor = Color.SkyBlue;
+
+                    // Comprobacion de perfil, rol y sucursal.
+                    string sql =
+                        "SELECT r.Nombre " +
+                        "FROM Usuarios u " +
+                        "INNER JOIN Roles r ON u.IdRol = r.IdRol " +
+                        "INNER JOIN Sucursales s ON u.IdSucursal = s.IdSucursal " +
+                        "WHERE u.NombreUsuario = @usuario " +
+                        "AND u.Activo = 1 " +
+                        "AND r.Activo = 1 " +
+                        "AND s.Activo = 1";
+
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@usuario", usuario);
+
+                        string rolRegistrado =
+                            Convert.ToString(cmd.ExecuteScalar());
+
+                        if (string.IsNullOrEmpty(rolRegistrado))
+                        {
+                            lblAlerta.Text = "No tiene un perfil activo autorizado.";
+                            lblAlerta.ForeColor = Color.Red;
+                            return;
+                        }
+
+                        if (!string.Equals(
+                            rol, rolRegistrado,
+                            StringComparison.OrdinalIgnoreCase))
+                        {
+                            lblAlerta.Text = "El rol no corresponde a su cuenta.";
+                            lblAlerta.ForeColor = Color.Red;
+                            return;
+                        }
+                    }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException)
             {
-                lblAlerta.Text = "Error de conexión: " + ex.Message;
+                lblAlerta.Text =
+                    "No se pudo ingresar. Revise sus credenciales " +
+                    "y la conexión con SQL Server.";
+
                 lblAlerta.ForeColor = Color.Red;
+                return;
             }
 
+            // Se abre el menú después de comprobar las validaciones
             this.Hide();
+
             using (MenuPrincipal menu = new MenuPrincipal())
             {
                 menu.ShowDialog();
             }
+
             this.Close();
         }
     }
