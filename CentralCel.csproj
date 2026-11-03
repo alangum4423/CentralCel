@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Datos\Conexion.cs" />
+    <Compile Include="Datos\UsuarioSesion.cs" />
     <Compile Include="Formularios\1. Acceso y Administracion\Login.cs">
       <SubType>Form</SubType>
     </Compile>

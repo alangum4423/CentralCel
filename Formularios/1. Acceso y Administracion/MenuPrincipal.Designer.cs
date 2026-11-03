@@ -97,7 +97,7 @@
             this.menuReportes});
             this.menuMenuPrincipal.Location = new System.Drawing.Point(0, 0);
             this.menuMenuPrincipal.Name = "menuMenuPrincipal";
-            this.menuMenuPrincipal.Size = new System.Drawing.Size(1368, 42);
+            this.menuMenuPrincipal.Size = new System.Drawing.Size(1368, 40);
             this.menuMenuPrincipal.TabIndex = 0;
             this.menuMenuPrincipal.Text = "menuStrip1";
             // 
@@ -120,6 +120,7 @@
             this.menuCerrarSesion.Name = "menuCerrarSesion";
             this.menuCerrarSesion.Size = new System.Drawing.Size(270, 40);
             this.menuCerrarSesion.Text = "Cerrar Sesion";
+            this.menuCerrarSesion.Click += new System.EventHandler(this.menuCerrarSesion_Click);
             // 
             // menuSalir
             // 
@@ -128,6 +129,7 @@
             this.menuSalir.Name = "menuSalir";
             this.menuSalir.Size = new System.Drawing.Size(270, 40);
             this.menuSalir.Text = "Salir";
+            this.menuSalir.Click += new System.EventHandler(this.menuSalir_Click);
             // 
             // menuAcercaDe
             // 
@@ -136,6 +138,7 @@
             this.menuAcercaDe.Name = "menuAcercaDe";
             this.menuAcercaDe.Size = new System.Drawing.Size(270, 40);
             this.menuAcercaDe.Text = "Acerca de...";
+            this.menuAcercaDe.Click += new System.EventHandler(this.menuAcercaDe_Click);
             // 
             // menuAdministracion
             // 
@@ -155,6 +158,7 @@
             this.menuUsuarios.Name = "menuUsuarios";
             this.menuUsuarios.Size = new System.Drawing.Size(270, 40);
             this.menuUsuarios.Text = "Usuarios";
+            this.menuUsuarios.Click += new System.EventHandler(this.menuUsuarios_Click);
             // 
             // menuSucursales
             // 
@@ -163,6 +167,7 @@
             this.menuSucursales.Name = "menuSucursales";
             this.menuSucursales.Size = new System.Drawing.Size(270, 40);
             this.menuSucursales.Text = "Sucursales";
+            this.menuSucursales.Click += new System.EventHandler(this.menuSucursales_Click);
             // 
             // menuConfiguracion
             // 
@@ -171,6 +176,7 @@
             this.menuConfiguracion.Name = "menuConfiguracion";
             this.menuConfiguracion.Size = new System.Drawing.Size(270, 40);
             this.menuConfiguracion.Text = "Configuracion";
+            this.menuConfiguracion.Click += new System.EventHandler(this.menuConfiguracion_Click);
             // 
             // menuInventario
             // 
@@ -201,6 +207,7 @@
             this.menuTraslados.Name = "menuTraslados";
             this.menuTraslados.Size = new System.Drawing.Size(369, 40);
             this.menuTraslados.Text = "Traslados";
+            this.menuTraslados.Click += new System.EventHandler(this.menuTraslados_Click);
             // 
             // menuCatalogos
             // 
@@ -209,6 +216,7 @@
             this.menuCatalogos.Name = "menuCatalogos";
             this.menuCatalogos.Size = new System.Drawing.Size(369, 40);
             this.menuCatalogos.Text = "Catalogos";
+            this.menuCatalogos.Click += new System.EventHandler(this.menuCatalogos_Click);
             // 
             // menuKardex
             // 
@@ -217,6 +225,7 @@
             this.menuKardex.Name = "menuKardex";
             this.menuKardex.Size = new System.Drawing.Size(369, 40);
             this.menuKardex.Text = "Kardex";
+            this.menuKardex.Click += new System.EventHandler(this.menuKardex_Click);
             // 
             // menuVentas
             // 
@@ -237,6 +246,7 @@
             this.menuNuevaVenta.Name = "menuNuevaVenta";
             this.menuNuevaVenta.Size = new System.Drawing.Size(288, 40);
             this.menuNuevaVenta.Text = "Nueva Venta";
+            this.menuNuevaVenta.Click += new System.EventHandler(this.menuNuevaVenta_Click);
             // 
             // menuHistorialVentas
             // 
@@ -245,6 +255,7 @@
             this.menuHistorialVentas.Name = "menuHistorialVentas";
             this.menuHistorialVentas.Size = new System.Drawing.Size(288, 40);
             this.menuHistorialVentas.Text = "Historial Ventas";
+            this.menuHistorialVentas.Click += new System.EventHandler(this.menuHistorialVentas_Click);
             // 
             // menuClientes
             // 
@@ -253,6 +264,7 @@
             this.menuClientes.Name = "menuClientes";
             this.menuClientes.Size = new System.Drawing.Size(288, 40);
             this.menuClientes.Text = "Clientes";
+            this.menuClientes.Click += new System.EventHandler(this.menuClientes_Click);
             // 
             // menuReportes
             // 
@@ -271,15 +283,16 @@
             this.menuReportesGenerales.Name = "menuReportesGenerales";
             this.menuReportesGenerales.Size = new System.Drawing.Size(330, 40);
             this.menuReportesGenerales.Text = "Reportes Generales";
+            this.menuReportesGenerales.Click += new System.EventHandler(this.menuReportesGenerales_Click);
             // 
             // pnlMenuPrincipal
             // 
             this.pnlMenuPrincipal.BackColor = System.Drawing.Color.Transparent;
             this.pnlMenuPrincipal.Controls.Add(this.tlpInformacionMenu);
             this.pnlMenuPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMenuPrincipal.Location = new System.Drawing.Point(0, 42);
+            this.pnlMenuPrincipal.Location = new System.Drawing.Point(0, 40);
             this.pnlMenuPrincipal.Name = "pnlMenuPrincipal";
-            this.pnlMenuPrincipal.Size = new System.Drawing.Size(1368, 628);
+            this.pnlMenuPrincipal.Size = new System.Drawing.Size(1368, 630);
             this.pnlMenuPrincipal.TabIndex = 1;
             // 
             // pnlPrincipal
@@ -288,7 +301,7 @@
             this.pnlPrincipal.Controls.Add(this.lblDescripcion);
             this.pnlPrincipal.Controls.Add(this.lblNombre);
             this.pnlPrincipal.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlPrincipal.Location = new System.Drawing.Point(0, 42);
+            this.pnlPrincipal.Location = new System.Drawing.Point(0, 40);
             this.pnlPrincipal.Name = "pnlPrincipal";
             this.pnlPrincipal.Size = new System.Drawing.Size(1368, 120);
             this.pnlPrincipal.TabIndex = 2;
@@ -329,7 +342,7 @@
             this.tlpInformacionMenu.RowCount = 1;
             this.tlpInformacionMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpInformacionMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpInformacionMenu.Size = new System.Drawing.Size(1368, 628);
+            this.tlpInformacionMenu.Size = new System.Drawing.Size(1368, 630);
             this.tlpInformacionMenu.TabIndex = 6;
             // 
             // pnlBienvenida
@@ -343,7 +356,7 @@
             this.pnlBienvenida.Location = new System.Drawing.Point(30, 140);
             this.pnlBienvenida.Margin = new System.Windows.Forms.Padding(30, 140, 30, 30);
             this.pnlBienvenida.Name = "pnlBienvenida";
-            this.pnlBienvenida.Size = new System.Drawing.Size(624, 458);
+            this.pnlBienvenida.Size = new System.Drawing.Size(624, 460);
             this.pnlBienvenida.TabIndex = 0;
             // 
             // lblFechaMenuPrincipal
@@ -413,7 +426,7 @@
             this.pnlResumenDia.Location = new System.Drawing.Point(714, 140);
             this.pnlResumenDia.Margin = new System.Windows.Forms.Padding(30, 140, 30, 30);
             this.pnlResumenDia.Name = "pnlResumenDia";
-            this.pnlResumenDia.Size = new System.Drawing.Size(624, 458);
+            this.pnlResumenDia.Size = new System.Drawing.Size(624, 460);
             this.pnlResumenDia.TabIndex = 5;
             // 
             // lblTituloResumenMenuPrincipal
@@ -485,7 +498,7 @@
             this.ctxCerrarSesion,
             this.ctxSalir});
             this.ctxMenuPrincipal.Name = "ctxMenuPrincipal";
-            this.ctxMenuPrincipal.Size = new System.Drawing.Size(301, 276);
+            this.ctxMenuPrincipal.Size = new System.Drawing.Size(301, 309);
             // 
             // ctxInventario
             // 
@@ -495,6 +508,7 @@
             this.ctxInventario.Name = "ctxInventario";
             this.ctxInventario.Size = new System.Drawing.Size(300, 34);
             this.ctxInventario.Text = "📦 Abrir Inventario";
+            this.ctxInventario.Click += new System.EventHandler(this.ctxInventario_Click);
             // 
             // ctxNuevaVenta
             // 
@@ -504,6 +518,7 @@
             this.ctxNuevaVenta.Name = "ctxNuevaVenta";
             this.ctxNuevaVenta.Size = new System.Drawing.Size(300, 34);
             this.ctxNuevaVenta.Text = "🛒 Nueva Venta";
+            this.ctxNuevaVenta.Click += new System.EventHandler(this.ctxNuevaVenta_Click);
             // 
             // ctxReportes
             // 
@@ -513,6 +528,7 @@
             this.ctxReportes.Name = "ctxReportes";
             this.ctxReportes.Size = new System.Drawing.Size(300, 34);
             this.ctxReportes.Text = "📊 Abrir Reportes";
+            this.ctxReportes.Click += new System.EventHandler(this.ctxReportes_Click);
             // 
             // ctxSeparador1
             // 
@@ -531,6 +547,7 @@
             this.ctxActualizarResumen.Name = "ctxActualizarResumen";
             this.ctxActualizarResumen.Size = new System.Drawing.Size(300, 34);
             this.ctxActualizarResumen.Text = "🔄 Actualizar Resumen";
+            this.ctxActualizarResumen.Click += new System.EventHandler(this.ctxActualizarResumen_Click);
             // 
             // ctxSeparador2
             // 
@@ -549,6 +566,7 @@
             this.ctxCerrarSesion.Name = "ctxCerrarSesion";
             this.ctxCerrarSesion.Size = new System.Drawing.Size(300, 34);
             this.ctxCerrarSesion.Text = "🔒 Cerrar Sesion";
+            this.ctxCerrarSesion.Click += new System.EventHandler(this.ctxCerrarSesion_Click);
             // 
             // ctxSalir
             // 
@@ -558,6 +576,7 @@
             this.ctxSalir.Name = "ctxSalir";
             this.ctxSalir.Size = new System.Drawing.Size(300, 34);
             this.ctxSalir.Text = "🚪 Salir";
+            this.ctxSalir.Click += new System.EventHandler(this.ctxSalir_Click);
             // 
             // MenuPrincipal
             // 
