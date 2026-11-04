@@ -28,31 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlEncabezado = new System.Windows.Forms.Panel();
             this.btnVolverMenu = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pnlAccesos = new System.Windows.Forms.Panel();
             this.lblSesion = new System.Windows.Forms.Label();
             this.btnCatalogo = new System.Windows.Forms.Button();
-            this.tabTraslados = new System.Windows.Forms.TabPage();
             this.tabProductos = new System.Windows.Forms.TabPage();
             this.grpProducto = new System.Windows.Forms.GroupBox();
             this.btnCancelarProducto = new System.Windows.Forms.Button();
             this.btnGuardarProducto = new System.Windows.Forms.Button();
             this.grpMercaderia = new System.Windows.Forms.GroupBox();
-            this.txtMotivoCorreccion = new System.Windows.Forms.TextBox();
-            this.lblMotivoCorreccion = new System.Windows.Forms.Label();
             this.lblResumenStock = new System.Windows.Forms.Label();
             this.txtReferenciaEntrada = new System.Windows.Forms.TextBox();
             this.lblReferenciaEntrada = new System.Windows.Forms.Label();
@@ -105,57 +96,16 @@
             this.lblFiltroProveedor = new System.Windows.Forms.Label();
             this.lblFiltroMarca = new System.Windows.Forms.Label();
             this.lblFiltroCategoria = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbFiltroProveedor = new System.Windows.Forms.ComboBox();
+            this.cmbFiltroMarca = new System.Windows.Forms.ComboBox();
             this.cmbFiltroCategoria = new System.Windows.Forms.ComboBox();
             this.btnLimpiarFiltros = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.txtBuscarProducto = new System.Windows.Forms.TextBox();
             this.lblBuscarProducto = new System.Windows.Forms.Label();
             this.tabInventario = new System.Windows.Forms.TabControl();
-            this.grpNuevoTraslado = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblCantidadTraslado = new System.Windows.Forms.Label();
-            this.cmbProductoTraslado = new System.Windows.Forms.ComboBox();
-            this.lblProductoTraslado = new System.Windows.Forms.Label();
-            this.lblDestinoTraslado = new System.Windows.Forms.Label();
-            this.cmbDestinoTraslado = new System.Windows.Forms.ComboBox();
-            this.btnQuitarProductoTraslado = new System.Windows.Forms.Button();
-            this.btnEnviarTraslado = new System.Windows.Forms.Button();
-            this.txtOrigenTraslado = new System.Windows.Forms.TextBox();
-            this.lblOrigenTraslado = new System.Windows.Forms.Label();
-            this.grpHistorialTraslados = new System.Windows.Forms.GroupBox();
-            this.btnVerDetalleTraslado = new System.Windows.Forms.Button();
-            this.btnActualizarTraslados = new System.Windows.Forms.Button();
-            this.dtpFechaTraslado = new System.Windows.Forms.DateTimePicker();
-            this.lblFechaTraslado = new System.Windows.Forms.Label();
-            this.txtReferenciaTraslado = new System.Windows.Forms.TextBox();
-            this.lblReferenciaTraslado = new System.Windows.Forms.Label();
-            this.txtDisponibleTraslado = new System.Windows.Forms.TextBox();
-            this.nudCantidadTraslado = new System.Windows.Forms.NumericUpDown();
-            this.btnAgregarProductoTraslado = new System.Windows.Forms.Button();
-            this.dgvDetalleTraslado = new System.Windows.Forms.DataGridView();
-            this.colIdProductoTraslado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCodigoProductoTraslado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNombreProductoTraslado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colCantidadProductoTraslado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblObservacionTraslado = new System.Windows.Forms.Label();
-            this.txtObservacionTraslado = new System.Windows.Forms.TextBox();
-            this.btnCancelarTraslado = new System.Windows.Forms.Button();
-            this.dgvTraslados = new System.Windows.Forms.DataGridView();
-            this.colIdTraslado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colReferenciaTraslado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFechaTraslado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colOrigenTraslado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDestinoTraslado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colEstadoTraslado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblEstadoTraslado = new System.Windows.Forms.Label();
-            this.cmbEstadoTraslado = new System.Windows.Forms.ComboBox();
-            this.btnConfirmarRecepcion = new System.Windows.Forms.Button();
-            this.lblAvisoRecepcion = new System.Windows.Forms.Label();
             this.pnlEncabezado.SuspendLayout();
             this.pnlAccesos.SuspendLayout();
-            this.tabTraslados.SuspendLayout();
             this.tabProductos.SuspendLayout();
             this.grpProducto.SuspendLayout();
             this.grpMercaderia.SuspendLayout();
@@ -166,11 +116,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventario)).BeginInit();
             this.grpFiltros.SuspendLayout();
             this.tabInventario.SuspendLayout();
-            this.grpNuevoTraslado.SuspendLayout();
-            this.grpHistorialTraslados.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCantidadTraslado)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleTraslado)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTraslados)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlEncabezado
@@ -251,18 +196,6 @@
             this.btnCatalogo.Text = "Catalogos";
             this.btnCatalogo.UseVisualStyleBackColor = false;
             // 
-            // tabTraslados
-            // 
-            this.tabTraslados.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.tabTraslados.Controls.Add(this.grpHistorialTraslados);
-            this.tabTraslados.Controls.Add(this.grpNuevoTraslado);
-            this.tabTraslados.Location = new System.Drawing.Point(4, 37);
-            this.tabTraslados.Name = "tabTraslados";
-            this.tabTraslados.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTraslados.Size = new System.Drawing.Size(1586, 582);
-            this.tabTraslados.TabIndex = 1;
-            this.tabTraslados.Text = "Traslados";
-            // 
             // tabProductos
             // 
             this.tabProductos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
@@ -339,8 +272,6 @@
             // 
             // grpMercaderia
             // 
-            this.grpMercaderia.Controls.Add(this.txtMotivoCorreccion);
-            this.grpMercaderia.Controls.Add(this.lblMotivoCorreccion);
             this.grpMercaderia.Controls.Add(this.lblResumenStock);
             this.grpMercaderia.Controls.Add(this.txtReferenciaEntrada);
             this.grpMercaderia.Controls.Add(this.lblReferenciaEntrada);
@@ -357,27 +288,6 @@
             this.grpMercaderia.TabIndex = 38;
             this.grpMercaderia.TabStop = false;
             this.grpMercaderia.Text = "Entrada de Mercaderia";
-            // 
-            // txtMotivoCorreccion
-            // 
-            this.txtMotivoCorreccion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            this.txtMotivoCorreccion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMotivoCorreccion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.txtMotivoCorreccion.Location = new System.Drawing.Point(111, 35);
-            this.txtMotivoCorreccion.MaxLength = 50;
-            this.txtMotivoCorreccion.Name = "txtMotivoCorreccion";
-            this.txtMotivoCorreccion.Size = new System.Drawing.Size(343, 34);
-            this.txtMotivoCorreccion.TabIndex = 43;
-            // 
-            // lblMotivoCorreccion
-            // 
-            this.lblMotivoCorreccion.AutoSize = true;
-            this.lblMotivoCorreccion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.lblMotivoCorreccion.Location = new System.Drawing.Point(10, 37);
-            this.lblMotivoCorreccion.Name = "lblMotivoCorreccion";
-            this.lblMotivoCorreccion.Size = new System.Drawing.Size(85, 28);
-            this.lblMotivoCorreccion.TabIndex = 42;
-            this.lblMotivoCorreccion.Text = "Motivo: ";
             // 
             // lblResumenStock
             // 
@@ -791,14 +701,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvInventario.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvInventario.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 10F);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvInventario.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvInventario.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvInventario.ColumnHeadersHeight = 35;
             this.dgvInventario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvInventario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -810,14 +720,14 @@
             this.colStock,
             this.colStockMinimo,
             this.colEstadoStock});
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 10F);
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvInventario.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvInventario.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvInventario.EnableHeadersVisualStyles = false;
             this.dgvInventario.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(225)))), ((int)(((byte)(235)))));
             this.dgvInventario.Location = new System.Drawing.Point(12, 55);
@@ -871,9 +781,9 @@
             // colPrecioVenta
             // 
             this.colPrecioVenta.DataPropertyName = "PrecioVenta";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "N2";
-            this.colPrecioVenta.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N2";
+            this.colPrecioVenta.DefaultCellStyle = dataGridViewCellStyle2;
             this.colPrecioVenta.FillWeight = 90F;
             this.colPrecioVenta.HeaderText = "Precio (Bs.)";
             this.colPrecioVenta.MinimumWidth = 8;
@@ -883,9 +793,9 @@
             // colStock
             // 
             this.colStock.DataPropertyName = "Stock";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.Format = "N0";
-            this.colStock.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Format = "N0";
+            this.colStock.DefaultCellStyle = dataGridViewCellStyle3;
             this.colStock.FillWeight = 55F;
             this.colStock.HeaderText = "Stock";
             this.colStock.MinimumWidth = 8;
@@ -895,9 +805,9 @@
             // colStockMinimo
             // 
             this.colStockMinimo.DataPropertyName = "StockMinimo";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.Format = "N0";
-            this.colStockMinimo.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.Format = "N0";
+            this.colStockMinimo.DefaultCellStyle = dataGridViewCellStyle4;
             this.colStockMinimo.FillWeight = 55F;
             this.colStockMinimo.HeaderText = "Minimo";
             this.colStockMinimo.MinimumWidth = 8;
@@ -924,8 +834,8 @@
             this.grpFiltros.Controls.Add(this.lblFiltroProveedor);
             this.grpFiltros.Controls.Add(this.lblFiltroMarca);
             this.grpFiltros.Controls.Add(this.lblFiltroCategoria);
-            this.grpFiltros.Controls.Add(this.comboBox2);
-            this.grpFiltros.Controls.Add(this.comboBox1);
+            this.grpFiltros.Controls.Add(this.cmbFiltroProveedor);
+            this.grpFiltros.Controls.Add(this.cmbFiltroMarca);
             this.grpFiltros.Controls.Add(this.cmbFiltroCategoria);
             this.grpFiltros.Controls.Add(this.btnLimpiarFiltros);
             this.grpFiltros.Controls.Add(this.btnBuscar);
@@ -1021,29 +931,29 @@
             this.lblFiltroCategoria.TabIndex = 8;
             this.lblFiltroCategoria.Text = "Categoria: ";
             // 
-            // comboBox2
+            // cmbFiltroProveedor
             // 
-            this.comboBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(605, 83);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(158, 36);
-            this.comboBox2.TabIndex = 7;
+            this.cmbFiltroProveedor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
+            this.cmbFiltroProveedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFiltroProveedor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbFiltroProveedor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
+            this.cmbFiltroProveedor.FormattingEnabled = true;
+            this.cmbFiltroProveedor.Location = new System.Drawing.Point(605, 83);
+            this.cmbFiltroProveedor.Name = "cmbFiltroProveedor";
+            this.cmbFiltroProveedor.Size = new System.Drawing.Size(158, 36);
+            this.cmbFiltroProveedor.TabIndex = 7;
             // 
-            // comboBox1
+            // cmbFiltroMarca
             // 
-            this.comboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(325, 80);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(158, 36);
-            this.comboBox1.TabIndex = 6;
+            this.cmbFiltroMarca.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
+            this.cmbFiltroMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFiltroMarca.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbFiltroMarca.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
+            this.cmbFiltroMarca.FormattingEnabled = true;
+            this.cmbFiltroMarca.Location = new System.Drawing.Point(325, 80);
+            this.cmbFiltroMarca.Name = "cmbFiltroMarca";
+            this.cmbFiltroMarca.Size = new System.Drawing.Size(158, 36);
+            this.cmbFiltroMarca.TabIndex = 6;
             // 
             // cmbFiltroCategoria
             // 
@@ -1108,549 +1018,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabInventario.Controls.Add(this.tabProductos);
-            this.tabInventario.Controls.Add(this.tabTraslados);
             this.tabInventario.Location = new System.Drawing.Point(15, 94);
             this.tabInventario.Name = "tabInventario";
             this.tabInventario.SelectedIndex = 0;
             this.tabInventario.Size = new System.Drawing.Size(1594, 624);
             this.tabInventario.TabIndex = 6;
-            // 
-            // grpNuevoTraslado
-            // 
-            this.grpNuevoTraslado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpNuevoTraslado.Controls.Add(this.btnCancelarTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.txtObservacionTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.lblObservacionTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.dgvDetalleTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.btnAgregarProductoTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.nudCantidadTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.txtDisponibleTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.txtReferenciaTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.lblReferenciaTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.dtpFechaTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.lblFechaTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.label1);
-            this.grpNuevoTraslado.Controls.Add(this.lblCantidadTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.cmbProductoTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.btnQuitarProductoTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.lblProductoTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.lblDestinoTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.cmbDestinoTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.btnEnviarTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.txtOrigenTraslado);
-            this.grpNuevoTraslado.Controls.Add(this.lblOrigenTraslado);
-            this.grpNuevoTraslado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.grpNuevoTraslado.Location = new System.Drawing.Point(0, 0);
-            this.grpNuevoTraslado.Name = "grpNuevoTraslado";
-            this.grpNuevoTraslado.Size = new System.Drawing.Size(1586, 317);
-            this.grpNuevoTraslado.TabIndex = 3;
-            this.grpNuevoTraslado.TabStop = false;
-            this.grpNuevoTraslado.Text = "Nuevo Traslado";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.label1.Location = new System.Drawing.Point(383, 83);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(149, 28);
-            this.label1.TabIndex = 14;
-            this.label1.Text = "Disponibilidad: ";
-            // 
-            // lblCantidadTraslado
-            // 
-            this.lblCantidadTraslado.AutoSize = true;
-            this.lblCantidadTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.lblCantidadTraslado.Location = new System.Drawing.Point(805, 83);
-            this.lblCantidadTraslado.Name = "lblCantidadTraslado";
-            this.lblCantidadTraslado.Size = new System.Drawing.Size(100, 28);
-            this.lblCantidadTraslado.TabIndex = 13;
-            this.lblCantidadTraslado.Text = "Cantidad: ";
-            // 
-            // cmbProductoTraslado
-            // 
-            this.cmbProductoTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            this.cmbProductoTraslado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbProductoTraslado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmbProductoTraslado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.cmbProductoTraslado.FormattingEnabled = true;
-            this.cmbProductoTraslado.Location = new System.Drawing.Point(123, 80);
-            this.cmbProductoTraslado.Name = "cmbProductoTraslado";
-            this.cmbProductoTraslado.Size = new System.Drawing.Size(241, 36);
-            this.cmbProductoTraslado.TabIndex = 12;
-            // 
-            // lblProductoTraslado
-            // 
-            this.lblProductoTraslado.AutoSize = true;
-            this.lblProductoTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.lblProductoTraslado.Location = new System.Drawing.Point(15, 83);
-            this.lblProductoTraslado.Name = "lblProductoTraslado";
-            this.lblProductoTraslado.Size = new System.Drawing.Size(102, 28);
-            this.lblProductoTraslado.TabIndex = 9;
-            this.lblProductoTraslado.Text = "Producto: ";
-            // 
-            // lblDestinoTraslado
-            // 
-            this.lblDestinoTraslado.AutoSize = true;
-            this.lblDestinoTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.lblDestinoTraslado.Location = new System.Drawing.Point(383, 36);
-            this.lblDestinoTraslado.Name = "lblDestinoTraslado";
-            this.lblDestinoTraslado.Size = new System.Drawing.Size(83, 28);
-            this.lblDestinoTraslado.TabIndex = 8;
-            this.lblDestinoTraslado.Text = "Destino:";
-            // 
-            // cmbDestinoTraslado
-            // 
-            this.cmbDestinoTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            this.cmbDestinoTraslado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDestinoTraslado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmbDestinoTraslado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.cmbDestinoTraslado.FormattingEnabled = true;
-            this.cmbDestinoTraslado.Location = new System.Drawing.Point(537, 33);
-            this.cmbDestinoTraslado.Name = "cmbDestinoTraslado";
-            this.cmbDestinoTraslado.Size = new System.Drawing.Size(247, 36);
-            this.cmbDestinoTraslado.TabIndex = 5;
-            // 
-            // btnQuitarProductoTraslado
-            // 
-            this.btnQuitarProductoTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnQuitarProductoTraslado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnQuitarProductoTraslado.ForeColor = System.Drawing.Color.White;
-            this.btnQuitarProductoTraslado.Location = new System.Drawing.Point(1099, 244);
-            this.btnQuitarProductoTraslado.Name = "btnQuitarProductoTraslado";
-            this.btnQuitarProductoTraslado.Size = new System.Drawing.Size(141, 54);
-            this.btnQuitarProductoTraslado.TabIndex = 3;
-            this.btnQuitarProductoTraslado.Text = "Quitar Fila";
-            this.btnQuitarProductoTraslado.UseVisualStyleBackColor = false;
-            // 
-            // btnEnviarTraslado
-            // 
-            this.btnEnviarTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnEnviarTraslado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEnviarTraslado.ForeColor = System.Drawing.Color.White;
-            this.btnEnviarTraslado.Location = new System.Drawing.Point(1246, 244);
-            this.btnEnviarTraslado.Name = "btnEnviarTraslado";
-            this.btnEnviarTraslado.Size = new System.Drawing.Size(154, 54);
-            this.btnEnviarTraslado.TabIndex = 2;
-            this.btnEnviarTraslado.Text = "Enviar Traslado";
-            this.btnEnviarTraslado.UseVisualStyleBackColor = false;
-            // 
-            // txtOrigenTraslado
-            // 
-            this.txtOrigenTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            this.txtOrigenTraslado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtOrigenTraslado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.txtOrigenTraslado.Location = new System.Drawing.Point(123, 34);
-            this.txtOrigenTraslado.MaxLength = 100;
-            this.txtOrigenTraslado.Name = "txtOrigenTraslado";
-            this.txtOrigenTraslado.Size = new System.Drawing.Size(241, 34);
-            this.txtOrigenTraslado.TabIndex = 0;
-            // 
-            // lblOrigenTraslado
-            // 
-            this.lblOrigenTraslado.AutoSize = true;
-            this.lblOrigenTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.lblOrigenTraslado.Location = new System.Drawing.Point(15, 36);
-            this.lblOrigenTraslado.Name = "lblOrigenTraslado";
-            this.lblOrigenTraslado.Size = new System.Drawing.Size(81, 28);
-            this.lblOrigenTraslado.TabIndex = 0;
-            this.lblOrigenTraslado.Text = "Origen: ";
-            // 
-            // grpHistorialTraslados
-            // 
-            this.grpHistorialTraslados.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpHistorialTraslados.Controls.Add(this.lblAvisoRecepcion);
-            this.grpHistorialTraslados.Controls.Add(this.btnConfirmarRecepcion);
-            this.grpHistorialTraslados.Controls.Add(this.lblEstadoTraslado);
-            this.grpHistorialTraslados.Controls.Add(this.cmbEstadoTraslado);
-            this.grpHistorialTraslados.Controls.Add(this.dgvTraslados);
-            this.grpHistorialTraslados.Controls.Add(this.btnVerDetalleTraslado);
-            this.grpHistorialTraslados.Controls.Add(this.btnActualizarTraslados);
-            this.grpHistorialTraslados.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.grpHistorialTraslados.Location = new System.Drawing.Point(0, 323);
-            this.grpHistorialTraslados.Name = "grpHistorialTraslados";
-            this.grpHistorialTraslados.Size = new System.Drawing.Size(1586, 256);
-            this.grpHistorialTraslados.TabIndex = 4;
-            this.grpHistorialTraslados.TabStop = false;
-            this.grpHistorialTraslados.Text = "Traslado de Esta Sucursal";
-            // 
-            // btnVerDetalleTraslado
-            // 
-            this.btnVerDetalleTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnVerDetalleTraslado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVerDetalleTraslado.ForeColor = System.Drawing.Color.White;
-            this.btnVerDetalleTraslado.Location = new System.Drawing.Point(1094, 191);
-            this.btnVerDetalleTraslado.Name = "btnVerDetalleTraslado";
-            this.btnVerDetalleTraslado.Size = new System.Drawing.Size(228, 49);
-            this.btnVerDetalleTraslado.TabIndex = 3;
-            this.btnVerDetalleTraslado.Text = "Ver Detalle";
-            this.btnVerDetalleTraslado.UseVisualStyleBackColor = false;
-            // 
-            // btnActualizarTraslados
-            // 
-            this.btnActualizarTraslados.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnActualizarTraslados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnActualizarTraslados.ForeColor = System.Drawing.Color.White;
-            this.btnActualizarTraslados.Location = new System.Drawing.Point(1329, 65);
-            this.btnActualizarTraslados.Name = "btnActualizarTraslados";
-            this.btnActualizarTraslados.Size = new System.Drawing.Size(228, 35);
-            this.btnActualizarTraslados.TabIndex = 2;
-            this.btnActualizarTraslados.Text = "Actualizar";
-            this.btnActualizarTraslados.UseVisualStyleBackColor = false;
-            // 
-            // dtpFechaTraslado
-            // 
-            this.dtpFechaTraslado.CalendarForeColor = System.Drawing.SystemColors.ControlDark;
-            this.dtpFechaTraslado.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaTraslado.Location = new System.Drawing.Point(911, 33);
-            this.dtpFechaTraslado.Name = "dtpFechaTraslado";
-            this.dtpFechaTraslado.Size = new System.Drawing.Size(159, 34);
-            this.dtpFechaTraslado.TabIndex = 40;
-            // 
-            // lblFechaTraslado
-            // 
-            this.lblFechaTraslado.AutoSize = true;
-            this.lblFechaTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.lblFechaTraslado.Location = new System.Drawing.Point(805, 36);
-            this.lblFechaTraslado.Name = "lblFechaTraslado";
-            this.lblFechaTraslado.Size = new System.Drawing.Size(71, 28);
-            this.lblFechaTraslado.TabIndex = 39;
-            this.lblFechaTraslado.Text = "Fecha: ";
-            // 
-            // txtReferenciaTraslado
-            // 
-            this.txtReferenciaTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            this.txtReferenciaTraslado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtReferenciaTraslado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.txtReferenciaTraslado.Location = new System.Drawing.Point(1210, 33);
-            this.txtReferenciaTraslado.MaxLength = 100;
-            this.txtReferenciaTraslado.Name = "txtReferenciaTraslado";
-            this.txtReferenciaTraslado.Size = new System.Drawing.Size(347, 34);
-            this.txtReferenciaTraslado.TabIndex = 41;
-            // 
-            // lblReferenciaTraslado
-            // 
-            this.lblReferenciaTraslado.AutoSize = true;
-            this.lblReferenciaTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.lblReferenciaTraslado.Location = new System.Drawing.Point(1094, 35);
-            this.lblReferenciaTraslado.Name = "lblReferenciaTraslado";
-            this.lblReferenciaTraslado.Size = new System.Drawing.Size(110, 28);
-            this.lblReferenciaTraslado.TabIndex = 42;
-            this.lblReferenciaTraslado.Text = "Referencia: ";
-            // 
-            // txtDisponibleTraslado
-            // 
-            this.txtDisponibleTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            this.txtDisponibleTraslado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDisponibleTraslado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.txtDisponibleTraslado.Location = new System.Drawing.Point(538, 81);
-            this.txtDisponibleTraslado.MaxLength = 100;
-            this.txtDisponibleTraslado.Name = "txtDisponibleTraslado";
-            this.txtDisponibleTraslado.Size = new System.Drawing.Size(246, 34);
-            this.txtDisponibleTraslado.TabIndex = 43;
-            // 
-            // nudCantidadTraslado
-            // 
-            this.nudCantidadTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            this.nudCantidadTraslado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.nudCantidadTraslado.Location = new System.Drawing.Point(911, 81);
-            this.nudCantidadTraslado.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nudCantidadTraslado.Name = "nudCantidadTraslado";
-            this.nudCantidadTraslado.Size = new System.Drawing.Size(159, 34);
-            this.nudCantidadTraslado.TabIndex = 44;
-            // 
-            // btnAgregarProductoTraslado
-            // 
-            this.btnAgregarProductoTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnAgregarProductoTraslado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregarProductoTraslado.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarProductoTraslado.Location = new System.Drawing.Point(1099, 83);
-            this.btnAgregarProductoTraslado.Name = "btnAgregarProductoTraslado";
-            this.btnAgregarProductoTraslado.Size = new System.Drawing.Size(458, 35);
-            this.btnAgregarProductoTraslado.TabIndex = 45;
-            this.btnAgregarProductoTraslado.Text = "Agregar";
-            this.btnAgregarProductoTraslado.UseVisualStyleBackColor = false;
-            // 
-            // dgvDetalleTraslado
-            // 
-            this.dgvDetalleTraslado.AllowUserToAddRows = false;
-            this.dgvDetalleTraslado.AllowUserToDeleteRows = false;
-            this.dgvDetalleTraslado.AllowUserToOrderColumns = true;
-            this.dgvDetalleTraslado.AllowUserToResizeColumns = false;
-            this.dgvDetalleTraslado.AllowUserToResizeRows = false;
-            this.dgvDetalleTraslado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvDetalleTraslado.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvDetalleTraslado.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvDetalleTraslado.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvDetalleTraslado.ColumnHeadersHeight = 35;
-            this.dgvDetalleTraslado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvDetalleTraslado.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colIdProductoTraslado,
-            this.colCodigoProductoTraslado,
-            this.colNombreProductoTraslado,
-            this.colCantidadProductoTraslado});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvDetalleTraslado.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dgvDetalleTraslado.EnableHeadersVisualStyles = false;
-            this.dgvDetalleTraslado.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(225)))), ((int)(((byte)(235)))));
-            this.dgvDetalleTraslado.Location = new System.Drawing.Point(20, 137);
-            this.dgvDetalleTraslado.MultiSelect = false;
-            this.dgvDetalleTraslado.Name = "dgvDetalleTraslado";
-            this.dgvDetalleTraslado.ReadOnly = true;
-            this.dgvDetalleTraslado.RowHeadersVisible = false;
-            this.dgvDetalleTraslado.RowHeadersWidth = 62;
-            this.dgvDetalleTraslado.RowTemplate.Height = 30;
-            this.dgvDetalleTraslado.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDetalleTraslado.Size = new System.Drawing.Size(1050, 161);
-            this.dgvDetalleTraslado.TabIndex = 46;
-            // 
-            // colIdProductoTraslado
-            // 
-            this.colIdProductoTraslado.DataPropertyName = "IdProducto";
-            this.colIdProductoTraslado.FillWeight = 30F;
-            this.colIdProductoTraslado.HeaderText = "ID";
-            this.colIdProductoTraslado.MinimumWidth = 8;
-            this.colIdProductoTraslado.Name = "colIdProductoTraslado";
-            this.colIdProductoTraslado.ReadOnly = true;
-            this.colIdProductoTraslado.Visible = false;
-            // 
-            // colCodigoProductoTraslado
-            // 
-            this.colCodigoProductoTraslado.DataPropertyName = "Codigo";
-            this.colCodigoProductoTraslado.FillWeight = 70F;
-            this.colCodigoProductoTraslado.HeaderText = "Codigo";
-            this.colCodigoProductoTraslado.MinimumWidth = 8;
-            this.colCodigoProductoTraslado.Name = "colCodigoProductoTraslado";
-            this.colCodigoProductoTraslado.ReadOnly = true;
-            // 
-            // colNombreProductoTraslado
-            // 
-            this.colNombreProductoTraslado.DataPropertyName = "Producto";
-            this.colNombreProductoTraslado.FillWeight = 180F;
-            this.colNombreProductoTraslado.HeaderText = "Producto";
-            this.colNombreProductoTraslado.MinimumWidth = 8;
-            this.colNombreProductoTraslado.Name = "colNombreProductoTraslado";
-            this.colNombreProductoTraslado.ReadOnly = true;
-            // 
-            // colCantidadProductoTraslado
-            // 
-            this.colCantidadProductoTraslado.DataPropertyName = "Cantidad";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.Format = "N0";
-            this.colCantidadProductoTraslado.DefaultCellStyle = dataGridViewCellStyle5;
-            this.colCantidadProductoTraslado.FillWeight = 55F;
-            this.colCantidadProductoTraslado.HeaderText = "Cantidad";
-            this.colCantidadProductoTraslado.MinimumWidth = 8;
-            this.colCantidadProductoTraslado.Name = "colCantidadProductoTraslado";
-            this.colCantidadProductoTraslado.ReadOnly = true;
-            // 
-            // lblObservacionTraslado
-            // 
-            this.lblObservacionTraslado.AutoSize = true;
-            this.lblObservacionTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.lblObservacionTraslado.Location = new System.Drawing.Point(1094, 137);
-            this.lblObservacionTraslado.Name = "lblObservacionTraslado";
-            this.lblObservacionTraslado.Size = new System.Drawing.Size(130, 28);
-            this.lblObservacionTraslado.TabIndex = 47;
-            this.lblObservacionTraslado.Text = "Observacion: ";
-            // 
-            // txtObservacionTraslado
-            // 
-            this.txtObservacionTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            this.txtObservacionTraslado.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtObservacionTraslado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.txtObservacionTraslado.Location = new System.Drawing.Point(1099, 168);
-            this.txtObservacionTraslado.MaxLength = 200;
-            this.txtObservacionTraslado.Multiline = true;
-            this.txtObservacionTraslado.Name = "txtObservacionTraslado";
-            this.txtObservacionTraslado.Size = new System.Drawing.Size(458, 70);
-            this.txtObservacionTraslado.TabIndex = 48;
-            // 
-            // btnCancelarTraslado
-            // 
-            this.btnCancelarTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnCancelarTraslado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelarTraslado.ForeColor = System.Drawing.Color.White;
-            this.btnCancelarTraslado.Location = new System.Drawing.Point(1406, 244);
-            this.btnCancelarTraslado.Name = "btnCancelarTraslado";
-            this.btnCancelarTraslado.Size = new System.Drawing.Size(151, 54);
-            this.btnCancelarTraslado.TabIndex = 49;
-            this.btnCancelarTraslado.Text = "Cancelar";
-            this.btnCancelarTraslado.UseVisualStyleBackColor = false;
-            // 
-            // dgvTraslados
-            // 
-            this.dgvTraslados.AllowUserToAddRows = false;
-            this.dgvTraslados.AllowUserToDeleteRows = false;
-            this.dgvTraslados.AllowUserToOrderColumns = true;
-            this.dgvTraslados.AllowUserToResizeColumns = false;
-            this.dgvTraslados.AllowUserToResizeRows = false;
-            this.dgvTraslados.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvTraslados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvTraslados.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTraslados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvTraslados.ColumnHeadersHeight = 35;
-            this.dgvTraslados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvTraslados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colIdTraslado,
-            this.colReferenciaTraslado,
-            this.colFechaTraslado,
-            this.colOrigenTraslado,
-            this.colDestinoTraslado,
-            this.colEstadoTraslado});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvTraslados.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvTraslados.EnableHeadersVisualStyles = false;
-            this.dgvTraslados.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(225)))), ((int)(((byte)(235)))));
-            this.dgvTraslados.Location = new System.Drawing.Point(20, 34);
-            this.dgvTraslados.MultiSelect = false;
-            this.dgvTraslados.Name = "dgvTraslados";
-            this.dgvTraslados.ReadOnly = true;
-            this.dgvTraslados.RowHeadersVisible = false;
-            this.dgvTraslados.RowHeadersWidth = 62;
-            this.dgvTraslados.RowTemplate.Height = 30;
-            this.dgvTraslados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTraslados.Size = new System.Drawing.Size(1050, 206);
-            this.dgvTraslados.TabIndex = 47;
-            // 
-            // colIdTraslado
-            // 
-            this.colIdTraslado.DataPropertyName = "IdTraslado";
-            this.colIdTraslado.FillWeight = 30F;
-            this.colIdTraslado.HeaderText = "ID";
-            this.colIdTraslado.MinimumWidth = 8;
-            this.colIdTraslado.Name = "colIdTraslado";
-            this.colIdTraslado.ReadOnly = true;
-            this.colIdTraslado.Visible = false;
-            // 
-            // colReferenciaTraslado
-            // 
-            this.colReferenciaTraslado.DataPropertyName = "Referencia";
-            this.colReferenciaTraslado.FillWeight = 130F;
-            this.colReferenciaTraslado.HeaderText = "Referencia";
-            this.colReferenciaTraslado.MinimumWidth = 8;
-            this.colReferenciaTraslado.Name = "colReferenciaTraslado";
-            this.colReferenciaTraslado.ReadOnly = true;
-            // 
-            // colFechaTraslado
-            // 
-            this.colFechaTraslado.DataPropertyName = "Fecha";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.Format = "N0";
-            this.colFechaTraslado.DefaultCellStyle = dataGridViewCellStyle2;
-            this.colFechaTraslado.FillWeight = 60F;
-            this.colFechaTraslado.HeaderText = "Fecha";
-            this.colFechaTraslado.MinimumWidth = 8;
-            this.colFechaTraslado.Name = "colFechaTraslado";
-            this.colFechaTraslado.ReadOnly = true;
-            // 
-            // colOrigenTraslado
-            // 
-            this.colOrigenTraslado.DataPropertyName = "Origen";
-            this.colOrigenTraslado.FillWeight = 60F;
-            this.colOrigenTraslado.HeaderText = "Origen";
-            this.colOrigenTraslado.MinimumWidth = 8;
-            this.colOrigenTraslado.Name = "colOrigenTraslado";
-            this.colOrigenTraslado.ReadOnly = true;
-            // 
-            // colDestinoTraslado
-            // 
-            this.colDestinoTraslado.DataPropertyName = "Destino";
-            this.colDestinoTraslado.FillWeight = 70F;
-            this.colDestinoTraslado.HeaderText = "Destino";
-            this.colDestinoTraslado.MinimumWidth = 8;
-            this.colDestinoTraslado.Name = "colDestinoTraslado";
-            this.colDestinoTraslado.ReadOnly = true;
-            // 
-            // colEstadoTraslado
-            // 
-            this.colEstadoTraslado.DataPropertyName = "Estado";
-            this.colEstadoTraslado.FillWeight = 70F;
-            this.colEstadoTraslado.HeaderText = "Estado";
-            this.colEstadoTraslado.MinimumWidth = 8;
-            this.colEstadoTraslado.Name = "colEstadoTraslado";
-            this.colEstadoTraslado.ReadOnly = true;
-            // 
-            // lblEstadoTraslado
-            // 
-            this.lblEstadoTraslado.AutoSize = true;
-            this.lblEstadoTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.lblEstadoTraslado.Location = new System.Drawing.Point(1089, 34);
-            this.lblEstadoTraslado.Name = "lblEstadoTraslado";
-            this.lblEstadoTraslado.Size = new System.Drawing.Size(75, 28);
-            this.lblEstadoTraslado.TabIndex = 49;
-            this.lblEstadoTraslado.Text = "Estado:";
-            // 
-            // cmbEstadoTraslado
-            // 
-            this.cmbEstadoTraslado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            this.cmbEstadoTraslado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbEstadoTraslado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmbEstadoTraslado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.cmbEstadoTraslado.FormattingEnabled = true;
-            this.cmbEstadoTraslado.Items.AddRange(new object[] {
-            "Todos",
-            "En Camino",
-            "Recibidos"});
-            this.cmbEstadoTraslado.Location = new System.Drawing.Point(1094, 65);
-            this.cmbEstadoTraslado.Name = "cmbEstadoTraslado";
-            this.cmbEstadoTraslado.Size = new System.Drawing.Size(228, 36);
-            this.cmbEstadoTraslado.TabIndex = 48;
-            // 
-            // btnConfirmarRecepcion
-            // 
-            this.btnConfirmarRecepcion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnConfirmarRecepcion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConfirmarRecepcion.ForeColor = System.Drawing.Color.White;
-            this.btnConfirmarRecepcion.Location = new System.Drawing.Point(1329, 191);
-            this.btnConfirmarRecepcion.Name = "btnConfirmarRecepcion";
-            this.btnConfirmarRecepcion.Size = new System.Drawing.Size(228, 49);
-            this.btnConfirmarRecepcion.TabIndex = 50;
-            this.btnConfirmarRecepcion.Text = "Confirmar Recepcion";
-            this.btnConfirmarRecepcion.UseVisualStyleBackColor = false;
-            // 
-            // lblAvisoRecepcion
-            // 
-            this.lblAvisoRecepcion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.lblAvisoRecepcion.Location = new System.Drawing.Point(1094, 116);
-            this.lblAvisoRecepcion.Name = "lblAvisoRecepcion";
-            this.lblAvisoRecepcion.Size = new System.Drawing.Size(463, 61);
-            this.lblAvisoRecepcion.TabIndex = 51;
-            this.lblAvisoRecepcion.Text = "Solo la sucursal de destino puede confirmar la recepcion.";
             // 
             // FormInventario
             // 
@@ -1673,7 +1045,6 @@
             this.pnlEncabezado.ResumeLayout(false);
             this.pnlEncabezado.PerformLayout();
             this.pnlAccesos.ResumeLayout(false);
-            this.tabTraslados.ResumeLayout(false);
             this.tabProductos.ResumeLayout(false);
             this.grpProducto.ResumeLayout(false);
             this.grpProducto.PerformLayout();
@@ -1688,13 +1059,6 @@
             this.grpFiltros.ResumeLayout(false);
             this.grpFiltros.PerformLayout();
             this.tabInventario.ResumeLayout(false);
-            this.grpNuevoTraslado.ResumeLayout(false);
-            this.grpNuevoTraslado.PerformLayout();
-            this.grpHistorialTraslados.ResumeLayout(false);
-            this.grpHistorialTraslados.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCantidadTraslado)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleTraslado)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTraslados)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1707,7 +1071,6 @@
         private System.Windows.Forms.Panel pnlAccesos;
         private System.Windows.Forms.Label lblSesion;
         private System.Windows.Forms.Button btnCatalogo;
-        private System.Windows.Forms.TabPage tabTraslados;
         private System.Windows.Forms.TabPage tabProductos;
         private System.Windows.Forms.TabControl tabInventario;
         private System.Windows.Forms.Label lblBuscarProducto;
@@ -1715,8 +1078,8 @@
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button btnLimpiarFiltros;
         private System.Windows.Forms.ComboBox cmbFiltroCategoria;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cmbFiltroMarca;
+        private System.Windows.Forms.ComboBox cmbFiltroProveedor;
         private System.Windows.Forms.Label lblFiltroCategoria;
         private System.Windows.Forms.Label lblFiltroMarca;
         private System.Windows.Forms.Label lblFiltroProveedor;
@@ -1773,47 +1136,5 @@
         private System.Windows.Forms.DateTimePicker dtpFechaEntrada;
         private System.Windows.Forms.Label lblFechaEntrada;
         private System.Windows.Forms.NumericUpDown nudCantidadEntrada;
-        private System.Windows.Forms.TextBox txtMotivoCorreccion;
-        private System.Windows.Forms.Label lblMotivoCorreccion;
-        private System.Windows.Forms.GroupBox grpHistorialTraslados;
-        private System.Windows.Forms.Button btnVerDetalleTraslado;
-        private System.Windows.Forms.Button btnActualizarTraslados;
-        private System.Windows.Forms.GroupBox grpNuevoTraslado;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblCantidadTraslado;
-        private System.Windows.Forms.ComboBox cmbProductoTraslado;
-        private System.Windows.Forms.Label lblProductoTraslado;
-        private System.Windows.Forms.Label lblDestinoTraslado;
-        private System.Windows.Forms.ComboBox cmbDestinoTraslado;
-        private System.Windows.Forms.Button btnQuitarProductoTraslado;
-        private System.Windows.Forms.Button btnEnviarTraslado;
-        private System.Windows.Forms.TextBox txtOrigenTraslado;
-        private System.Windows.Forms.Label lblOrigenTraslado;
-        private System.Windows.Forms.TextBox txtReferenciaTraslado;
-        private System.Windows.Forms.Label lblReferenciaTraslado;
-        private System.Windows.Forms.DateTimePicker dtpFechaTraslado;
-        private System.Windows.Forms.Label lblFechaTraslado;
-        private System.Windows.Forms.TextBox txtDisponibleTraslado;
-        private System.Windows.Forms.Button btnAgregarProductoTraslado;
-        private System.Windows.Forms.NumericUpDown nudCantidadTraslado;
-        private System.Windows.Forms.DataGridView dgvDetalleTraslado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colIdProductoTraslado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCodigoProductoTraslado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colNombreProductoTraslado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colCantidadProductoTraslado;
-        private System.Windows.Forms.TextBox txtObservacionTraslado;
-        private System.Windows.Forms.Label lblObservacionTraslado;
-        private System.Windows.Forms.Button btnCancelarTraslado;
-        private System.Windows.Forms.DataGridView dgvTraslados;
-        private System.Windows.Forms.Button btnConfirmarRecepcion;
-        private System.Windows.Forms.Label lblEstadoTraslado;
-        private System.Windows.Forms.ComboBox cmbEstadoTraslado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colIdTraslado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colReferenciaTraslado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colFechaTraslado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colOrigenTraslado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colDestinoTraslado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colEstadoTraslado;
-        private System.Windows.Forms.Label lblAvisoRecepcion;
     }
 }

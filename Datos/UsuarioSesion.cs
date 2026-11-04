@@ -9,9 +9,9 @@ namespace CentralCel.Datos
     public static class UsuarioSesion
     {
         public static int IdUsuario;
-        public static int IdSucursal;
+        public static int IdSucursal { get; set; }
+        public static string Sucursal { get; set; }
         public static string Usuario;
         public static string Rol;
-        public static string Sucursal;
     }
 }

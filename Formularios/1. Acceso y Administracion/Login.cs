@@ -19,22 +19,21 @@ namespace CentralCel
         {
             InitializeComponent();
         }
-// Funcion del Boton Salir
+        // Funcion del Boton Salir
         private void btnSalir_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-// Funcion del btoton Ingresar
+        // Funcion del btoton Ingresar
         private void btnIngresar_Click(object sender, EventArgs e)
         {
             string usuario = txtUsuario.Text.Trim();
             string contraseña = txtPassword.Text;
             string rol = cmbRol.Text;
+            string sucursal = cmbSucursal.Text;
 
             // Validacion de campos
-            if (string.IsNullOrEmpty(usuario) ||
-                string.IsNullOrEmpty(contraseña) ||
-                string.IsNullOrEmpty(rol))
+            if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(contraseña) || string.IsNullOrEmpty(rol) || string.IsNullOrEmpty(sucursal))
             {
                 lblAlerta.Text = "Complete usuario, contraseña y rol.";
                 lblAlerta.ForeColor = Color.Red;
@@ -64,6 +63,9 @@ namespace CentralCel
                     using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
                         cmd.Parameters.AddWithValue("@usuario", usuario);
+                        SqlCommand cmdId = new SqlCommand("SELECT IdUsuario FROM Usuarios WHERE NombreUsuario = @usuario", conn);
+                        cmdId.Parameters.AddWithValue("@usuario", usuario);
+                        UsuarioSesion.IdUsuario = Convert.ToInt32(cmdId.ExecuteScalar());
 
                         string rolRegistrado = Convert.ToString(cmd.ExecuteScalar());
 
@@ -80,7 +82,16 @@ namespace CentralCel
                             lblAlerta.ForeColor = Color.Red;
                             return;
                         }
+
+                        UsuarioSesion.Usuario = usuario;
+                        UsuarioSesion.Rol = rolRegistrado;
+                        SqlCommand cmdSucursal = new SqlCommand("SELECT IdSucursal FROM Sucursales WHERE Nombre = @sucursal AND Activo = 1", conn);
+                        cmdSucursal.Parameters.AddWithValue("@sucursal", cmbSucursal.Text);
+                        UsuarioSesion.IdSucursal = Convert.ToInt32(cmdSucursal.ExecuteScalar());
+                        UsuarioSesion.Sucursal = cmbSucursal.Text;
+
                     }
+
                 }
             }
             catch (SqlException)
@@ -92,14 +103,18 @@ namespace CentralCel
             }
 
             // Apertura del menú después de las validaciones
-            this.Hide();
 
-            using (MenuPrincipal menu = new MenuPrincipal())
+            using (MenuPrincipal menu = new MenuPrincipal(usuario, rol))
             {
                 menu.ShowDialog();
             }
 
             this.Close();
+        }
+
+        private void cmbSucursal_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

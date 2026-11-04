@@ -51,20 +51,18 @@
             this.menuReportes = new System.Windows.Forms.ToolStripMenuItem();
             this.menuReportesGenerales = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMenuPrincipal = new System.Windows.Forms.Panel();
-            this.pnlPrincipal = new System.Windows.Forms.Panel();
-            this.lblDescripcion = new System.Windows.Forms.Label();
-            this.lblNombre = new System.Windows.Forms.Label();
-            this.tlpInformacionMenu = new System.Windows.Forms.TableLayoutPanel();
+            this.btnReportes = new System.Windows.Forms.Button();
+            this.btnAdministracion = new System.Windows.Forms.Button();
+            this.btnPuntodeVenta = new System.Windows.Forms.Button();
+            this.btnInventario = new System.Windows.Forms.Button();
             this.pnlBienvenida = new System.Windows.Forms.Panel();
             this.lblFechaMenuPrincipal = new System.Windows.Forms.Label();
             this.lblRolMenuPrincipal = new System.Windows.Forms.Label();
             this.lblUsuarioMenuPrincipal = new System.Windows.Forms.Label();
             this.lblTituloBienvenidoMenuPrincipal = new System.Windows.Forms.Label();
-            this.pnlResumenDia = new System.Windows.Forms.Panel();
-            this.lblTituloResumenMenuPrincipal = new System.Windows.Forms.Label();
-            this.lblBajoStockMenuPrincipal = new System.Windows.Forms.Label();
-            this.lblVentasDiaMenuPrincipal = new System.Windows.Forms.Label();
-            this.lblSucursalMenuPrincipal = new System.Windows.Forms.Label();
+            this.pnlPrincipal = new System.Windows.Forms.Panel();
+            this.lblDescripcion = new System.Windows.Forms.Label();
+            this.lblNombre = new System.Windows.Forms.Label();
             this.ctxMenuPrincipal = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ctxInventario = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxNuevaVenta = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,10 +74,8 @@
             this.ctxSalir = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMenuPrincipal.SuspendLayout();
             this.pnlMenuPrincipal.SuspendLayout();
-            this.pnlPrincipal.SuspendLayout();
-            this.tlpInformacionMenu.SuspendLayout();
             this.pnlBienvenida.SuspendLayout();
-            this.pnlResumenDia.SuspendLayout();
+            this.pnlPrincipal.SuspendLayout();
             this.ctxMenuPrincipal.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -118,7 +114,7 @@
             this.menuCerrarSesion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuCerrarSesion.ForeColor = System.Drawing.Color.White;
             this.menuCerrarSesion.Name = "menuCerrarSesion";
-            this.menuCerrarSesion.Size = new System.Drawing.Size(270, 40);
+            this.menuCerrarSesion.Size = new System.Drawing.Size(263, 40);
             this.menuCerrarSesion.Text = "Cerrar Sesion";
             this.menuCerrarSesion.Click += new System.EventHandler(this.menuCerrarSesion_Click);
             // 
@@ -127,7 +123,7 @@
             this.menuSalir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuSalir.ForeColor = System.Drawing.Color.White;
             this.menuSalir.Name = "menuSalir";
-            this.menuSalir.Size = new System.Drawing.Size(270, 40);
+            this.menuSalir.Size = new System.Drawing.Size(263, 40);
             this.menuSalir.Text = "Salir";
             this.menuSalir.Click += new System.EventHandler(this.menuSalir_Click);
             // 
@@ -136,7 +132,7 @@
             this.menuAcercaDe.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuAcercaDe.ForeColor = System.Drawing.Color.White;
             this.menuAcercaDe.Name = "menuAcercaDe";
-            this.menuAcercaDe.Size = new System.Drawing.Size(270, 40);
+            this.menuAcercaDe.Size = new System.Drawing.Size(263, 40);
             this.menuAcercaDe.Text = "Acerca de...";
             this.menuAcercaDe.Click += new System.EventHandler(this.menuAcercaDe_Click);
             // 
@@ -156,7 +152,7 @@
             this.menuUsuarios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuUsuarios.ForeColor = System.Drawing.Color.White;
             this.menuUsuarios.Name = "menuUsuarios";
-            this.menuUsuarios.Size = new System.Drawing.Size(270, 40);
+            this.menuUsuarios.Size = new System.Drawing.Size(268, 40);
             this.menuUsuarios.Text = "Usuarios";
             this.menuUsuarios.Click += new System.EventHandler(this.menuUsuarios_Click);
             // 
@@ -165,7 +161,7 @@
             this.menuSucursales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuSucursales.ForeColor = System.Drawing.Color.White;
             this.menuSucursales.Name = "menuSucursales";
-            this.menuSucursales.Size = new System.Drawing.Size(270, 40);
+            this.menuSucursales.Size = new System.Drawing.Size(268, 40);
             this.menuSucursales.Text = "Sucursales";
             this.menuSucursales.Click += new System.EventHandler(this.menuSucursales_Click);
             // 
@@ -174,7 +170,7 @@
             this.menuConfiguracion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuConfiguracion.ForeColor = System.Drawing.Color.White;
             this.menuConfiguracion.Name = "menuConfiguracion";
-            this.menuConfiguracion.Size = new System.Drawing.Size(270, 40);
+            this.menuConfiguracion.Size = new System.Drawing.Size(268, 40);
             this.menuConfiguracion.Text = "Configuracion";
             this.menuConfiguracion.Click += new System.EventHandler(this.menuConfiguracion_Click);
             // 
@@ -288,16 +284,146 @@
             // pnlMenuPrincipal
             // 
             this.pnlMenuPrincipal.BackColor = System.Drawing.Color.Transparent;
-            this.pnlMenuPrincipal.Controls.Add(this.tlpInformacionMenu);
+            this.pnlMenuPrincipal.Controls.Add(this.btnReportes);
+            this.pnlMenuPrincipal.Controls.Add(this.btnAdministracion);
+            this.pnlMenuPrincipal.Controls.Add(this.btnPuntodeVenta);
+            this.pnlMenuPrincipal.Controls.Add(this.btnInventario);
+            this.pnlMenuPrincipal.Controls.Add(this.pnlBienvenida);
             this.pnlMenuPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMenuPrincipal.Location = new System.Drawing.Point(0, 40);
             this.pnlMenuPrincipal.Name = "pnlMenuPrincipal";
             this.pnlMenuPrincipal.Size = new System.Drawing.Size(1368, 630);
             this.pnlMenuPrincipal.TabIndex = 1;
             // 
+            // btnReportes
+            // 
+            this.btnReportes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
+            this.btnReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReportes.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReportes.ForeColor = System.Drawing.Color.White;
+            this.btnReportes.Location = new System.Drawing.Point(1032, 386);
+            this.btnReportes.Name = "btnReportes";
+            this.btnReportes.Size = new System.Drawing.Size(301, 214);
+            this.btnReportes.TabIndex = 13;
+            this.btnReportes.Text = "REPORTES";
+            this.btnReportes.UseVisualStyleBackColor = false;
+            this.btnReportes.Click += new System.EventHandler(this.btnReportes_Click);
+            // 
+            // btnAdministracion
+            // 
+            this.btnAdministracion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
+            this.btnAdministracion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdministracion.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdministracion.ForeColor = System.Drawing.Color.White;
+            this.btnAdministracion.Location = new System.Drawing.Point(1032, 140);
+            this.btnAdministracion.Name = "btnAdministracion";
+            this.btnAdministracion.Size = new System.Drawing.Size(301, 214);
+            this.btnAdministracion.TabIndex = 12;
+            this.btnAdministracion.Text = "ADMINISTRACION";
+            this.btnAdministracion.UseVisualStyleBackColor = false;
+            this.btnAdministracion.Click += new System.EventHandler(this.btnAdministracion_Click);
+            // 
+            // btnPuntodeVenta
+            // 
+            this.btnPuntodeVenta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
+            this.btnPuntodeVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPuntodeVenta.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPuntodeVenta.ForeColor = System.Drawing.Color.White;
+            this.btnPuntodeVenta.Location = new System.Drawing.Point(707, 386);
+            this.btnPuntodeVenta.Name = "btnPuntodeVenta";
+            this.btnPuntodeVenta.Size = new System.Drawing.Size(301, 214);
+            this.btnPuntodeVenta.TabIndex = 11;
+            this.btnPuntodeVenta.Text = "PUNTO DE VENTA";
+            this.btnPuntodeVenta.UseVisualStyleBackColor = false;
+            this.btnPuntodeVenta.Click += new System.EventHandler(this.btnPuntodeVenta_Click);
+            // 
+            // btnInventario
+            // 
+            this.btnInventario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
+            this.btnInventario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInventario.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInventario.ForeColor = System.Drawing.Color.White;
+            this.btnInventario.Location = new System.Drawing.Point(707, 140);
+            this.btnInventario.Name = "btnInventario";
+            this.btnInventario.Size = new System.Drawing.Size(301, 214);
+            this.btnInventario.TabIndex = 10;
+            this.btnInventario.Text = "INVENTARIO";
+            this.btnInventario.UseVisualStyleBackColor = false;
+            this.btnInventario.Click += new System.EventHandler(this.btnInventario_Click);
+            // 
+            // pnlBienvenida
+            // 
+            this.pnlBienvenida.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
+            this.pnlBienvenida.Controls.Add(this.lblFechaMenuPrincipal);
+            this.pnlBienvenida.Controls.Add(this.lblRolMenuPrincipal);
+            this.pnlBienvenida.Controls.Add(this.lblUsuarioMenuPrincipal);
+            this.pnlBienvenida.Controls.Add(this.lblTituloBienvenidoMenuPrincipal);
+            this.pnlBienvenida.Location = new System.Drawing.Point(30, 140);
+            this.pnlBienvenida.Margin = new System.Windows.Forms.Padding(30, 140, 30, 30);
+            this.pnlBienvenida.Name = "pnlBienvenida";
+            this.pnlBienvenida.Size = new System.Drawing.Size(624, 460);
+            this.pnlBienvenida.TabIndex = 1;
+            // 
+            // lblFechaMenuPrincipal
+            // 
+            this.lblFechaMenuPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblFechaMenuPrincipal.AutoSize = true;
+            this.lblFechaMenuPrincipal.BackColor = System.Drawing.Color.Transparent;
+            this.lblFechaMenuPrincipal.Font = new System.Drawing.Font("Segoe UI Semibold", 22F, System.Drawing.FontStyle.Bold);
+            this.lblFechaMenuPrincipal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
+            this.lblFechaMenuPrincipal.Location = new System.Drawing.Point(26, 308);
+            this.lblFechaMenuPrincipal.Name = "lblFechaMenuPrincipal";
+            this.lblFechaMenuPrincipal.Size = new System.Drawing.Size(269, 60);
+            this.lblFechaMenuPrincipal.TabIndex = 9;
+            this.lblFechaMenuPrincipal.Text = "🗓️ Fecha: ...";
+            // 
+            // lblRolMenuPrincipal
+            // 
+            this.lblRolMenuPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRolMenuPrincipal.AutoSize = true;
+            this.lblRolMenuPrincipal.BackColor = System.Drawing.Color.Transparent;
+            this.lblRolMenuPrincipal.Font = new System.Drawing.Font("Segoe UI Semibold", 22F, System.Drawing.FontStyle.Bold);
+            this.lblRolMenuPrincipal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
+            this.lblRolMenuPrincipal.Location = new System.Drawing.Point(26, 232);
+            this.lblRolMenuPrincipal.Name = "lblRolMenuPrincipal";
+            this.lblRolMenuPrincipal.Size = new System.Drawing.Size(218, 60);
+            this.lblRolMenuPrincipal.TabIndex = 8;
+            this.lblRolMenuPrincipal.Text = "⚙️ Rol: ...";
+            // 
+            // lblUsuarioMenuPrincipal
+            // 
+            this.lblUsuarioMenuPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblUsuarioMenuPrincipal.AutoSize = true;
+            this.lblUsuarioMenuPrincipal.BackColor = System.Drawing.Color.Transparent;
+            this.lblUsuarioMenuPrincipal.Font = new System.Drawing.Font("Segoe UI Semibold", 22F, System.Drawing.FontStyle.Bold);
+            this.lblUsuarioMenuPrincipal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
+            this.lblUsuarioMenuPrincipal.Location = new System.Drawing.Point(26, 155);
+            this.lblUsuarioMenuPrincipal.Name = "lblUsuarioMenuPrincipal";
+            this.lblUsuarioMenuPrincipal.Size = new System.Drawing.Size(307, 60);
+            this.lblUsuarioMenuPrincipal.TabIndex = 7;
+            this.lblUsuarioMenuPrincipal.Text = "👥 Usuario: ...";
+            // 
+            // lblTituloBienvenidoMenuPrincipal
+            // 
+            this.lblTituloBienvenidoMenuPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTituloBienvenidoMenuPrincipal.AutoSize = true;
+            this.lblTituloBienvenidoMenuPrincipal.BackColor = System.Drawing.Color.Transparent;
+            this.lblTituloBienvenidoMenuPrincipal.Font = new System.Drawing.Font("Segoe UI Black", 24F, System.Drawing.FontStyle.Bold);
+            this.lblTituloBienvenidoMenuPrincipal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
+            this.lblTituloBienvenidoMenuPrincipal.Location = new System.Drawing.Point(26, 65);
+            this.lblTituloBienvenidoMenuPrincipal.Name = "lblTituloBienvenidoMenuPrincipal";
+            this.lblTituloBienvenidoMenuPrincipal.Size = new System.Drawing.Size(264, 65);
+            this.lblTituloBienvenidoMenuPrincipal.TabIndex = 6;
+            this.lblTituloBienvenidoMenuPrincipal.Text = "Bievenido";
+            // 
             // pnlPrincipal
             // 
             this.pnlPrincipal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            this.pnlPrincipal.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnlPrincipal.Controls.Add(this.lblDescripcion);
             this.pnlPrincipal.Controls.Add(this.lblNombre);
             this.pnlPrincipal.Dock = System.Windows.Forms.DockStyle.Top;
@@ -328,163 +454,6 @@
             this.lblNombre.TabIndex = 7;
             this.lblNombre.Text = "CentralCel";
             // 
-            // tlpInformacionMenu
-            // 
-            this.tlpInformacionMenu.ColumnCount = 2;
-            this.tlpInformacionMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpInformacionMenu.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpInformacionMenu.Controls.Add(this.pnlResumenDia, 1, 0);
-            this.tlpInformacionMenu.Controls.Add(this.pnlBienvenida, 0, 0);
-            this.tlpInformacionMenu.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpInformacionMenu.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tlpInformacionMenu.Location = new System.Drawing.Point(0, 0);
-            this.tlpInformacionMenu.Name = "tlpInformacionMenu";
-            this.tlpInformacionMenu.RowCount = 1;
-            this.tlpInformacionMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpInformacionMenu.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpInformacionMenu.Size = new System.Drawing.Size(1368, 630);
-            this.tlpInformacionMenu.TabIndex = 6;
-            // 
-            // pnlBienvenida
-            // 
-            this.pnlBienvenida.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.pnlBienvenida.Controls.Add(this.lblFechaMenuPrincipal);
-            this.pnlBienvenida.Controls.Add(this.lblRolMenuPrincipal);
-            this.pnlBienvenida.Controls.Add(this.lblUsuarioMenuPrincipal);
-            this.pnlBienvenida.Controls.Add(this.lblTituloBienvenidoMenuPrincipal);
-            this.pnlBienvenida.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBienvenida.Location = new System.Drawing.Point(30, 140);
-            this.pnlBienvenida.Margin = new System.Windows.Forms.Padding(30, 140, 30, 30);
-            this.pnlBienvenida.Name = "pnlBienvenida";
-            this.pnlBienvenida.Size = new System.Drawing.Size(624, 460);
-            this.pnlBienvenida.TabIndex = 0;
-            // 
-            // lblFechaMenuPrincipal
-            // 
-            this.lblFechaMenuPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblFechaMenuPrincipal.AutoSize = true;
-            this.lblFechaMenuPrincipal.BackColor = System.Drawing.Color.Transparent;
-            this.lblFechaMenuPrincipal.Font = new System.Drawing.Font("Segoe UI Semibold", 22F, System.Drawing.FontStyle.Bold);
-            this.lblFechaMenuPrincipal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
-            this.lblFechaMenuPrincipal.Location = new System.Drawing.Point(25, 273);
-            this.lblFechaMenuPrincipal.Name = "lblFechaMenuPrincipal";
-            this.lblFechaMenuPrincipal.Size = new System.Drawing.Size(269, 60);
-            this.lblFechaMenuPrincipal.TabIndex = 9;
-            this.lblFechaMenuPrincipal.Text = "🗓️ Fecha: ...";
-            // 
-            // lblRolMenuPrincipal
-            // 
-            this.lblRolMenuPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblRolMenuPrincipal.AutoSize = true;
-            this.lblRolMenuPrincipal.BackColor = System.Drawing.Color.Transparent;
-            this.lblRolMenuPrincipal.Font = new System.Drawing.Font("Segoe UI Semibold", 22F, System.Drawing.FontStyle.Bold);
-            this.lblRolMenuPrincipal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
-            this.lblRolMenuPrincipal.Location = new System.Drawing.Point(25, 197);
-            this.lblRolMenuPrincipal.Name = "lblRolMenuPrincipal";
-            this.lblRolMenuPrincipal.Size = new System.Drawing.Size(218, 60);
-            this.lblRolMenuPrincipal.TabIndex = 8;
-            this.lblRolMenuPrincipal.Text = "⚙️ Rol: ...";
-            // 
-            // lblUsuarioMenuPrincipal
-            // 
-            this.lblUsuarioMenuPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblUsuarioMenuPrincipal.AutoSize = true;
-            this.lblUsuarioMenuPrincipal.BackColor = System.Drawing.Color.Transparent;
-            this.lblUsuarioMenuPrincipal.Font = new System.Drawing.Font("Segoe UI Semibold", 22F, System.Drawing.FontStyle.Bold);
-            this.lblUsuarioMenuPrincipal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
-            this.lblUsuarioMenuPrincipal.Location = new System.Drawing.Point(25, 120);
-            this.lblUsuarioMenuPrincipal.Name = "lblUsuarioMenuPrincipal";
-            this.lblUsuarioMenuPrincipal.Size = new System.Drawing.Size(307, 60);
-            this.lblUsuarioMenuPrincipal.TabIndex = 7;
-            this.lblUsuarioMenuPrincipal.Text = "👥 Usuario: ...";
-            // 
-            // lblTituloBienvenidoMenuPrincipal
-            // 
-            this.lblTituloBienvenidoMenuPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTituloBienvenidoMenuPrincipal.AutoSize = true;
-            this.lblTituloBienvenidoMenuPrincipal.BackColor = System.Drawing.Color.Transparent;
-            this.lblTituloBienvenidoMenuPrincipal.Font = new System.Drawing.Font("Segoe UI Black", 24F, System.Drawing.FontStyle.Bold);
-            this.lblTituloBienvenidoMenuPrincipal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
-            this.lblTituloBienvenidoMenuPrincipal.Location = new System.Drawing.Point(25, 30);
-            this.lblTituloBienvenidoMenuPrincipal.Name = "lblTituloBienvenidoMenuPrincipal";
-            this.lblTituloBienvenidoMenuPrincipal.Size = new System.Drawing.Size(264, 65);
-            this.lblTituloBienvenidoMenuPrincipal.TabIndex = 6;
-            this.lblTituloBienvenidoMenuPrincipal.Text = "Bievenido";
-            // 
-            // pnlResumenDia
-            // 
-            this.pnlResumenDia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            this.pnlResumenDia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlResumenDia.Controls.Add(this.lblTituloResumenMenuPrincipal);
-            this.pnlResumenDia.Controls.Add(this.lblBajoStockMenuPrincipal);
-            this.pnlResumenDia.Controls.Add(this.lblVentasDiaMenuPrincipal);
-            this.pnlResumenDia.Controls.Add(this.lblSucursalMenuPrincipal);
-            this.pnlResumenDia.Location = new System.Drawing.Point(714, 140);
-            this.pnlResumenDia.Margin = new System.Windows.Forms.Padding(30, 140, 30, 30);
-            this.pnlResumenDia.Name = "pnlResumenDia";
-            this.pnlResumenDia.Size = new System.Drawing.Size(624, 460);
-            this.pnlResumenDia.TabIndex = 5;
-            // 
-            // lblTituloResumenMenuPrincipal
-            // 
-            this.lblTituloResumenMenuPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTituloResumenMenuPrincipal.AutoSize = true;
-            this.lblTituloResumenMenuPrincipal.BackColor = System.Drawing.Color.Transparent;
-            this.lblTituloResumenMenuPrincipal.Font = new System.Drawing.Font("Segoe UI Black", 22F, System.Drawing.FontStyle.Bold);
-            this.lblTituloResumenMenuPrincipal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.lblTituloResumenMenuPrincipal.Location = new System.Drawing.Point(25, 30);
-            this.lblTituloResumenMenuPrincipal.Name = "lblTituloResumenMenuPrincipal";
-            this.lblTituloResumenMenuPrincipal.Size = new System.Drawing.Size(387, 60);
-            this.lblTituloResumenMenuPrincipal.TabIndex = 6;
-            this.lblTituloResumenMenuPrincipal.Text = "Resumen del Dia";
-            // 
-            // lblBajoStockMenuPrincipal
-            // 
-            this.lblBajoStockMenuPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblBajoStockMenuPrincipal.AutoSize = true;
-            this.lblBajoStockMenuPrincipal.BackColor = System.Drawing.Color.Transparent;
-            this.lblBajoStockMenuPrincipal.Font = new System.Drawing.Font("Segoe UI Semibold", 22F, System.Drawing.FontStyle.Bold);
-            this.lblBajoStockMenuPrincipal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.lblBajoStockMenuPrincipal.Location = new System.Drawing.Point(25, 272);
-            this.lblBajoStockMenuPrincipal.Name = "lblBajoStockMenuPrincipal";
-            this.lblBajoStockMenuPrincipal.Size = new System.Drawing.Size(456, 60);
-            this.lblBajoStockMenuPrincipal.TabIndex = 7;
-            this.lblBajoStockMenuPrincipal.Text = "⚠️ Con Bajo Stock: ...";
-            // 
-            // lblVentasDiaMenuPrincipal
-            // 
-            this.lblVentasDiaMenuPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblVentasDiaMenuPrincipal.AutoSize = true;
-            this.lblVentasDiaMenuPrincipal.BackColor = System.Drawing.Color.Transparent;
-            this.lblVentasDiaMenuPrincipal.Font = new System.Drawing.Font("Segoe UI Semibold", 22F, System.Drawing.FontStyle.Bold);
-            this.lblVentasDiaMenuPrincipal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.lblVentasDiaMenuPrincipal.Location = new System.Drawing.Point(25, 196);
-            this.lblVentasDiaMenuPrincipal.Name = "lblVentasDiaMenuPrincipal";
-            this.lblVentasDiaMenuPrincipal.Size = new System.Drawing.Size(439, 60);
-            this.lblVentasDiaMenuPrincipal.TabIndex = 6;
-            this.lblVentasDiaMenuPrincipal.Text = "🧾 Ventas del Dia: ...";
-            // 
-            // lblSucursalMenuPrincipal
-            // 
-            this.lblSucursalMenuPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSucursalMenuPrincipal.AutoSize = true;
-            this.lblSucursalMenuPrincipal.BackColor = System.Drawing.Color.Transparent;
-            this.lblSucursalMenuPrincipal.Font = new System.Drawing.Font("Segoe UI Semibold", 22F, System.Drawing.FontStyle.Bold);
-            this.lblSucursalMenuPrincipal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.lblSucursalMenuPrincipal.Location = new System.Drawing.Point(25, 120);
-            this.lblSucursalMenuPrincipal.Name = "lblSucursalMenuPrincipal";
-            this.lblSucursalMenuPrincipal.Size = new System.Drawing.Size(321, 60);
-            this.lblSucursalMenuPrincipal.TabIndex = 5;
-            this.lblSucursalMenuPrincipal.Text = "🏪 Sucursal: ...";
-            // 
             // ctxMenuPrincipal
             // 
             this.ctxMenuPrincipal.ImageScalingSize = new System.Drawing.Size(24, 24);
@@ -498,7 +467,7 @@
             this.ctxCerrarSesion,
             this.ctxSalir});
             this.ctxMenuPrincipal.Name = "ctxMenuPrincipal";
-            this.ctxMenuPrincipal.Size = new System.Drawing.Size(301, 309);
+            this.ctxMenuPrincipal.Size = new System.Drawing.Size(301, 276);
             // 
             // ctxInventario
             // 
@@ -593,15 +562,13 @@
             this.MainMenuStrip = this.menuMenuPrincipal;
             this.Name = "MenuPrincipal";
             this.Text = "CentralCel - Menu Principal";
+            this.Load += new System.EventHandler(this.MenuPrincipal_Load);
             this.menuMenuPrincipal.ResumeLayout(false);
             this.menuMenuPrincipal.PerformLayout();
             this.pnlMenuPrincipal.ResumeLayout(false);
-            this.pnlPrincipal.ResumeLayout(false);
-            this.tlpInformacionMenu.ResumeLayout(false);
             this.pnlBienvenida.ResumeLayout(false);
             this.pnlBienvenida.PerformLayout();
-            this.pnlResumenDia.ResumeLayout(false);
-            this.pnlResumenDia.PerformLayout();
+            this.pnlPrincipal.ResumeLayout(false);
             this.ctxMenuPrincipal.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -634,17 +601,6 @@
         private System.Windows.Forms.Panel pnlPrincipal;
         private System.Windows.Forms.Label lblDescripcion;
         private System.Windows.Forms.Label lblNombre;
-        private System.Windows.Forms.TableLayoutPanel tlpInformacionMenu;
-        private System.Windows.Forms.Panel pnlBienvenida;
-        private System.Windows.Forms.Label lblFechaMenuPrincipal;
-        private System.Windows.Forms.Label lblRolMenuPrincipal;
-        private System.Windows.Forms.Label lblUsuarioMenuPrincipal;
-        private System.Windows.Forms.Label lblTituloBienvenidoMenuPrincipal;
-        private System.Windows.Forms.Panel pnlResumenDia;
-        private System.Windows.Forms.Label lblTituloResumenMenuPrincipal;
-        private System.Windows.Forms.Label lblBajoStockMenuPrincipal;
-        private System.Windows.Forms.Label lblVentasDiaMenuPrincipal;
-        private System.Windows.Forms.Label lblSucursalMenuPrincipal;
         private System.Windows.Forms.ContextMenuStrip ctxMenuPrincipal;
         private System.Windows.Forms.ToolStripMenuItem ctxInventario;
         private System.Windows.Forms.ToolStripMenuItem ctxNuevaVenta;
@@ -654,5 +610,14 @@
         private System.Windows.Forms.ToolStripMenuItem ctxSeparador2;
         private System.Windows.Forms.ToolStripMenuItem ctxCerrarSesion;
         private System.Windows.Forms.ToolStripMenuItem ctxSalir;
+        private System.Windows.Forms.Panel pnlBienvenida;
+        private System.Windows.Forms.Label lblFechaMenuPrincipal;
+        private System.Windows.Forms.Label lblRolMenuPrincipal;
+        private System.Windows.Forms.Label lblUsuarioMenuPrincipal;
+        private System.Windows.Forms.Label lblTituloBienvenidoMenuPrincipal;
+        private System.Windows.Forms.Button btnPuntodeVenta;
+        private System.Windows.Forms.Button btnInventario;
+        private System.Windows.Forms.Button btnReportes;
+        private System.Windows.Forms.Button btnAdministracion;
     }
 }

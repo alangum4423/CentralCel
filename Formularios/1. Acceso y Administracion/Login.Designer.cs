@@ -42,6 +42,8 @@
             this.lblUsuario = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cmbSucursal = new System.Windows.Forms.ComboBox();
+            this.lblSucursal = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -50,6 +52,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(251)))), ((int)(((byte)(252)))));
+            this.panel1.Controls.Add(this.cmbSucursal);
+            this.panel1.Controls.Add(this.lblSucursal);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.lblAlerta);
             this.panel1.Controls.Add(this.btnIngresar);
@@ -131,7 +135,7 @@
             "Contador"});
             this.cmbRol.Location = new System.Drawing.Point(99, 529);
             this.cmbRol.Name = "cmbRol";
-            this.cmbRol.Size = new System.Drawing.Size(390, 40);
+            this.cmbRol.Size = new System.Drawing.Size(185, 40);
             this.cmbRol.TabIndex = 7;
             // 
             // lblRol
@@ -215,6 +219,37 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // cmbSucursal
+            // 
+            this.cmbSucursal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(230)))), ((int)(((byte)(252)))));
+            this.cmbSucursal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSucursal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbSucursal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbSucursal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
+            this.cmbSucursal.FormattingEnabled = true;
+            this.cmbSucursal.Items.AddRange(new object[] {
+            "La Paz 1",
+            "La Paz 2",
+            "Santa Cruz 1",
+            "Santa Cruz 2"});
+            this.cmbSucursal.Location = new System.Drawing.Point(304, 529);
+            this.cmbSucursal.Name = "cmbSucursal";
+            this.cmbSucursal.Size = new System.Drawing.Size(185, 40);
+            this.cmbSucursal.TabIndex = 13;
+            this.cmbSucursal.SelectedIndexChanged += new System.EventHandler(this.cmbSucursal_SelectedIndexChanged);
+            // 
+            // lblSucursal
+            // 
+            this.lblSucursal.AutoSize = true;
+            this.lblSucursal.BackColor = System.Drawing.Color.Transparent;
+            this.lblSucursal.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSucursal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
+            this.lblSucursal.Location = new System.Drawing.Point(298, 493);
+            this.lblSucursal.Name = "lblSucursal";
+            this.lblSucursal.Size = new System.Drawing.Size(110, 32);
+            this.lblSucursal.TabIndex = 12;
+            this.lblSucursal.Text = "Sucursal:";
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -252,6 +287,8 @@
         private System.Windows.Forms.Label lblAlerta;
         private System.Windows.Forms.Button btnIngresar;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.ComboBox cmbSucursal;
+        private System.Windows.Forms.Label lblSucursal;
     }
 }
 

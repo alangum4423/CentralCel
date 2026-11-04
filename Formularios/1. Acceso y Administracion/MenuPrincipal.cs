@@ -10,125 +10,50 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CentralCel.Datos;
 using CentralCel.Formularios._2.Inventario;
+using ventas_historial_VENTAS;
 
 namespace CentralCel.Formularios
 {
     public partial class MenuPrincipal : Form
     {
         public bool SolicitoCerrarSesion = false;
-        public MenuPrincipal()
+
+        public MenuPrincipal(string usuario, string rol)
         {
             InitializeComponent();
 
+            lblUsuarioMenuPrincipal.Text = "👥 Usuario: " + usuario;
+            lblRolMenuPrincipal.Text = "⚙️ Rol: " + rol;
+            lblFechaMenuPrincipal.Text = "🗓️ Fecha: " + DateTime.Now.ToString("dd/MM/yyyy");
+            
+
             this.ContextMenuStrip = ctxMenuPrincipal;
             pnlMenuPrincipal.ContextMenuStrip = ctxMenuPrincipal;
-            pnlResumenDia.ContextMenuStrip = ctxMenuPrincipal;
         }
 
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
-            if (UsuarioSesion.IdUsuario <= 0)
-            {
-                MessageBox.Show("Debe iniciar sesión.");
-                this.Close();
-                return;
-            }
-
-            // Asignacion de permisos a los Roles
-            lblUsuarioMenuPrincipal.Text = "Usuario: " + UsuarioSesion.Usuario;
-            lblRolMenuPrincipal.Text = "Rol: " + UsuarioSesion.Rol;
-            lblSucursalMenuPrincipal.Text = "Sucursal: " + UsuarioSesion.Sucursal;
-
-            bool administrador = UsuarioSesion.Rol == "Administrador" || UsuarioSesion.Rol == "Superadministrador";
-
-            menuCatalogos.Enabled = administrador;
-            menuTraslados.Enabled = administrador;
-
-            menuAdministracion.Enabled = false;
-            menuNuevaVenta.Enabled = false;
-            menuHistorialVentas.Enabled = false;
-            menuClientes.Enabled = false;
-            menuKardex.Enabled = false;
-            menuReportesGenerales.Enabled = false;
-
-            ctxNuevaVenta.Enabled = false;
-            ctxReportes.Enabled = false;
-
-            CargarResumen();
         }
 
-        // Resumen de la Sucursal
-        private void CargarResumen()
+        private void AbrirFormulario(Form formulario)
         {
-            lblFechaMenuPrincipal.Text = "Fecha: " + DateTime.Now.ToString("dd/MM/yyyy");
-
-            lblVentasDiaMenuPrincipal.Text = "Ventas del día: —";
-            lblBajoStockMenuPrincipal.Text = "Productos con stock bajo: —";
-
-            try
+            this.Hide();
+            using (formulario)
             {
-                using (SqlConnection conn = Conexion.ObtenerConexion())
-                {
-                    conn.Open();
-
-                    string sql =
-                        "SELECT ISNULL(SUM(d.Cantidad * d.PrecioUnitario), 0) " +
-                        "FROM Ventas v " +
-                        "INNER JOIN DetalleVenta d ON v.IdVenta = d.IdVenta " +
-                        "WHERE v.IdSucursal = @sucursal " +
-                        "AND v.Fecha >= @desde AND v.Fecha < @hasta " +
-                        "AND v.FechaAnulacion IS NULL";
-
-                    if (UsuarioSesion.Rol == "Cajero")
-                    {
-                        sql += " AND v.IdUsuario = @usuario";
-                    }
-
-                    using (SqlCommand cmd = new SqlCommand(sql, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@sucursal", UsuarioSesion.IdSucursal);
-                        cmd.Parameters.AddWithValue("@desde", DateTime.Today);
-                        cmd.Parameters.AddWithValue( "@hasta", DateTime.Today.AddDays(1));
-                        cmd.Parameters.AddWithValue("@usuario", UsuarioSesion.IdUsuario);
-
-                        decimal total = Convert.ToDecimal(cmd.ExecuteScalar());
-
-                        lblVentasDiaMenuPrincipal.Text = "Ventas del día: Bs " + total.ToString("N2");
-
-                        // Consulta de stock
-                        cmd.CommandText =
-                            "SELECT COUNT(*) " +
-                            "FROM Existencias e " +
-                            "INNER JOIN Productos p " +
-                            "ON e.IdProducto = p.IdProducto " +
-                            "WHERE e.IdSucursal = @sucursal " +
-                            "AND e.StockActual <= e.StockMinimo " +
-                            "AND p.Activo = 1";
-
-                        int cantidad =
-                            Convert.ToInt32(cmd.ExecuteScalar());
-
-                        lblBajoStockMenuPrincipal.Text =
-                            "Productos con stock bajo: " + cantidad;
-                    }
-                }
+                formulario.ShowDialog();
             }
-            catch (SqlException ex)
-            {
-                MessageBox.Show("Error al cargar el resumen: " + ex.Message);
-            }
+            this.Show();
         }
 
         private void menuProductosExistencias_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new FormInventario().ShowDialog();
+            AbrirFormulario(new FormInventario());
         }
 
         private void menuCerrarSesion_Click(object sender, EventArgs e)
         {
+            SolicitoCerrarSesion = true;
             this.Close();
-            new Login().ShowDialog();
         }
 
         private void menuSalir_Click(object sender, EventArgs e)
@@ -165,13 +90,12 @@ namespace CentralCel.Formularios
 
         private void menuTraslados_Click(object sender, EventArgs e)
         {
-
+            AbrirFormulario(new FormInventario());
         }
 
         private void menuCatalogos_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new FormCatalogosInventario().ShowDialog();
+            AbrirFormulario(new FormCatalogosInventario());
         }
 
         private void menuKardex_Click(object sender, EventArgs e)
@@ -181,7 +105,7 @@ namespace CentralCel.Formularios
 
         private void menuNuevaVenta_Click(object sender, EventArgs e)
         {
-
+            AbrirFormulario(new FormVentas());
         }
 
         private void menuHistorialVentas_Click(object sender, EventArgs e)
@@ -201,12 +125,12 @@ namespace CentralCel.Formularios
 
         private void ctxInventario_Click(object sender, EventArgs e)
         {
-
+            AbrirFormulario(new FormInventario());
         }
 
         private void ctxNuevaVenta_Click(object sender, EventArgs e)
         {
-
+            AbrirFormulario(new FormVentas());
         }
 
         private void ctxReportes_Click(object sender, EventArgs e)
@@ -221,13 +145,33 @@ namespace CentralCel.Formularios
 
         private void ctxCerrarSesion_Click(object sender, EventArgs e)
         {
-            this.Close();
-            new Login();ShowDialog();
+            SolicitoCerrarSesion = true;
+
         }
 
         private void ctxSalir_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnInventario_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new FormInventario());
+        }
+
+        private void btnAdministracion_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPuntodeVenta_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(new FormVentas());
+        }
+
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
