@@ -203,6 +203,10 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
         {
         }
 
+        private void btnConsultar_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 
 

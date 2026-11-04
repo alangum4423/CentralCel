@@ -68,8 +68,6 @@
             this.ctxNuevaVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxReportes = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxSeparador1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ctxActualizarResumen = new System.Windows.Forms.ToolStripMenuItem();
-            this.ctxSeparador2 = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxCerrarSesion = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxSalir = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMenuPrincipal.SuspendLayout();
@@ -462,12 +460,10 @@
             this.ctxNuevaVenta,
             this.ctxReportes,
             this.ctxSeparador1,
-            this.ctxActualizarResumen,
-            this.ctxSeparador2,
             this.ctxCerrarSesion,
             this.ctxSalir});
             this.ctxMenuPrincipal.Name = "ctxMenuPrincipal";
-            this.ctxMenuPrincipal.Size = new System.Drawing.Size(301, 276);
+            this.ctxMenuPrincipal.Size = new System.Drawing.Size(301, 208);
             // 
             // ctxInventario
             // 
@@ -507,25 +503,6 @@
             this.ctxSeparador1.Name = "ctxSeparador1";
             this.ctxSeparador1.Size = new System.Drawing.Size(300, 34);
             this.ctxSeparador1.Text = "---------------------------";
-            // 
-            // ctxActualizarResumen
-            // 
-            this.ctxActualizarResumen.BackColor = System.Drawing.Color.White;
-            this.ctxActualizarResumen.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ctxActualizarResumen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.ctxActualizarResumen.Name = "ctxActualizarResumen";
-            this.ctxActualizarResumen.Size = new System.Drawing.Size(300, 34);
-            this.ctxActualizarResumen.Text = "🔄 Actualizar Resumen";
-            this.ctxActualizarResumen.Click += new System.EventHandler(this.ctxActualizarResumen_Click);
-            // 
-            // ctxSeparador2
-            // 
-            this.ctxSeparador2.BackColor = System.Drawing.Color.White;
-            this.ctxSeparador2.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ctxSeparador2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.ctxSeparador2.Name = "ctxSeparador2";
-            this.ctxSeparador2.Size = new System.Drawing.Size(300, 34);
-            this.ctxSeparador2.Text = "---------------------------";
             // 
             // ctxCerrarSesion
             // 
@@ -606,8 +583,6 @@
         private System.Windows.Forms.ToolStripMenuItem ctxNuevaVenta;
         private System.Windows.Forms.ToolStripMenuItem ctxReportes;
         private System.Windows.Forms.ToolStripMenuItem ctxSeparador1;
-        private System.Windows.Forms.ToolStripMenuItem ctxActualizarResumen;
-        private System.Windows.Forms.ToolStripMenuItem ctxSeparador2;
         private System.Windows.Forms.ToolStripMenuItem ctxCerrarSesion;
         private System.Windows.Forms.ToolStripMenuItem ctxSalir;
         private System.Windows.Forms.Panel pnlBienvenida;
