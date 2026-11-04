@@ -20,6 +20,9 @@ namespace ventas_historial_VENTAS
         private int idSucursalSesion = 1;
         private int idUsuarioSesion = 1;
 
+        private int idClienteSeleccionado = 0;
+        private bool esNuevoCliente = false;
+
         public FormVentas()
         {
             InitializeComponent();
@@ -28,11 +31,12 @@ namespace ventas_historial_VENTAS
         private void FormVentas_Load(object sender, EventArgs e)
         {
             ConfigurarTablaDetalle();
-            CargarClientes();
+            CargarClientesCombo();
+            CargarClientesTabla(); 
             LimpiarFormulario();
         }
 
-        #region Configuración Inicial
+    
 
         private void ConfigurarTablaDetalle()
         {
@@ -42,7 +46,7 @@ namespace ventas_historial_VENTAS
             dtDetalle.Columns.Add("Cantidad", typeof(int));
             dtDetalle.Columns.Add("Precio (Bs)", typeof(decimal));
             dtDetalle.Columns.Add("Subtotal (Bs)", typeof(decimal));
-            dtDetalle.Columns.Add("IdProducto", typeof(int)); 
+            dtDetalle.Columns.Add("IdProducto", typeof(int));
 
             dgvDetalle.DataSource = dtDetalle;
 
@@ -57,7 +61,7 @@ namespace ventas_historial_VENTAS
             dgvDetalle.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        private void CargarClientes()
+        private void CargarClientesCombo()
         {
             try
             {
@@ -80,9 +84,7 @@ namespace ventas_historial_VENTAS
             }
         }
 
-        #endregion
 
-        #region Búsqueda y Selección de Productos
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
@@ -146,9 +148,6 @@ namespace ventas_historial_VENTAS
             }
         }
 
-        #endregion
-
-        #region Carrito y Cálculos
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
@@ -251,9 +250,6 @@ namespace ventas_historial_VENTAS
             }
         }
 
-        #endregion
-
-        #region Confirmación de Venta (Transacción SQL)
 
         private void btnConfirmarVenta_Click(object sender, EventArgs e)
         {
@@ -364,14 +360,220 @@ namespace ventas_historial_VENTAS
             lblTotalPagar.Text = "Bs 0,00";
         }
 
-        #endregion
 
-        #region Eventos auxiliares del Diseñador
+        private void CargarClientesTabla(string filtro = "")
+        {
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                {
+                    conexion.Open();
+                    string query = @"SELECT 
+                                        IdCliente AS [Código], 
+                                        Nombre AS [Nombre o razón social], 
+                                        Documento AS [Documento], 
+                                        Telefono AS [Teléfono], 
+                                        Correo AS [Correo electrónico], 
+                                        Direccion AS [Dirección], 
+                                        CASE WHEN Activo = 1 THEN 'Activo' ELSE 'Inactivo' END AS [Estado] 
+                                     FROM Clientes";
+
+                    if (!string.IsNullOrEmpty(filtro))
+                    {
+                        query += " WHERE Nombre LIKE @filtro OR Documento LIKE @filtro";
+                    }
+
+                    using (SqlCommand cmd = new SqlCommand(query, conexion))
+                    {
+                        if (!string.IsNullOrEmpty(filtro))
+                            cmd.Parameters.AddWithValue("@filtro", "%" + filtro + "%");
+
+                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        dgvClientes.DataSource = dt;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar lista de clientes: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LimpiarFormularioCliente()
+        {
+            txtCodigoCliente.Clear();
+            txtNombreCliente.Clear();
+            txtDocumentoCliente.Clear();
+            txtTelefonoCliente.Clear();
+            txtCorreoCliente.Clear();
+            txtDireccionCliente.Clear();
+            chkActivoCliente.Checked = true;
+            idClienteSeleccionado = 0;
+            esNuevoCliente = false;
+        }
+
+        private void dgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dgvClientes.Rows[e.RowIndex];
+
+                idClienteSeleccionado = Convert.ToInt32(row.Cells["Código"].Value);
+                txtCodigoCliente.Text = "CLI" + idClienteSeleccionado.ToString("D3");
+                txtNombreCliente.Text = row.Cells["Nombre o razón social"].Value?.ToString();
+                txtDocumentoCliente.Text = row.Cells["Documento"].Value?.ToString();
+                txtTelefonoCliente.Text = row.Cells["Teléfono"].Value?.ToString();
+                txtCorreoCliente.Text = row.Cells["Correo electrónico"].Value?.ToString();
+                txtDireccionCliente.Text = row.Cells["Dirección"].Value?.ToString();
+
+                string estadoStr = row.Cells["Estado"].Value?.ToString();
+                chkActivoCliente.Checked = (estadoStr == "Activo");
+
+                esNuevoCliente = false;
+            }
+        }
+
+        private void btnUsarClienteVenta_Click(object sender, EventArgs e)
+        {
+            if (idClienteSeleccionado > 0)
+            {
+                CargarClientesCombo();
+                cboCliente.SelectedValue = idClienteSeleccionado;
+
+                TabVentas.SelectedIndex = 0;
+            }
+            else
+            {
+                MessageBox.Show("Selecciona un cliente de la tabla primero.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnBuscarCliente_Click(object sender, EventArgs e)
+        {
+            CargarClientesTabla(txtBuscarCliente.Text.Trim());
+        }
+
+        private void btnLimpiarCliente_Click(object sender, EventArgs e)
+        {
+            txtBuscarCliente.Clear();
+            CargarClientesTabla();
+        }
+
+        private void btnNuevoCliente_Click(object sender, EventArgs e)
+        {
+            LimpiarFormularioCliente();
+            esNuevoCliente = true;
+            txtNombreCliente.Focus();
+        }
+
+        private void btnGuardarCliente_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtNombreCliente.Text))
+            {
+                MessageBox.Show("El nombre o razón social es obligatorio.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                {
+                    conexion.Open();
+                    SqlCommand cmd;
+
+                    if (esNuevoCliente)
+                    {
+                        string queryInsert = @"INSERT INTO Clientes (Nombre, Documento, Telefono, Correo, Direccion, Activo) 
+                                             VALUES (@nombre, @documento, @telefono, @correo, @direccion, @activo)";
+                        cmd = new SqlCommand(queryInsert, conexion);
+                    }
+                    else
+                    {
+                        if (idClienteSeleccionado == 0)
+                        {
+                            MessageBox.Show("Selecciona un cliente para modificar o presiona 'Nuevo'.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        string queryUpdate = @"UPDATE Clientes 
+                                             SET Nombre = @nombre, Documento = @documento, Telefono = @telefono, 
+                                                 Correo = @correo, Direccion = @direccion, Activo = @activo 
+                                             WHERE IdCliente = @id";
+                        cmd = new SqlCommand(queryUpdate, conexion);
+                        cmd.Parameters.AddWithValue("@id", idClienteSeleccionado);
+                    }
+
+                    cmd.Parameters.AddWithValue("@nombre", txtNombreCliente.Text.Trim());
+                    cmd.Parameters.AddWithValue("@documento", string.IsNullOrEmpty(txtDocumentoCliente.Text) ? (object)DBNull.Value : txtDocumentoCliente.Text.Trim());
+                    cmd.Parameters.AddWithValue("@telefono", string.IsNullOrEmpty(txtTelefonoCliente.Text) ? (object)DBNull.Value : txtTelefonoCliente.Text.Trim());
+                    cmd.Parameters.AddWithValue("@correo", string.IsNullOrEmpty(txtCorreoCliente.Text) ? (object)DBNull.Value : txtCorreoCliente.Text.Trim());
+                    cmd.Parameters.AddWithValue("@direccion", string.IsNullOrEmpty(txtDireccionCliente.Text) ? (object)DBNull.Value : txtDireccionCliente.Text.Trim());
+                    cmd.Parameters.AddWithValue("@activo", chkActivoCliente.Checked ? 1 : 0);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Cliente guardado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    LimpiarFormularioCliente();
+                    CargarClientesTabla();
+                    CargarClientesCombo();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al guardar cliente en BD: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnCancelarCliente_Click(object sender, EventArgs e)
+        {
+            LimpiarFormularioCliente();
+        }
+
+        private void btnDesactivarCliente_Click(object sender, EventArgs e)
+        {
+            if (idClienteSeleccionado == 0)
+            {
+                MessageBox.Show("Selecciona un cliente de la lista para cambiar su estado.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                {
+                    conexion.Open();
+                    string query = "UPDATE Clientes SET Activo = CASE WHEN Activo = 1 THEN 0 ELSE 1 END WHERE IdCliente = @id";
+                    SqlCommand cmd = new SqlCommand(query, conexion);
+                    cmd.Parameters.AddWithValue("@id", idClienteSeleccionado);
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Estado del cliente actualizado.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    LimpiarFormularioCliente();
+                    CargarClientesTabla();
+                    CargarClientesCombo();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar estado del cliente: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
 
         private void btnBuscarProducto_Click(object sender, EventArgs e) => btnBuscar_Click(sender, e);
+
+        private void btnGestionarClientes_Click(object sender, EventArgs e)
+        {
+            TabVentas.SelectedIndex = 1;
+        }
+
         private void txtBuscarProducto_TextChanged(object sender, EventArgs e) { }
         private void groupBox2_Enter(object sender, EventArgs e) { }
-        private void btnGestionarClientes_Click(object sender, EventArgs e) { }
         private void cboFormaPago_SelectedIndexChanged(object sender, EventArgs e) { }
         private void chkVistaPrevia_CheckedChanged(object sender, EventArgs e) { }
         private void dgvDetalle_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
@@ -379,10 +581,10 @@ namespace ventas_historial_VENTAS
         private void numCantidad_ValueChanged(object sender, EventArgs e) { }
         private void lblTotalPagar_Click(object sender, EventArgs e) { }
         private void txtCambio_TextChanged(object sender, EventArgs e) { }
-        private void cboCliente_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
+        private void cboCliente_SelectedIndexChanged(object sender, EventArgs e) { }
+        private void label6_Click(object sender, EventArgs e) { }
+        private void button2_Click(object sender, EventArgs e) { }
+        private void label18_Click(object sender, EventArgs e) { }
 
-        #endregion
     }
 }
