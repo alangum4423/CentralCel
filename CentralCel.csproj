@@ -72,6 +72,12 @@
     <Compile Include="Formularios\2.Inventario\FormInventario.Designer.cs">
       <DependentUpon>FormInventario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\3.Ventas\FormHistorialVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\3.Ventas\FormHistorialVentas.Designer.cs">
+      <DependentUpon>FormHistorialVentas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\3.Ventas\FormVentas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\2.Inventario\FormInventario.resx">
       <DependentUpon>FormInventario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\3.Ventas\FormHistorialVentas.resx">
+      <DependentUpon>FormHistorialVentas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\3.Ventas\FormVentas.resx">
       <DependentUpon>FormVentas.cs</DependentUpon>
