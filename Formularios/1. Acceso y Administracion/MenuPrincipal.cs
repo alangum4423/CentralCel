@@ -11,6 +11,9 @@ using System.Windows.Forms;
 using CentralCel.Datos;
 using CentralCel.Formularios._2.Inventario;
 using ventas_historial_VENTAS;
+using ventas_historial_VENTAS.Formularios._3.Ventas;
+using CentralCel.Formularios._3_Reportes;
+
 
 namespace CentralCel.Formularios
 {
@@ -110,7 +113,7 @@ namespace CentralCel.Formularios
 
         private void menuHistorialVentas_Click(object sender, EventArgs e)
         {
-
+            AbrirFormulario(new FormHistorialVentas());
         }
 
         private void menuClientes_Click(object sender, EventArgs e)
@@ -120,7 +123,7 @@ namespace CentralCel.Formularios
 
         private void menuReportesGenerales_Click(object sender, EventArgs e)
         {
-
+            AbrirFormulario(new FormReportes());
         }
 
         private void ctxInventario_Click(object sender, EventArgs e)
@@ -135,12 +138,7 @@ namespace CentralCel.Formularios
 
         private void ctxReportes_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void ctxActualizarResumen_Click(object sender, EventArgs e)
-        {
-
+            AbrirFormulario(new FormReportes());
         }
 
         private void ctxCerrarSesion_Click(object sender, EventArgs e)
@@ -171,7 +169,7 @@ namespace CentralCel.Formularios
 
         private void btnReportes_Click(object sender, EventArgs e)
         {
-
+            AbrirFormulario(new FormReportes());
         }
     }
 }
