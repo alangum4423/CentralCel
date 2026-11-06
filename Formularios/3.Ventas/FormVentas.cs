@@ -8,18 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CentralCel.Datos;
 
 namespace ventas_historial_VENTAS
 {
     public partial class FormVentas : Form
     {
-        private readonly string cadenaConexion = @"Data Source=localhost\SQLEXPRESS01;Initial Catalog=CentralCelDB;Integrated Security=True;";
-
         private DataTable dtDetalle;
-
-        private int idSucursalSesion = 1;
-        private int idUsuarioSesion = 1;
-
+        private int idSucursalSesion => UsuarioSesion.IdSucursal;
+        private int idUsuarioSesion => UsuarioSesion.IdUsuario;
         private int idClienteSeleccionado = 0;
         private bool esNuevoCliente = false;
 
@@ -35,8 +32,6 @@ namespace ventas_historial_VENTAS
             CargarClientesTabla(); 
             LimpiarFormulario();
         }
-
-    
 
         private void ConfigurarTablaDetalle()
         {
@@ -65,7 +60,7 @@ namespace ventas_historial_VENTAS
         {
             try
             {
-                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                using (SqlConnection conexion = Conexion.ObtenerConexion())
                 {
                     conexion.Open();
                     string query = "SELECT IdCliente, Nombre FROM Clientes WHERE Activo = 1";
@@ -84,8 +79,6 @@ namespace ventas_historial_VENTAS
             }
         }
 
-
-
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             string busqueda = txtBuscarProducto.Text.Trim();
@@ -98,7 +91,7 @@ namespace ventas_historial_VENTAS
 
             try
             {
-                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                using (SqlConnection conexion = Conexion.ObtenerConexion())
                 {
                     conexion.Open();
                     string query = @"
@@ -147,7 +140,6 @@ namespace ventas_historial_VENTAS
                 txtDisponible.Text = fila["Stock"].ToString();
             }
         }
-
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
@@ -250,7 +242,6 @@ namespace ventas_historial_VENTAS
             }
         }
 
-
         private void btnConfirmarVenta_Click(object sender, EventArgs e)
         {
             if (dtDetalle.Rows.Count == 0)
@@ -270,7 +261,7 @@ namespace ventas_historial_VENTAS
 
             try
             {
-                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                using (SqlConnection conexion = Conexion.ObtenerConexion())
                 {
                     conexion.Open();
                     using (SqlTransaction transaccion = conexion.BeginTransaction())
@@ -360,12 +351,11 @@ namespace ventas_historial_VENTAS
             lblTotalPagar.Text = "Bs 0,00";
         }
 
-
         private void CargarClientesTabla(string filtro = "")
         {
             try
             {
-                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                using (SqlConnection conexion = Conexion.ObtenerConexion())
                 {
                     conexion.Open();
                     string query = @"SELECT 
@@ -478,7 +468,7 @@ namespace ventas_historial_VENTAS
 
             try
             {
-                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                using (SqlConnection conexion = Conexion.ObtenerConexion())
                 {
                     conexion.Open();
                     SqlCommand cmd;
@@ -542,7 +532,7 @@ namespace ventas_historial_VENTAS
 
             try
             {
-                using (SqlConnection conexion = new SqlConnection(cadenaConexion))
+                using (SqlConnection conexion = Conexion.ObtenerConexion())
                 {
                     conexion.Open();
                     string query = "UPDATE Clientes SET Activo = CASE WHEN Activo = 1 THEN 0 ELSE 1 END WHERE IdCliente = @id";
@@ -562,8 +552,6 @@ namespace ventas_historial_VENTAS
                 MessageBox.Show("Error al actualizar estado del cliente: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
 
         private void btnBuscarProducto_Click(object sender, EventArgs e) => btnBuscar_Click(sender, e);
 
@@ -585,6 +573,5 @@ namespace ventas_historial_VENTAS
         private void label6_Click(object sender, EventArgs e) { }
         private void button2_Click(object sender, EventArgs e) { }
         private void label18_Click(object sender, EventArgs e) { }
-
     }
 }
