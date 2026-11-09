@@ -18,7 +18,7 @@ namespace ventas_historial_VENTAS
         private int idSucursalSesion => UsuarioSesion.IdSucursal;
         private int idUsuarioSesion => UsuarioSesion.IdUsuario;
         private int idClienteSeleccionado = 0;
-        private bool esNuevoCliente = false;
+        private bool esNuevoCliente = true;
 
         public FormVentas()
         {
@@ -29,8 +29,9 @@ namespace ventas_historial_VENTAS
         {
             ConfigurarTablaDetalle();
             CargarClientesCombo();
-            CargarClientesTabla(); 
+            CargarClientesTabla();
             LimpiarFormulario();
+            LimpiarFormularioCliente();
         }
 
         private void ConfigurarTablaDetalle()
@@ -71,6 +72,11 @@ namespace ventas_historial_VENTAS
                     cboCliente.DataSource = dtClientes;
                     cboCliente.DisplayMember = "Nombre";
                     cboCliente.ValueMember = "IdCliente";
+
+                    if (dtClientes.Rows.Count == 0)
+                    {
+                        cboCliente.Text = "-- Sin Clientes --";
+                    }
                 }
             }
             catch (Exception ex)
@@ -85,7 +91,7 @@ namespace ventas_historial_VENTAS
 
             if (string.IsNullOrEmpty(busqueda))
             {
-                MessageBox.Show("Ingrese un código o nombre para buscar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ingrese un código o nombre para buscar el producto.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -116,6 +122,7 @@ namespace ventas_historial_VENTAS
                             cboProducto.DataSource = dtProductos;
                             cboProducto.DisplayMember = "Nombre";
                             cboProducto.ValueMember = "IdProducto";
+                            cboProducto.SelectedIndex = 0;
                         }
                         else
                         {
@@ -128,16 +135,22 @@ namespace ventas_historial_VENTAS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al consultar Productos: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al consultar Productos en CentralCelDB: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        private void btnBuscarProducto_Click(object sender, EventArgs e) => btnBuscar_Click(sender, e);
+
         private void cboProducto_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboProducto.SelectedItem != null && cboProducto.DataSource is DataTable dt)
+            if (cboProducto.SelectedItem != null && cboProducto.DataSource is DataTable)
             {
                 DataRowView fila = (DataRowView)cboProducto.SelectedItem;
                 txtDisponible.Text = fila["Stock"].ToString();
+            }
+            else
+            {
+                txtDisponible.Text = "0";
             }
         }
 
@@ -145,7 +158,7 @@ namespace ventas_historial_VENTAS
         {
             if (cboProducto.SelectedItem == null)
             {
-                MessageBox.Show("Seleccione un producto válido.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Busque y seleccione un producto válido primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -211,15 +224,29 @@ namespace ventas_historial_VENTAS
             CalcularTotales();
         }
 
+        private void txtImpuesto_TextChanged(object sender, EventArgs e)
+        {
+            CalcularTotales();
+        }
+
         private void CalcularTotales()
         {
-            decimal total = 0;
+            decimal subtotal = 0;
             foreach (DataRow row in dtDetalle.Rows)
             {
-                total += Convert.ToDecimal(row["Subtotal (Bs)"]);
+                subtotal += Convert.ToDecimal(row["Subtotal (Bs)"]);
             }
 
-            lblTotalPagar.Text = $"Bs {total:N2}";
+            decimal porcentajeImpuesto = 0;
+            if (!string.IsNullOrWhiteSpace(txtImpuesto.Text))
+            {
+                decimal.TryParse(txtImpuesto.Text.Trim(), out porcentajeImpuesto);
+            }
+
+            decimal montoImpuesto = subtotal * (porcentajeImpuesto / 100m);
+            decimal totalConImpuesto = subtotal + montoImpuesto;
+
+            lblTotalPagar.Text = $"BS: {totalConImpuesto:N2}";
             CalcularCambio();
         }
 
@@ -230,7 +257,7 @@ namespace ventas_historial_VENTAS
 
         private void CalcularCambio()
         {
-            string totalTexto = lblTotalPagar.Text.Replace("Bs", "").Trim();
+            string totalTexto = lblTotalPagar.Text.Replace("BS:", "").Replace("Bs", "").Trim();
             if (decimal.TryParse(totalTexto, out decimal total) && decimal.TryParse(txtEfectivoRecibido.Text, out decimal efectivo))
             {
                 decimal cambio = efectivo - total;
@@ -246,11 +273,11 @@ namespace ventas_historial_VENTAS
         {
             if (dtDetalle.Rows.Count == 0)
             {
-                MessageBox.Show("No hay productos en el detalle.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("No hay productos en el detalle de la venta.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            string totalTexto = lblTotalPagar.Text.Replace("Bs", "").Trim();
+            string totalTexto = lblTotalPagar.Text.Replace("BS:", "").Replace("Bs", "").Trim();
             decimal totalVenta = Convert.ToDecimal(totalTexto);
 
             if (!decimal.TryParse(txtEfectivoRecibido.Text, out decimal efectivo) || efectivo < totalVenta)
@@ -258,6 +285,8 @@ namespace ventas_historial_VENTAS
                 MessageBox.Show("El efectivo recibido es menor al total a pagar.", "Pago Insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            decimal.TryParse(txtImpuesto.Text.Trim(), out decimal porcentajeImpuesto);
 
             try
             {
@@ -272,8 +301,8 @@ namespace ventas_historial_VENTAS
                             string formaPago = cboFormaPago.SelectedItem != null ? cboFormaPago.SelectedItem.ToString() : "Efectivo";
 
                             string queryVenta = @"
-                                INSERT INTO Ventas (NumeroVenta, Fecha, IdSucursal, IdUsuario, IdCliente, FormaPago, MontoRecibido) 
-                                VALUES (@numVenta, GETDATE(), @idSucursal, @idUsuario, @idCliente, @formaPago, @montoRecibido); 
+                                INSERT INTO Ventas (NumeroVenta, Fecha, IdSucursal, IdUsuario, IdCliente, FormaPago, MontoRecibido, Impuesto) 
+                                VALUES (@numVenta, GETDATE(), @idSucursal, @idUsuario, @idCliente, @formaPago, @montoRecibido, @impuesto); 
                                 SELECT SCOPE_IDENTITY();";
 
                             SqlCommand cmdVenta = new SqlCommand(queryVenta, conexion, transaccion);
@@ -283,6 +312,7 @@ namespace ventas_historial_VENTAS
                             cmdVenta.Parameters.AddWithValue("@idCliente", cboCliente.SelectedValue ?? DBNull.Value);
                             cmdVenta.Parameters.AddWithValue("@formaPago", formaPago);
                             cmdVenta.Parameters.AddWithValue("@montoRecibido", efectivo);
+                            cmdVenta.Parameters.AddWithValue("@impuesto", porcentajeImpuesto);
 
                             int idVenta = Convert.ToInt32(cmdVenta.ExecuteScalar());
 
@@ -316,7 +346,7 @@ namespace ventas_historial_VENTAS
                             }
 
                             transaccion.Commit();
-                            MessageBox.Show($"Venta {numVenta} registrada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show($"Venta {numVenta} registrada con éxito en CentralCelDB.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                             LimpiarFormulario();
                         }
@@ -330,7 +360,7 @@ namespace ventas_historial_VENTAS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al registrar venta en CentralCelDB: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al registrar la venta en la base de datos: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -341,14 +371,22 @@ namespace ventas_historial_VENTAS
 
         private void LimpiarFormulario()
         {
-            dtDetalle.Clear();
+            if (dtDetalle != null)
+                dtDetalle.Clear();
+
             txtBuscarProducto.Clear();
             cboProducto.DataSource = null;
             txtDisponible.Text = "0";
             numCantidad.Value = 1;
+            txtImpuesto.Text = "0";
             txtEfectivoRecibido.Clear();
             txtCambio.Text = "0.00";
-            lblTotalPagar.Text = "Bs 0,00";
+            lblTotalPagar.Text = "BS: 0,00";
+        }
+
+        private void btnGestionarClientes_Click(object sender, EventArgs e)
+        {
+            TabVentas.SelectedIndex = 1;
         }
 
         private void CargarClientesTabla(string filtro = "")
@@ -387,7 +425,7 @@ namespace ventas_historial_VENTAS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar lista de clientes: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al cargar la lista de clientes: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -401,7 +439,7 @@ namespace ventas_historial_VENTAS
             txtDireccionCliente.Clear();
             chkActivoCliente.Checked = true;
             idClienteSeleccionado = 0;
-            esNuevoCliente = false;
+            esNuevoCliente = true;
         }
 
         private void dgvClientes_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -425,18 +463,92 @@ namespace ventas_historial_VENTAS
             }
         }
 
+        private void btnNuevoCliente_Click(object sender, EventArgs e)
+        {
+            LimpiarFormularioCliente();
+            txtNombreCliente.Focus();
+        }
+
+        private void btnGuardarCliente_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtNombreCliente.Text))
+            {
+                MessageBox.Show("El nombre o razón social es obligatorio.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNombreCliente.Focus();
+                return;
+            }
+
+            try
+            {
+                using (SqlConnection conexion = Conexion.ObtenerConexion())
+                {
+                    conexion.Open();
+                    SqlCommand cmd;
+
+                    if (esNuevoCliente || idClienteSeleccionado == 0)
+                    {
+                        string queryInsert = @"INSERT INTO Clientes (Nombre, Documento, Telefono, Correo, Direccion, Activo) 
+                                               VALUES (@nombre, @documento, @telefono, @correo, @direccion, @activo);
+                                               SELECT SCOPE_IDENTITY();";
+                        cmd = new SqlCommand(queryInsert, conexion);
+                    }
+                    else
+                    {
+                        string queryUpdate = @"UPDATE Clientes 
+                                               SET Nombre = @nombre, Documento = @documento, Telefono = @telefono, 
+                                                   Correo = @correo, Direccion = @direccion, Activo = @activo 
+                                               WHERE IdCliente = @id";
+                        cmd = new SqlCommand(queryUpdate, conexion);
+                        cmd.Parameters.AddWithValue("@id", idClienteSeleccionado);
+                    }
+
+                    cmd.Parameters.AddWithValue("@nombre", txtNombreCliente.Text.Trim());
+                    cmd.Parameters.AddWithValue("@documento", string.IsNullOrWhiteSpace(txtDocumentoCliente.Text) ? (object)DBNull.Value : txtDocumentoCliente.Text.Trim());
+                    cmd.Parameters.AddWithValue("@telefono", string.IsNullOrWhiteSpace(txtTelefonoCliente.Text) ? (object)DBNull.Value : txtTelefonoCliente.Text.Trim());
+                    cmd.Parameters.AddWithValue("@correo", string.IsNullOrWhiteSpace(txtCorreoCliente.Text) ? (object)DBNull.Value : txtCorreoCliente.Text.Trim());
+                    cmd.Parameters.AddWithValue("@direccion", string.IsNullOrWhiteSpace(txtDireccionCliente.Text) ? (object)DBNull.Value : txtDireccionCliente.Text.Trim());
+                    cmd.Parameters.AddWithValue("@activo", chkActivoCliente.Checked ? 1 : 0);
+
+                    if (esNuevoCliente || idClienteSeleccionado == 0)
+                    {
+                        int nuevoId = Convert.ToInt32(cmd.ExecuteScalar());
+                        idClienteSeleccionado = nuevoId;
+                    }
+                    else
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    MessageBox.Show("Cliente guardado correctamente en CentralCelDB.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    CargarClientesTabla();
+                    CargarClientesCombo();
+
+                    if (idClienteSeleccionado > 0)
+                    {
+                        cboCliente.SelectedValue = idClienteSeleccionado;
+                    }
+
+                    LimpiarFormularioCliente();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al guardar el cliente en la base de datos: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void btnUsarClienteVenta_Click(object sender, EventArgs e)
         {
             if (idClienteSeleccionado > 0)
             {
                 CargarClientesCombo();
                 cboCliente.SelectedValue = idClienteSeleccionado;
-
                 TabVentas.SelectedIndex = 0;
             }
             else
             {
-                MessageBox.Show("Selecciona un cliente de la tabla primero.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Selecciona un cliente de la lista antes de presionar 'Usar cliente en la venta'.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -451,72 +563,6 @@ namespace ventas_historial_VENTAS
             CargarClientesTabla();
         }
 
-        private void btnNuevoCliente_Click(object sender, EventArgs e)
-        {
-            LimpiarFormularioCliente();
-            esNuevoCliente = true;
-            txtNombreCliente.Focus();
-        }
-
-        private void btnGuardarCliente_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtNombreCliente.Text))
-            {
-                MessageBox.Show("El nombre o razón social es obligatorio.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                using (SqlConnection conexion = Conexion.ObtenerConexion())
-                {
-                    conexion.Open();
-                    SqlCommand cmd;
-
-                    if (esNuevoCliente)
-                    {
-                        string queryInsert = @"INSERT INTO Clientes (Nombre, Documento, Telefono, Correo, Direccion, Activo) 
-                                             VALUES (@nombre, @documento, @telefono, @correo, @direccion, @activo)";
-                        cmd = new SqlCommand(queryInsert, conexion);
-                    }
-                    else
-                    {
-                        if (idClienteSeleccionado == 0)
-                        {
-                            MessageBox.Show("Selecciona un cliente para modificar o presiona 'Nuevo'.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
-
-                        string queryUpdate = @"UPDATE Clientes 
-                                             SET Nombre = @nombre, Documento = @documento, Telefono = @telefono, 
-                                                 Correo = @correo, Direccion = @direccion, Activo = @activo 
-                                             WHERE IdCliente = @id";
-                        cmd = new SqlCommand(queryUpdate, conexion);
-                        cmd.Parameters.AddWithValue("@id", idClienteSeleccionado);
-                    }
-
-                    cmd.Parameters.AddWithValue("@nombre", txtNombreCliente.Text.Trim());
-                    cmd.Parameters.AddWithValue("@documento", string.IsNullOrEmpty(txtDocumentoCliente.Text) ? (object)DBNull.Value : txtDocumentoCliente.Text.Trim());
-                    cmd.Parameters.AddWithValue("@telefono", string.IsNullOrEmpty(txtTelefonoCliente.Text) ? (object)DBNull.Value : txtTelefonoCliente.Text.Trim());
-                    cmd.Parameters.AddWithValue("@correo", string.IsNullOrEmpty(txtCorreoCliente.Text) ? (object)DBNull.Value : txtCorreoCliente.Text.Trim());
-                    cmd.Parameters.AddWithValue("@direccion", string.IsNullOrEmpty(txtDireccionCliente.Text) ? (object)DBNull.Value : txtDireccionCliente.Text.Trim());
-                    cmd.Parameters.AddWithValue("@activo", chkActivoCliente.Checked ? 1 : 0);
-
-                    cmd.ExecuteNonQuery();
-
-                    MessageBox.Show("Cliente guardado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    LimpiarFormularioCliente();
-                    CargarClientesTabla();
-                    CargarClientesCombo();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al guardar cliente en BD: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void btnCancelarCliente_Click(object sender, EventArgs e)
         {
             LimpiarFormularioCliente();
@@ -526,7 +572,7 @@ namespace ventas_historial_VENTAS
         {
             if (idClienteSeleccionado == 0)
             {
-                MessageBox.Show("Selecciona un cliente de la lista para cambiar su estado.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Selecciona un cliente de la lista para modificar su estado.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -540,7 +586,7 @@ namespace ventas_historial_VENTAS
                     cmd.Parameters.AddWithValue("@id", idClienteSeleccionado);
                     cmd.ExecuteNonQuery();
 
-                    MessageBox.Show("Estado del cliente actualizado.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Estado del cliente actualizado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     LimpiarFormularioCliente();
                     CargarClientesTabla();
@@ -549,15 +595,8 @@ namespace ventas_historial_VENTAS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al actualizar estado del cliente: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al actualizar el estado del cliente: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void btnBuscarProducto_Click(object sender, EventArgs e) => btnBuscar_Click(sender, e);
-
-        private void btnGestionarClientes_Click(object sender, EventArgs e)
-        {
-            TabVentas.SelectedIndex = 1;
         }
 
         private void txtBuscarProducto_TextChanged(object sender, EventArgs e) { }
