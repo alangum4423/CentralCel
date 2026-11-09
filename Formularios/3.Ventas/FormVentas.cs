@@ -19,6 +19,7 @@ namespace ventas_historial_VENTAS
         private int idUsuarioSesion => UsuarioSesion.IdUsuario;
         private int idClienteSeleccionado = 0;
         private bool esNuevoCliente = true;
+        private decimal totalPagar = 0;
 
         public FormVentas()
         {
@@ -33,6 +34,7 @@ namespace ventas_historial_VENTAS
             LimpiarFormulario();
             LimpiarFormularioCliente();
         }
+
 
         private void ConfigurarTablaDetalle()
         {
@@ -101,12 +103,13 @@ namespace ventas_historial_VENTAS
                 {
                     conexion.Open();
                     string query = @"
-                        SELECT p.IdProducto, p.Codigo, p.Nombre, p.PrecioVenta, 
+                        SELECT TOP 200 p.IdProducto, p.Codigo, p.Nombre, p.PrecioVenta, 
                                ISNULL(e.StockActual, 0) AS Stock
                         FROM Productos p
                         LEFT JOIN Existencias e ON p.IdProducto = e.IdProducto AND e.IdSucursal = @idSucursal
                         WHERE (p.Codigo LIKE @criterio OR p.Nombre LIKE @criterio) 
-                          AND p.Activo = 1";
+                          AND p.Activo = 1
+                        ORDER BY p.Nombre";
 
                     using (SqlCommand cmd = new SqlCommand(query, conexion))
                     {
@@ -123,6 +126,8 @@ namespace ventas_historial_VENTAS
                             cboProducto.DisplayMember = "Nombre";
                             cboProducto.ValueMember = "IdProducto";
                             cboProducto.SelectedIndex = 0;
+
+                            txtDisponible.Text = dtProductos.Rows[0]["Stock"].ToString();
                         }
                         else
                         {
@@ -143,9 +148,8 @@ namespace ventas_historial_VENTAS
 
         private void cboProducto_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboProducto.SelectedItem != null && cboProducto.DataSource is DataTable)
+            if (cboProducto.SelectedItem is DataRowView fila && fila.Row.Table.Columns.Contains("Stock"))
             {
-                DataRowView fila = (DataRowView)cboProducto.SelectedItem;
                 txtDisponible.Text = fila["Stock"].ToString();
             }
             else
@@ -156,13 +160,12 @@ namespace ventas_historial_VENTAS
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (cboProducto.SelectedItem == null)
+            if (!(cboProducto.SelectedItem is DataRowView fila))
             {
                 MessageBox.Show("Busque y seleccione un producto válido primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            DataRowView fila = (DataRowView)cboProducto.SelectedItem;
             int idProducto = Convert.ToInt32(fila["IdProducto"]);
             string codigo = fila["Codigo"].ToString();
             string nombre = fila["Nombre"].ToString();
@@ -224,6 +227,7 @@ namespace ventas_historial_VENTAS
             CalcularTotales();
         }
 
+
         private void txtImpuesto_TextChanged(object sender, EventArgs e)
         {
             CalcularTotales();
@@ -231,6 +235,8 @@ namespace ventas_historial_VENTAS
 
         private void CalcularTotales()
         {
+            if (dtDetalle == null) return;
+
             decimal subtotal = 0;
             foreach (DataRow row in dtDetalle.Rows)
             {
@@ -244,9 +250,9 @@ namespace ventas_historial_VENTAS
             }
 
             decimal montoImpuesto = subtotal * (porcentajeImpuesto / 100m);
-            decimal totalConImpuesto = subtotal + montoImpuesto;
+            totalPagar = Math.Round(subtotal + montoImpuesto, 2);
 
-            lblTotalPagar.Text = $"BS: {totalConImpuesto:N2}";
+            lblTotalPagar.Text = $"BS: {totalPagar:N2}";
             CalcularCambio();
         }
 
@@ -257,10 +263,9 @@ namespace ventas_historial_VENTAS
 
         private void CalcularCambio()
         {
-            string totalTexto = lblTotalPagar.Text.Replace("BS:", "").Replace("Bs", "").Trim();
-            if (decimal.TryParse(totalTexto, out decimal total) && decimal.TryParse(txtEfectivoRecibido.Text, out decimal efectivo))
+            if (decimal.TryParse(txtEfectivoRecibido.Text.Trim(), out decimal efectivo))
             {
-                decimal cambio = efectivo - total;
+                decimal cambio = efectivo - totalPagar;
                 txtCambio.Text = cambio >= 0 ? cambio.ToString("N2") : "0.00";
             }
             else
@@ -268,6 +273,7 @@ namespace ventas_historial_VENTAS
                 txtCambio.Text = "0.00";
             }
         }
+
 
         private void btnConfirmarVenta_Click(object sender, EventArgs e)
         {
@@ -277,10 +283,13 @@ namespace ventas_historial_VENTAS
                 return;
             }
 
-            string totalTexto = lblTotalPagar.Text.Replace("BS:", "").Replace("Bs", "").Trim();
-            decimal totalVenta = Convert.ToDecimal(totalTexto);
+            if (cboCliente.SelectedValue == null)
+            {
+                MessageBox.Show("Seleccione un cliente para la venta.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            if (!decimal.TryParse(txtEfectivoRecibido.Text, out decimal efectivo) || efectivo < totalVenta)
+            if (!decimal.TryParse(txtEfectivoRecibido.Text.Trim(), out decimal efectivo) || efectivo < totalPagar)
             {
                 MessageBox.Show("El efectivo recibido es menor al total a pagar.", "Pago Insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -298,7 +307,7 @@ namespace ventas_historial_VENTAS
                         try
                         {
                             string numVenta = "VEN-" + DateTime.Now.ToString("yyyyMMddHHmmss");
-                            string formaPago = cboFormaPago.SelectedItem != null ? cboFormaPago.SelectedItem.ToString() : "Efectivo";
+                            string formaPago = string.IsNullOrWhiteSpace(cboFormaPago.Text) ? "Efectivo" : cboFormaPago.Text.Trim();
 
                             string queryVenta = @"
                                 INSERT INTO Ventas (NumeroVenta, Fecha, IdSucursal, IdUsuario, IdCliente, FormaPago, MontoRecibido, Impuesto) 
@@ -309,7 +318,7 @@ namespace ventas_historial_VENTAS
                             cmdVenta.Parameters.AddWithValue("@numVenta", numVenta);
                             cmdVenta.Parameters.AddWithValue("@idSucursal", idSucursalSesion);
                             cmdVenta.Parameters.AddWithValue("@idUsuario", idUsuarioSesion);
-                            cmdVenta.Parameters.AddWithValue("@idCliente", cboCliente.SelectedValue ?? DBNull.Value);
+                            cmdVenta.Parameters.AddWithValue("@idCliente", cboCliente.SelectedValue);
                             cmdVenta.Parameters.AddWithValue("@formaPago", formaPago);
                             cmdVenta.Parameters.AddWithValue("@montoRecibido", efectivo);
                             cmdVenta.Parameters.AddWithValue("@impuesto", porcentajeImpuesto);
@@ -342,7 +351,12 @@ namespace ventas_historial_VENTAS
                                 cmdStock.Parameters.AddWithValue("@cantidad", cantidad);
                                 cmdStock.Parameters.AddWithValue("@idProducto", idProducto);
                                 cmdStock.Parameters.AddWithValue("@idSucursal", idSucursalSesion);
-                                cmdStock.ExecuteNonQuery();
+                                int filasStock = cmdStock.ExecuteNonQuery();
+
+                                if (filasStock == 0)
+                                {
+                                    throw new Exception("El producto " + fila["Código"] + " no tiene existencias registradas en esta sucursal.");
+                                }
                             }
 
                             transaccion.Commit();
@@ -381,6 +395,7 @@ namespace ventas_historial_VENTAS
             txtImpuesto.Text = "0";
             txtEfectivoRecibido.Clear();
             txtCambio.Text = "0.00";
+            totalPagar = 0;
             lblTotalPagar.Text = "BS: 0,00";
         }
 
@@ -487,8 +502,9 @@ namespace ventas_historial_VENTAS
 
                     if (esNuevoCliente || idClienteSeleccionado == 0)
                     {
-                        string queryInsert = @"INSERT INTO Clientes (Nombre, Documento, Telefono, Correo, Direccion, Activo) 
-                                               VALUES (@nombre, @documento, @telefono, @correo, @direccion, @activo);
+                        string queryInsert = @"INSERT INTO Clientes (Codigo, Nombre, Documento, Telefono, Correo, Direccion, Activo) 
+                                               VALUES ('CLI' + RIGHT('000' + CAST((SELECT ISNULL(MAX(IdCliente), 0) + 1 FROM Clientes) AS NVARCHAR(10)), 3),
+                                                       @nombre, @documento, @telefono, @correo, @direccion, @activo);
                                                SELECT SCOPE_IDENTITY();";
                         cmd = new SqlCommand(queryInsert, conexion);
                     }

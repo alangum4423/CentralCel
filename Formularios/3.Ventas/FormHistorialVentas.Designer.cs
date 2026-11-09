@@ -117,6 +117,7 @@
             this.btnReimprimir.TabIndex = 6;
             this.btnReimprimir.Text = "Reimprimir nota de venta";
             this.btnReimprimir.UseVisualStyleBackColor = false;
+            this.btnReimprimir.Click += new System.EventHandler(this.btnReimprimir_Click_1);
             // 
             // btnAnularVenta
             // 
@@ -129,6 +130,7 @@
             this.btnAnularVenta.TabIndex = 8;
             this.btnAnularVenta.Text = "Anular venta";
             this.btnAnularVenta.UseVisualStyleBackColor = false;
+            this.btnAnularVenta.Click += new System.EventHandler(this.btnAnularVenta_Click_1);
             // 
             // dgvHistorialVentas
             // 
@@ -379,6 +381,7 @@
             this.btnLimpiarFiltros.TabIndex = 7;
             this.btnLimpiarFiltros.Text = "Limpiar filtros";
             this.btnLimpiarFiltros.UseVisualStyleBackColor = false;
+            this.btnLimpiarFiltros.Click += new System.EventHandler(this.btnLimpiarFiltros_Click_1);
             // 
             // cboEstado
             // 

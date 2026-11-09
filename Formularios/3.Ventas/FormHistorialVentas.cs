@@ -27,10 +27,19 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
             dtpDesde.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             dtpHasta.Value = DateTime.Now;
 
+            dgvHistorialVentas.AllowUserToAddRows = false;
+            dgvDetalleVenta.AllowUserToAddRows = false;
+
+            if (UsuarioSesion.Rol != "Administrador" && UsuarioSesion.Rol != "Superadministrador")
+            {
+                btnAnularVenta.Enabled = false;
+            }
+
             CargarFiltros();
             CargarHistorialVentas();
             LimpiarResumen();
         }
+
 
         private void CargarFiltros()
         {
@@ -40,50 +49,37 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
                 {
                     con.Open();
 
-                    // Cargar Estados
                     cboEstado.Items.Clear();
                     cboEstado.Items.Add("Todas");
                     cboEstado.Items.Add("Confirmada");
                     cboEstado.Items.Add("Anulada");
                     cboEstado.SelectedIndex = 0;
 
-                    // Cargar Sucursales
-                    try
-                    {
-                        string querySuc = "SELECT IdSucursal, Nombre FROM Sucursales";
-                        SqlDataAdapter daSuc = new SqlDataAdapter(querySuc, con);
-                        DataTable dtSuc = new DataTable();
-                        daSuc.Fill(dtSuc);
+                    SqlDataAdapter daSuc = new SqlDataAdapter("SELECT IdSucursal, Nombre FROM Sucursales", con);
+                    DataTable dtSuc = new DataTable();
+                    daSuc.Fill(dtSuc);
 
-                        DataRow drSuc = dtSuc.NewRow();
-                        drSuc["IdSucursal"] = 0;
-                        drSuc["Nombre"] = "Todas";
-                        dtSuc.Rows.InsertAt(drSuc, 0);
+                    DataRow drSuc = dtSuc.NewRow();
+                    drSuc["IdSucursal"] = 0;
+                    drSuc["Nombre"] = "Todas";
+                    dtSuc.Rows.InsertAt(drSuc, 0);
 
-                        cboSucursal.DataSource = dtSuc;
-                        cboSucursal.DisplayMember = "Nombre";
-                        cboSucursal.ValueMember = "IdSucursal";
-                    }
-                    catch { }
+                    cboSucursal.DataSource = dtSuc;
+                    cboSucursal.DisplayMember = "Nombre";
+                    cboSucursal.ValueMember = "IdSucursal";
 
-                    // Cargar Vendedores
-                    try
-                    {
-                        string queryUsu = "SELECT IdUsuario, Nombre FROM Usuarios";
-                        SqlDataAdapter daUsu = new SqlDataAdapter(queryUsu, con);
-                        DataTable dtUsu = new DataTable();
-                        daUsu.Fill(dtUsu);
+                    SqlDataAdapter daUsu = new SqlDataAdapter("SELECT IdUsuario, NombreCompleto FROM Usuarios", con);
+                    DataTable dtUsu = new DataTable();
+                    daUsu.Fill(dtUsu);
 
-                        DataRow drUsu = dtUsu.NewRow();
-                        drUsu["IdUsuario"] = 0;
-                        drUsu["Nombre"] = "Todos";
-                        dtUsu.Rows.InsertAt(drUsu, 0);
+                    DataRow drUsu = dtUsu.NewRow();
+                    drUsu["IdUsuario"] = 0;
+                    drUsu["NombreCompleto"] = "Todos";
+                    dtUsu.Rows.InsertAt(drUsu, 0);
 
-                        cboVendedor.DataSource = dtUsu;
-                        cboVendedor.DisplayMember = "Nombre";
-                        cboVendedor.ValueMember = "IdUsuario";
-                    }
-                    catch { }
+                    cboVendedor.DataSource = dtUsu;
+                    cboVendedor.DisplayMember = "NombreCompleto";
+                    cboVendedor.ValueMember = "IdUsuario";
                 }
             }
             catch (Exception ex)
@@ -102,14 +98,15 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
                     string query = @"
                         SELECT 
                             v.IdVenta,
+                            v.Impuesto,
                             v.NumeroVenta AS [Venta],
                             v.Fecha AS [Fecha],
-                            ISNULL(s.Nombre, 'La Paz 1') AS [Sucursal],
-                            ISNULL(u.Nombre, 'vendedor01') AS [Vendedor],
-                            ISNULL(c.Nombre, 'Cliente general') AS [Cliente],
+                            s.Nombre AS [Sucursal],
+                            u.NombreCompleto AS [Vendedor],
+                            c.Nombre AS [Cliente],
                             v.FormaPago AS [Forma Pago],
                             v.MontoRecibido AS [Recibido (Bs)],
-                            ISNULL(v.Estado, 'Confirmada') AS [Estado]
+                            CASE WHEN v.FechaAnulacion IS NULL THEN 'Confirmada' ELSE 'Anulada' END AS [Estado]
                         FROM Ventas v
                         LEFT JOIN Clientes c ON v.IdCliente = c.IdCliente
                         LEFT JOIN Sucursales s ON v.IdSucursal = s.IdSucursal
@@ -121,9 +118,13 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
                         query += " AND (v.NumeroVenta LIKE @busqueda OR c.Nombre LIKE @busqueda)";
                     }
 
-                    if (cboEstado.SelectedItem != null && cboEstado.SelectedItem.ToString() != "Todas")
+                    if (cboEstado.SelectedItem != null)
                     {
-                        query += " AND ISNULL(v.Estado, 'Confirmada') = @estado";
+                        string estado = cboEstado.SelectedItem.ToString();
+                        if (estado == "Confirmada")
+                            query += " AND v.FechaAnulacion IS NULL";
+                        else if (estado == "Anulada")
+                            query += " AND v.FechaAnulacion IS NOT NULL";
                     }
 
                     if (cboSucursal.SelectedValue != null && Convert.ToInt32(cboSucursal.SelectedValue) > 0)
@@ -146,9 +147,6 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
                         if (!string.IsNullOrWhiteSpace(txtBuscarVenta.Text))
                             cmd.Parameters.AddWithValue("@busqueda", "%" + txtBuscarVenta.Text.Trim() + "%");
 
-                        if (cboEstado.SelectedItem != null && cboEstado.SelectedItem.ToString() != "Todas")
-                            cmd.Parameters.AddWithValue("@estado", cboEstado.SelectedItem.ToString());
-
                         if (cboSucursal.SelectedValue != null && Convert.ToInt32(cboSucursal.SelectedValue) > 0)
                             cmd.Parameters.AddWithValue("@idSucursal", Convert.ToInt32(cboSucursal.SelectedValue));
 
@@ -163,6 +161,10 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
 
                         if (dgvHistorialVentas.Columns["IdVenta"] != null)
                             dgvHistorialVentas.Columns["IdVenta"].Visible = false;
+                        if (dgvHistorialVentas.Columns["Impuesto"] != null)
+                            dgvHistorialVentas.Columns["Impuesto"].Visible = false;
+                        if (dgvHistorialVentas.Columns["Recibido (Bs)"] != null)
+                            dgvHistorialVentas.Columns["Recibido (Bs)"].DefaultCellStyle.Format = "N2";
 
                         dgvHistorialVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     }
@@ -173,6 +175,7 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
                 MessageBox.Show("Error al cargar historial de ventas: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void CargarDetalleVenta(int idVenta)
         {
@@ -208,14 +211,13 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
 
                         dgvDetalleVenta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-                        // Calcular el Total Acumulado de la venta en base a sus ítems
-                        decimal totalAcumulado = 0;
+                        decimal subtotal = 0;
                         foreach (DataRow row in dt.Rows)
                         {
-                            totalAcumulado += Convert.ToDecimal(row["Subtotal (Bs)"]);
+                            subtotal += Convert.ToDecimal(row["Subtotal (Bs)"]);
                         }
 
-                        ActualizarResumen(idVenta, totalAcumulado);
+                        ActualizarResumen(subtotal);
                     }
                 }
             }
@@ -225,14 +227,19 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
             }
         }
 
-        private void ActualizarResumen(int idVenta, decimal totalVenta)
+        private void ActualizarResumen(decimal subtotal)
         {
             if (dgvHistorialVentas.CurrentRow == null) return;
 
             DataGridViewRow row = dgvHistorialVentas.CurrentRow;
 
             string formaPago = row.Cells["Forma Pago"].Value?.ToString() ?? "Efectivo";
-            decimal recibido = Convert.ToDecimal(row.Cells["Recibido (Bs)"].Value ?? 0);
+
+            decimal.TryParse(Convert.ToString(row.Cells["Recibido (Bs)"].Value), out decimal recibido);
+            decimal.TryParse(Convert.ToString(row.Cells["Impuesto"].Value), out decimal impuesto);
+
+            decimal totalVenta = Math.Round(subtotal * (1 + impuesto / 100m), 2);
+
             decimal cambio = recibido - totalVenta;
             if (cambio < 0) cambio = 0;
 
@@ -274,6 +281,7 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
         private void btnConsultar_Click(object sender, EventArgs e)
         {
             CargarHistorialVentas();
+            LimpiarResumen();
         }
 
         private void btnLimpiarFiltros_Click(object sender, EventArgs e)
@@ -291,6 +299,12 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
 
         private void btnAnularVenta_Click(object sender, EventArgs e)
         {
+            if (UsuarioSesion.Rol != "Administrador" && UsuarioSesion.Rol != "Superadministrador")
+            {
+                MessageBox.Show("Solo un administrador puede anular ventas.", "Sin permiso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (idVentaSeleccionada == 0)
             {
                 MessageBox.Show("Selecciona una venta de la lista para anular.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -309,88 +323,97 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
 
             DialogResult resp = MessageBox.Show($"¿Está seguro de anular la venta {numVentaSeleccionada}? Se devolverán los productos al inventario.", "Confirmar Anulación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (resp == DialogResult.Yes)
+            if (resp != DialogResult.Yes) return;
+
+            try
             {
-                try
+                using (SqlConnection con = Conexion.ObtenerConexion())
                 {
-                    using (SqlConnection con = Conexion.ObtenerConexion())
+                    con.Open();
+                    using (SqlTransaction transaccion = con.BeginTransaction())
                     {
-                        con.Open();
-                        using (SqlTransaction transaccion = con.BeginTransaction())
+                        try
                         {
-                            try
+                            string queryAnular = @"
+                                UPDATE Ventas 
+                                SET FechaAnulacion = GETDATE(), 
+                                    IdUsuarioAnulacion = @idUsuario, 
+                                    MotivoAnulacion = @motivo 
+                                WHERE IdVenta = @idVenta AND FechaAnulacion IS NULL";
+
+                            SqlCommand cmdAnular = new SqlCommand(queryAnular, con, transaccion);
+                            cmdAnular.Parameters.AddWithValue("@idUsuario", UsuarioSesion.IdUsuario);
+                            cmdAnular.Parameters.AddWithValue("@motivo", "Anulada desde el historial de ventas");
+                            cmdAnular.Parameters.AddWithValue("@idVenta", idVentaSeleccionada);
+
+                            if (cmdAnular.ExecuteNonQuery() == 0)
                             {
-                                string queryObtenerSucursal = "SELECT IdSucursal FROM Ventas WHERE IdVenta = @idVenta";
-                                SqlCommand cmdSuc = new SqlCommand(queryObtenerSucursal, con, transaccion);
-                                cmdSuc.Parameters.AddWithValue("@idVenta", idVentaSeleccionada);
-                                int idSucursal = Convert.ToInt32(cmdSuc.ExecuteScalar());
-
-                                string queryDetalles = "SELECT IdProducto, Cantidad FROM DetalleVenta WHERE IdVenta = @idVenta";
-                                SqlCommand cmdDetalles = new SqlCommand(queryDetalles, con, transaccion);
-                                cmdDetalles.Parameters.AddWithValue("@idVenta", idVentaSeleccionada);
-
-                                SqlDataAdapter da = new SqlDataAdapter(cmdDetalles);
-                                DataTable dtDetalles = new DataTable();
-                                da.Fill(dtDetalles);
-
-                                foreach (DataRow row in dtDetalles.Rows)
-                                {
-                                    int idProducto = Convert.ToInt32(row["IdProducto"]);
-                                    int cantidad = Convert.ToInt32(row["Cantidad"]);
-
-                                    string queryDevolverStock = @"
-                                        UPDATE Existencias 
-                                        SET StockActual = StockActual + @cantidad 
-                                        WHERE IdProducto = @idProducto AND IdSucursal = @idSucursal";
-
-                                    SqlCommand cmdStock = new SqlCommand(queryDevolverStock, con, transaccion);
-                                    cmdStock.Parameters.AddWithValue("@cantidad", cantidad);
-                                    cmdStock.Parameters.AddWithValue("@idProducto", idProducto);
-                                    cmdStock.Parameters.AddWithValue("@idSucursal", idSucursal);
-                                    cmdStock.ExecuteNonQuery();
-                                }
-
-                                string queryAnular = "UPDATE Ventas SET Estado = 'Anulada' WHERE IdVenta = @idVenta";
-                                SqlCommand cmdAnular = new SqlCommand(queryAnular, con, transaccion);
-                                cmdAnular.Parameters.AddWithValue("@idVenta", idVentaSeleccionada);
-                                cmdAnular.ExecuteNonQuery();
-
-                                transaccion.Commit();
-                                MessageBox.Show($"La venta {numVentaSeleccionada} fue anulada con éxito y se devolvió el stock al inventario.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                CargarHistorialVentas();
-                                LimpiarResumen();
+                                throw new Exception("La venta ya estaba anulada o no existe.");
                             }
-                            catch
+
+                            SqlCommand cmdSuc = new SqlCommand("SELECT IdSucursal FROM Ventas WHERE IdVenta = @idVenta", con, transaccion);
+                            cmdSuc.Parameters.AddWithValue("@idVenta", idVentaSeleccionada);
+                            int idSucursal = Convert.ToInt32(cmdSuc.ExecuteScalar());
+
+                            // 3. Leer los productos vendidos
+                            SqlCommand cmdDetalles = new SqlCommand("SELECT IdProducto, Cantidad FROM DetalleVenta WHERE IdVenta = @idVenta", con, transaccion);
+                            cmdDetalles.Parameters.AddWithValue("@idVenta", idVentaSeleccionada);
+
+                            SqlDataAdapter da = new SqlDataAdapter(cmdDetalles);
+                            DataTable dtDetalles = new DataTable();
+                            da.Fill(dtDetalles);
+
+                            // 4. Devolver el stock
+                            foreach (DataRow row in dtDetalles.Rows)
                             {
-                                transaccion.Rollback();
-                                throw;
+                                SqlCommand cmdStock = new SqlCommand(@"
+                                    UPDATE Existencias 
+                                    SET StockActual = StockActual + @cantidad 
+                                    WHERE IdProducto = @idProducto AND IdSucursal = @idSucursal", con, transaccion);
+                                cmdStock.Parameters.AddWithValue("@cantidad", Convert.ToInt32(row["Cantidad"]));
+                                cmdStock.Parameters.AddWithValue("@idProducto", Convert.ToInt32(row["IdProducto"]));
+                                cmdStock.Parameters.AddWithValue("@idSucursal", idSucursal);
+                                cmdStock.ExecuteNonQuery();
                             }
+
+                            transaccion.Commit();
+                            MessageBox.Show($"La venta {numVentaSeleccionada} fue anulada con éxito y se devolvió el stock al inventario.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            CargarHistorialVentas();
+                            LimpiarResumen();
+                        }
+                        catch
+                        {
+                            transaccion.Rollback();
+                            throw;
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error al anular la venta en CentralCelDB: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al anular la venta en CentralCelDB: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnReimprimir_Click(object sender, EventArgs e)
         {
-            if (idVentaSeleccionada == 0)
+            if (idVentaSeleccionada == 0 || dgvHistorialVentas.CurrentRow == null)
             {
                 MessageBox.Show("Selecciona una venta de la lista para reimprimir la nota.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            DataGridViewRow venta = dgvHistorialVentas.CurrentRow;
+            DateTime fechaVenta = Convert.ToDateTime(venta.Cells["Fecha"].Value);
+
             StringBuilder ticket = new StringBuilder();
             ticket.AppendLine("========== CENTRALCEL ==========");
             ticket.AppendLine($"Comprobante: {numVentaSeleccionada}");
-            ticket.AppendLine($"Fecha: {DateTime.Now:dd/MM/yyyy HH:mm}");
-            ticket.AppendLine($"Cliente: {dgvHistorialVentas.CurrentRow.Cells["Cliente"].Value}");
+            ticket.AppendLine($"Fecha: {fechaVenta:dd/MM/yyyy HH:mm}");
+            ticket.AppendLine($"Cliente: {venta.Cells["Cliente"].Value}");
             ticket.AppendLine("--------------------------------");
-            ticket.AppendLine("CANT | PRODUCTO | SUBTOTAL");
+            ticket.AppendLine("CANT x PRODUCTO - SUBTOTAL");
             ticket.AppendLine("--------------------------------");
 
             foreach (DataGridViewRow row in dgvDetalleVenta.Rows)
@@ -420,15 +443,15 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
             this.Close();
         }
 
+        private void FormHistorialVentas_Load_1(object sender, EventArgs e) { FormHistorialVentas_Load(sender, e); }
+        private void btnConsultar_Click_1(object sender, EventArgs e) { btnConsultar_Click(sender, e); }
+        private void btnConsultar_Click_2(object sender, EventArgs e) { btnConsultar_Click(sender, e); }
+        private void btnLimpiarFiltros_Click_1(object sender, EventArgs e) { btnLimpiarFiltros_Click(sender, e); }
+        private void btnReimprimir_Click_1(object sender, EventArgs e) { btnReimprimir_Click(sender, e); }
+        private void btnAnularVenta_Click_1(object sender, EventArgs e) { btnAnularVenta_Click(sender, e); }
+
         private void txtBuscarVenta_TextChanged(object sender, EventArgs e) { }
         private void cboEstado_SelectedIndexChanged(object sender, EventArgs e) { }
         private void cboVendedor_SelectedIndexChanged(object sender, EventArgs e) { }
-        private void FormHistorialVentas_Load_1(object sender, EventArgs e) { }
-        private void btnConsultar_Click_1(object sender, EventArgs e) { }
-
-        private void btnConsultar_Click_2(object sender, EventArgs e)
-        {
-
-        }
     }
 }

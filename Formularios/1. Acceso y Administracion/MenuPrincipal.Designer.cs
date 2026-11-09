@@ -41,9 +41,7 @@
             this.menuConfiguracion = new System.Windows.Forms.ToolStripMenuItem();
             this.menuInventario = new System.Windows.Forms.ToolStripMenuItem();
             this.menuProductosExistencias = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuTraslados = new System.Windows.Forms.ToolStripMenuItem();
             this.menuCatalogos = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuKardex = new System.Windows.Forms.ToolStripMenuItem();
             this.menuVentas = new System.Windows.Forms.ToolStripMenuItem();
             this.menuNuevaVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHistorialVentas = new System.Windows.Forms.ToolStripMenuItem();
@@ -112,7 +110,7 @@
             this.menuCerrarSesion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuCerrarSesion.ForeColor = System.Drawing.Color.White;
             this.menuCerrarSesion.Name = "menuCerrarSesion";
-            this.menuCerrarSesion.Size = new System.Drawing.Size(263, 40);
+            this.menuCerrarSesion.Size = new System.Drawing.Size(270, 40);
             this.menuCerrarSesion.Text = "Cerrar Sesion";
             this.menuCerrarSesion.Click += new System.EventHandler(this.menuCerrarSesion_Click);
             // 
@@ -121,7 +119,7 @@
             this.menuSalir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuSalir.ForeColor = System.Drawing.Color.White;
             this.menuSalir.Name = "menuSalir";
-            this.menuSalir.Size = new System.Drawing.Size(263, 40);
+            this.menuSalir.Size = new System.Drawing.Size(270, 40);
             this.menuSalir.Text = "Salir";
             this.menuSalir.Click += new System.EventHandler(this.menuSalir_Click);
             // 
@@ -130,7 +128,7 @@
             this.menuAcercaDe.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuAcercaDe.ForeColor = System.Drawing.Color.White;
             this.menuAcercaDe.Name = "menuAcercaDe";
-            this.menuAcercaDe.Size = new System.Drawing.Size(263, 40);
+            this.menuAcercaDe.Size = new System.Drawing.Size(270, 40);
             this.menuAcercaDe.Text = "Acerca de...";
             this.menuAcercaDe.Click += new System.EventHandler(this.menuAcercaDe_Click);
             // 
@@ -150,7 +148,7 @@
             this.menuUsuarios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuUsuarios.ForeColor = System.Drawing.Color.White;
             this.menuUsuarios.Name = "menuUsuarios";
-            this.menuUsuarios.Size = new System.Drawing.Size(268, 40);
+            this.menuUsuarios.Size = new System.Drawing.Size(270, 40);
             this.menuUsuarios.Text = "Usuarios";
             this.menuUsuarios.Click += new System.EventHandler(this.menuUsuarios_Click);
             // 
@@ -159,7 +157,7 @@
             this.menuSucursales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuSucursales.ForeColor = System.Drawing.Color.White;
             this.menuSucursales.Name = "menuSucursales";
-            this.menuSucursales.Size = new System.Drawing.Size(268, 40);
+            this.menuSucursales.Size = new System.Drawing.Size(270, 40);
             this.menuSucursales.Text = "Sucursales";
             this.menuSucursales.Click += new System.EventHandler(this.menuSucursales_Click);
             // 
@@ -168,7 +166,7 @@
             this.menuConfiguracion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuConfiguracion.ForeColor = System.Drawing.Color.White;
             this.menuConfiguracion.Name = "menuConfiguracion";
-            this.menuConfiguracion.Size = new System.Drawing.Size(268, 40);
+            this.menuConfiguracion.Size = new System.Drawing.Size(270, 40);
             this.menuConfiguracion.Text = "Configuracion";
             this.menuConfiguracion.Click += new System.EventHandler(this.menuConfiguracion_Click);
             // 
@@ -176,9 +174,7 @@
             // 
             this.menuInventario.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuProductosExistencias,
-            this.menuTraslados,
-            this.menuCatalogos,
-            this.menuKardex});
+            this.menuCatalogos});
             this.menuInventario.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuInventario.ForeColor = System.Drawing.Color.White;
             this.menuInventario.Name = "menuInventario";
@@ -194,15 +190,6 @@
             this.menuProductosExistencias.Text = "Productos y Existencias";
             this.menuProductosExistencias.Click += new System.EventHandler(this.menuProductosExistencias_Click);
             // 
-            // menuTraslados
-            // 
-            this.menuTraslados.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.menuTraslados.ForeColor = System.Drawing.Color.White;
-            this.menuTraslados.Name = "menuTraslados";
-            this.menuTraslados.Size = new System.Drawing.Size(369, 40);
-            this.menuTraslados.Text = "Traslados";
-            this.menuTraslados.Click += new System.EventHandler(this.menuTraslados_Click);
-            // 
             // menuCatalogos
             // 
             this.menuCatalogos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
@@ -211,15 +198,6 @@
             this.menuCatalogos.Size = new System.Drawing.Size(369, 40);
             this.menuCatalogos.Text = "Catalogos";
             this.menuCatalogos.Click += new System.EventHandler(this.menuCatalogos_Click);
-            // 
-            // menuKardex
-            // 
-            this.menuKardex.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.menuKardex.ForeColor = System.Drawing.Color.White;
-            this.menuKardex.Name = "menuKardex";
-            this.menuKardex.Size = new System.Drawing.Size(369, 40);
-            this.menuKardex.Text = "Kardex";
-            this.menuKardex.Click += new System.EventHandler(this.menuKardex_Click);
             // 
             // menuVentas
             // 
@@ -463,7 +441,7 @@
             this.ctxCerrarSesion,
             this.ctxSalir});
             this.ctxMenuPrincipal.Name = "ctxMenuPrincipal";
-            this.ctxMenuPrincipal.Size = new System.Drawing.Size(301, 208);
+            this.ctxMenuPrincipal.Size = new System.Drawing.Size(301, 241);
             // 
             // ctxInventario
             // 
@@ -563,7 +541,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuCerrarSesion;
         private System.Windows.Forms.ToolStripMenuItem menuSalir;
         private System.Windows.Forms.ToolStripMenuItem menuProductosExistencias;
-        private System.Windows.Forms.ToolStripMenuItem menuTraslados;
         private System.Windows.Forms.ToolStripMenuItem menuNuevaVenta;
         private System.Windows.Forms.ToolStripMenuItem menuHistorialVentas;
         private System.Windows.Forms.ToolStripMenuItem menuReportesGenerales;
@@ -572,7 +549,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuSucursales;
         private System.Windows.Forms.ToolStripMenuItem menuConfiguracion;
         private System.Windows.Forms.ToolStripMenuItem menuCatalogos;
-        private System.Windows.Forms.ToolStripMenuItem menuKardex;
         private System.Windows.Forms.ToolStripMenuItem menuClientes;
         private System.Windows.Forms.ToolStripMenuItem menuAcercaDe;
         private System.Windows.Forms.Panel pnlPrincipal;
