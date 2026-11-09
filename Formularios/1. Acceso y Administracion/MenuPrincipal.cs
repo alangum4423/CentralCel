@@ -42,7 +42,6 @@ namespace CentralCel.Formularios
                 menuUsuarios.Enabled = false;
                 menuSucursales.Enabled = false;
                 menuConfiguracion.Enabled = false;
-                menuKardex.Enabled = false;
                 menuReportesGenerales.Enabled = false;
                 menuAdministracion.Enabled = false;
                 menuReportes.Enabled = false; 
