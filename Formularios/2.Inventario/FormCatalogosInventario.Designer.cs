@@ -218,7 +218,6 @@
             // btnDesactivarCategoria
             // 
             this.btnDesactivarCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnDesactivarCategoria.Enabled = false;
             this.btnDesactivarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDesactivarCategoria.ForeColor = System.Drawing.Color.White;
             this.btnDesactivarCategoria.Location = new System.Drawing.Point(712, 92);
@@ -243,7 +242,6 @@
             // btnCancelarCategoria
             // 
             this.btnCancelarCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnCancelarCategoria.Enabled = false;
             this.btnCancelarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelarCategoria.ForeColor = System.Drawing.Color.White;
             this.btnCancelarCategoria.Location = new System.Drawing.Point(946, 92);
@@ -256,7 +254,6 @@
             // btnGuardarCategoria
             // 
             this.btnGuardarCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnGuardarCategoria.Enabled = false;
             this.btnGuardarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarCategoria.ForeColor = System.Drawing.Color.White;
             this.btnGuardarCategoria.Location = new System.Drawing.Point(946, 33);
@@ -491,7 +488,6 @@
             // btnDesactivarMarca
             // 
             this.btnDesactivarMarca.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnDesactivarMarca.Enabled = false;
             this.btnDesactivarMarca.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDesactivarMarca.ForeColor = System.Drawing.Color.White;
             this.btnDesactivarMarca.Location = new System.Drawing.Point(712, 92);
@@ -516,7 +512,6 @@
             // btnCancelarMarca
             // 
             this.btnCancelarMarca.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnCancelarMarca.Enabled = false;
             this.btnCancelarMarca.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelarMarca.ForeColor = System.Drawing.Color.White;
             this.btnCancelarMarca.Location = new System.Drawing.Point(946, 92);
@@ -529,7 +524,6 @@
             // btnGuardarMarca
             // 
             this.btnGuardarMarca.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnGuardarMarca.Enabled = false;
             this.btnGuardarMarca.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarMarca.ForeColor = System.Drawing.Color.White;
             this.btnGuardarMarca.Location = new System.Drawing.Point(946, 33);
@@ -881,7 +875,6 @@
             // btnDesactivarProveedor
             // 
             this.btnDesactivarProveedor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnDesactivarProveedor.Enabled = false;
             this.btnDesactivarProveedor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDesactivarProveedor.ForeColor = System.Drawing.Color.White;
             this.btnDesactivarProveedor.Location = new System.Drawing.Point(788, 102);
@@ -906,7 +899,6 @@
             // btnCancelarProveedor
             // 
             this.btnCancelarProveedor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnCancelarProveedor.Enabled = false;
             this.btnCancelarProveedor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelarProveedor.ForeColor = System.Drawing.Color.White;
             this.btnCancelarProveedor.Location = new System.Drawing.Point(984, 102);
@@ -919,7 +911,6 @@
             // btnGuardarProveedor
             // 
             this.btnGuardarProveedor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnGuardarProveedor.Enabled = false;
             this.btnGuardarProveedor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarProveedor.ForeColor = System.Drawing.Color.White;
             this.btnGuardarProveedor.Location = new System.Drawing.Point(984, 43);

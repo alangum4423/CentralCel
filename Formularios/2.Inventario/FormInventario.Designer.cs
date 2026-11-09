@@ -245,7 +245,6 @@
             // btnCancelarProducto
             // 
             this.btnCancelarProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnCancelarProducto.Enabled = false;
             this.btnCancelarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelarProducto.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnCancelarProducto.ForeColor = System.Drawing.Color.White;
@@ -259,7 +258,6 @@
             // btnGuardarProducto
             // 
             this.btnGuardarProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnGuardarProducto.Enabled = false;
             this.btnGuardarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarProducto.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnGuardarProducto.ForeColor = System.Drawing.Color.White;

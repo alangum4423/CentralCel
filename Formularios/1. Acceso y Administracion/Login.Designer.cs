@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cmbSucursal = new System.Windows.Forms.ComboBox();
+            this.lblSucursal = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.lblAlerta = new System.Windows.Forms.Label();
             this.btnIngresar = new System.Windows.Forms.Button();
@@ -42,8 +44,6 @@
             this.lblUsuario = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.cmbSucursal = new System.Windows.Forms.ComboBox();
-            this.lblSucursal = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -70,6 +70,37 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(576, 711);
             this.panel1.TabIndex = 0;
+            // 
+            // cmbSucursal
+            // 
+            this.cmbSucursal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(230)))), ((int)(((byte)(252)))));
+            this.cmbSucursal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSucursal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbSucursal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbSucursal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
+            this.cmbSucursal.FormattingEnabled = true;
+            this.cmbSucursal.Items.AddRange(new object[] {
+            "La Paz 1",
+            "La Paz 2",
+            "Santa Cruz 1",
+            "Santa Cruz 2"});
+            this.cmbSucursal.Location = new System.Drawing.Point(304, 529);
+            this.cmbSucursal.Name = "cmbSucursal";
+            this.cmbSucursal.Size = new System.Drawing.Size(185, 40);
+            this.cmbSucursal.TabIndex = 13;
+            this.cmbSucursal.SelectedIndexChanged += new System.EventHandler(this.cmbSucursal_SelectedIndexChanged);
+            // 
+            // lblSucursal
+            // 
+            this.lblSucursal.AutoSize = true;
+            this.lblSucursal.BackColor = System.Drawing.Color.Transparent;
+            this.lblSucursal.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSucursal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
+            this.lblSucursal.Location = new System.Drawing.Point(298, 493);
+            this.lblSucursal.Name = "lblSucursal";
+            this.lblSucursal.Size = new System.Drawing.Size(110, 32);
+            this.lblSucursal.TabIndex = 12;
+            this.lblSucursal.Text = "Sucursal:";
             // 
             // pictureBox2
             // 
@@ -131,7 +162,7 @@
             this.cmbRol.Items.AddRange(new object[] {
             "Superadministrador",
             "Administrador",
-            "Cajero",
+            "Empleado",
             "Contador"});
             this.cmbRol.Location = new System.Drawing.Point(99, 529);
             this.cmbRol.Name = "cmbRol";
@@ -218,37 +249,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // cmbSucursal
-            // 
-            this.cmbSucursal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(184)))), ((int)(((byte)(230)))), ((int)(((byte)(252)))));
-            this.cmbSucursal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSucursal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmbSucursal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbSucursal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
-            this.cmbSucursal.FormattingEnabled = true;
-            this.cmbSucursal.Items.AddRange(new object[] {
-            "La Paz 1",
-            "La Paz 2",
-            "Santa Cruz 1",
-            "Santa Cruz 2"});
-            this.cmbSucursal.Location = new System.Drawing.Point(304, 529);
-            this.cmbSucursal.Name = "cmbSucursal";
-            this.cmbSucursal.Size = new System.Drawing.Size(185, 40);
-            this.cmbSucursal.TabIndex = 13;
-            this.cmbSucursal.SelectedIndexChanged += new System.EventHandler(this.cmbSucursal_SelectedIndexChanged);
-            // 
-            // lblSucursal
-            // 
-            this.lblSucursal.AutoSize = true;
-            this.lblSucursal.BackColor = System.Drawing.Color.Transparent;
-            this.lblSucursal.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSucursal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(111)))), ((int)(((byte)(189)))));
-            this.lblSucursal.Location = new System.Drawing.Point(298, 493);
-            this.lblSucursal.Name = "lblSucursal";
-            this.lblSucursal.Size = new System.Drawing.Size(110, 32);
-            this.lblSucursal.TabIndex = 12;
-            this.lblSucursal.Text = "Sucursal:";
             // 
             // Login
             // 

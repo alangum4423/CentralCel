@@ -48,6 +48,12 @@
   <ItemGroup>
     <Compile Include="Datos\Conexion.cs" />
     <Compile Include="Datos\UsuarioSesion.cs" />
+    <Compile Include="Formularios\1. Acceso y Administracion\FormAdministracion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\1. Acceso y Administracion\FormAdministracion.Designer.cs">
+      <DependentUpon>FormAdministracion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\1. Acceso y Administracion\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +104,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Formularios\1. Acceso y Administracion\FormAdministracion.resx">
+      <DependentUpon>FormAdministracion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\1. Acceso y Administracion\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>

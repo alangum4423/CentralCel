@@ -13,6 +13,7 @@ using CentralCel.Formularios._2.Inventario;
 using ventas_historial_VENTAS;
 using ventas_historial_VENTAS.Formularios._3.Ventas;
 using CentralCel.Formularios._3_Reportes;
+using CentralCel.Formularios._1._Acceso_y_Administracion;
 
 
 namespace CentralCel.Formularios
@@ -36,6 +37,21 @@ namespace CentralCel.Formularios
 
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
+            if (UsuarioSesion.Rol == "Empleado")
+            {
+                menuUsuarios.Enabled = false;
+                menuSucursales.Enabled = false;
+                menuConfiguracion.Enabled = false;
+                menuKardex.Enabled = false;
+                menuReportesGenerales.Enabled = false;
+                menuAdministracion.Enabled = false;
+                menuReportes.Enabled = false; 
+
+                btnAdministracion.Enabled = false;
+                btnReportes.Enabled = false;
+
+                ctxReportes.Enabled = false;
+            }
         }
 
         private void AbrirFormulario(Form formulario)
@@ -69,7 +85,7 @@ namespace CentralCel.Formularios
             MessageBox.Show(
                 "CentralCel\n" +
                 "Sistema de Ventas e Inventarios\n" +
-                "Versión 1.0",
+                "Versión 3.47",
                 "2026",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
@@ -78,17 +94,17 @@ namespace CentralCel.Formularios
 
         private void menuUsuarios_Click(object sender, EventArgs e)
         {
-
+            AbrirFormulario(new FormAdministracion());
         }
 
         private void menuSucursales_Click(object sender, EventArgs e)
         {
-
+            AbrirFormulario(new FormAdministracion());
         }
 
         private void menuConfiguracion_Click(object sender, EventArgs e)
         {
-
+            AbrirFormulario(new FormAdministracion());
         }
 
         private void menuTraslados_Click(object sender, EventArgs e)
@@ -118,7 +134,7 @@ namespace CentralCel.Formularios
 
         private void menuClientes_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void menuReportesGenerales_Click(object sender, EventArgs e)
@@ -144,7 +160,7 @@ namespace CentralCel.Formularios
         private void ctxCerrarSesion_Click(object sender, EventArgs e)
         {
             SolicitoCerrarSesion = true;
-
+            this.Close();
         }
 
         private void ctxSalir_Click(object sender, EventArgs e)
@@ -159,7 +175,7 @@ namespace CentralCel.Formularios
 
         private void btnAdministracion_Click(object sender, EventArgs e)
         {
-
+            AbrirFormulario(new FormAdministracion());
         }
 
         private void btnPuntodeVenta_Click(object sender, EventArgs e)

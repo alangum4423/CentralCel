@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuPrincipal));
             this.menuMenuPrincipal = new System.Windows.Forms.MenuStrip();
             this.menuArchivo = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,7 +63,7 @@
             this.pnlPrincipal = new System.Windows.Forms.Panel();
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
-            this.ctxMenuPrincipal = new System.Windows.Forms.ContextMenuStrip();
+            this.ctxMenuPrincipal = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ctxInventario = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxNuevaVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.ctxReportes = new System.Windows.Forms.ToolStripMenuItem();
