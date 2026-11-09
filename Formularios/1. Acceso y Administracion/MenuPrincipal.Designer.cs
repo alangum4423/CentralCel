@@ -110,7 +110,7 @@
             this.menuCerrarSesion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuCerrarSesion.ForeColor = System.Drawing.Color.White;
             this.menuCerrarSesion.Name = "menuCerrarSesion";
-            this.menuCerrarSesion.Size = new System.Drawing.Size(270, 40);
+            this.menuCerrarSesion.Size = new System.Drawing.Size(263, 40);
             this.menuCerrarSesion.Text = "Cerrar Sesion";
             this.menuCerrarSesion.Click += new System.EventHandler(this.menuCerrarSesion_Click);
             // 
@@ -119,7 +119,7 @@
             this.menuSalir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuSalir.ForeColor = System.Drawing.Color.White;
             this.menuSalir.Name = "menuSalir";
-            this.menuSalir.Size = new System.Drawing.Size(270, 40);
+            this.menuSalir.Size = new System.Drawing.Size(263, 40);
             this.menuSalir.Text = "Salir";
             this.menuSalir.Click += new System.EventHandler(this.menuSalir_Click);
             // 
@@ -128,7 +128,7 @@
             this.menuAcercaDe.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuAcercaDe.ForeColor = System.Drawing.Color.White;
             this.menuAcercaDe.Name = "menuAcercaDe";
-            this.menuAcercaDe.Size = new System.Drawing.Size(270, 40);
+            this.menuAcercaDe.Size = new System.Drawing.Size(263, 40);
             this.menuAcercaDe.Text = "Acerca de...";
             this.menuAcercaDe.Click += new System.EventHandler(this.menuAcercaDe_Click);
             // 
@@ -441,7 +441,7 @@
             this.ctxCerrarSesion,
             this.ctxSalir});
             this.ctxMenuPrincipal.Name = "ctxMenuPrincipal";
-            this.ctxMenuPrincipal.Size = new System.Drawing.Size(301, 241);
+            this.ctxMenuPrincipal.Size = new System.Drawing.Size(301, 208);
             // 
             // ctxInventario
             // 
