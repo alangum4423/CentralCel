@@ -409,7 +409,7 @@
             this.btnVaciarDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVaciarDetalle.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold);
             this.btnVaciarDetalle.ForeColor = System.Drawing.Color.White;
-            this.btnVaciarDetalle.Location = new System.Drawing.Point(273, 489);
+            this.btnVaciarDetalle.Location = new System.Drawing.Point(424, 490);
             this.btnVaciarDetalle.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnVaciarDetalle.Name = "btnVaciarDetalle";
             this.btnVaciarDetalle.Size = new System.Drawing.Size(412, 40);
@@ -666,7 +666,7 @@
             this.btnTabClientes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnTabClientes.Name = "btnTabClientes";
             this.btnTabClientes.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnTabClientes.Size = new System.Drawing.Size(1272, 733);
+            this.btnTabClientes.Size = new System.Drawing.Size(1412, 719);
             this.btnTabClientes.TabIndex = 1;
             this.btnTabClientes.Text = "Cientes";
             // 
