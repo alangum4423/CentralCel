@@ -425,5 +425,10 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
         private void cboVendedor_SelectedIndexChanged(object sender, EventArgs e) { }
         private void FormHistorialVentas_Load_1(object sender, EventArgs e) { }
         private void btnConsultar_Click_1(object sender, EventArgs e) { }
+
+        private void btnConsultar_Click_2(object sender, EventArgs e)
+        {
+
+        }
     }
 }
