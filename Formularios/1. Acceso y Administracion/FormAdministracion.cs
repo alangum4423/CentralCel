@@ -67,7 +67,6 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
             }
         }
 
-        // Prepara las tablas para usar las columnas
         private void ConfigurarTablas()
         {
             dgvUsuarios.AutoGenerateColumns = false;
@@ -81,7 +80,6 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
             dgvSucursales.ReadOnly = true;
         }
 
-        // Consultas SELECT
         private DataTable Consultar(string sql, params SqlParameter[] parametros)
         {
             DataTable tabla = new DataTable();
@@ -105,12 +103,20 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
             return tabla;
         }
 
-        // Ejecuta INSERT, UPDATE <---(((("CRUTS"))))
         private int Ejecutar(string sql, params SqlParameter[] parametros)
         {
             using (SqlConnection conexion = Conexion.ObtenerConexion())
             {
                 conexion.Open();
+
+                if (!string.IsNullOrEmpty(UsuarioSesion.Usuario))
+                {
+                    using (SqlCommand cmdCtx = new SqlCommand("EXEC sp_set_session_context @key = N'UsuarioActual', @value = @u;", conexion))
+                    {
+                        cmdCtx.Parameters.AddWithValue("@u", UsuarioSesion.Usuario);
+                        cmdCtx.ExecuteNonQuery();
+                    }
+                }
 
                 using (SqlCommand comando = new SqlCommand(sql, conexion))
                 {
@@ -143,8 +149,7 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
         private void CargarSucursalesCombo()
         {
             cmbSucursalUsuario.DataSource = Consultar(
-                "SELECT IdSucursal, Nombre FROM Sucursales " +
-                "WHERE Activo = 1 ORDER BY Nombre");
+                "SELECT IdSucursal, Nombre FROM Sucursales WHERE Activo = 1 ORDER BY Nombre");
 
             cmbSucursalUsuario.DisplayMember = "Nombre";
             cmbSucursalUsuario.ValueMember = "IdSucursal";
@@ -156,16 +161,19 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
             string sql =
                 "SELECT u.IdUsuario, " +
                 "u.NombreUsuario AS Usuario, " +
-                "u.NombreCompleto AS Nombre, " +
+                "LTRIM(RTRIM(CONCAT(u.Nombres, N' ', NULLIF(u.Apellidos, N'-')))) AS Nombre, " +
                 "r.Nombre AS Rol, " +
                 "s.Nombre AS Sucursal, " +
                 "CASE WHEN u.Activo = 1 THEN N'Activo' ELSE N'Inactivo' END AS Estado, " +
-                "u.Cargo, u.IdRol, u.IdSucursal, u.Activo, u.FotoPerfil " +
+                "c.Nombre_Cargo AS Cargo, " +
+                "u.IdRol, u.IdSucursal, u.Activo, u.Foto " +
                 "FROM Usuarios u " +
                 "INNER JOIN Roles r ON u.IdRol = r.IdRol " +
                 "INNER JOIN Sucursales s ON u.IdSucursal = s.IdSucursal " +
-                "WHERE u.NombreUsuario LIKE @buscar OR u.NombreCompleto LIKE @buscar " +
-                "ORDER BY u.NombreCompleto";
+                "INNER JOIN Sueldos su ON u.IdSueldo = su.IdSueldo " +
+                "INNER JOIN Cargos c ON su.Cargo = c.IdCargo " +
+                "WHERE u.NombreUsuario LIKE @buscar OR u.Nombres LIKE @buscar OR u.Apellidos LIKE @buscar " +
+                "ORDER BY u.Nombres";
 
             dgvUsuarios.DataSource = Consultar(
                 sql,
@@ -245,9 +253,9 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
             txtContraseña.Clear();
             txtNombreUsuario.Enabled = false;
 
-            fotoUsuario = fila["FotoPerfil"] == DBNull.Value
+            fotoUsuario = fila["Foto"] == DBNull.Value
                 ? null
-                : (byte[])fila["FotoPerfil"];
+                : (byte[])fila["Foto"];
 
             MostrarFotoUsuario();
         }
@@ -294,8 +302,7 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
                 return;
             }
 
-            // Restricciones de sintaxis
-            if (!Regex.IsMatch(nombreUsuario, @"^[A-Za-z0-9_]{1,128}$"))
+            if (!Regex.IsMatch(nombreUsuario, @"^[A-Za-z0-9_]{1,50}$"))
             {
                 MessageBox.Show(
                     "El nombre de usuario solo puede contener letras, números y guion bajo.");
@@ -356,67 +363,46 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
             }
         }
 
+        private void SepararNombreCompleto(string nombreCompleto, out string nombres, out string apellidos)
+        {
+            string[] partes = nombreCompleto.Split(new[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries);
+            nombres = partes.Length > 0 ? partes[0] : nombreCompleto;
+            apellidos = partes.Length > 1 ? partes[1] : "-";
+        }
+
         private void CrearCuenta(
             string usuario, string nombre, string cargo,
             int idRol, int idSucursal, string contrasena, byte[] foto)
         {
-            string contraseñaSql = contrasena.Replace("'", "''");
-            string loginSql = "[" + usuario + "]";
+            Guid salt = Guid.NewGuid();
+            string nombres;
+            string apellidos;
+            SepararNombreCompleto(nombre, out nombres, out apellidos);
 
-            // Crea el login SQL
+            // Se usa el nombre de usuario en CI (máx. 30 caracteres) para respetar la restricción UNIQUE y NOT NULL
+            string ciTemporal = usuario.Length > 30 ? usuario.Substring(0, 30) : usuario;
+
+            string sql =
+                "INSERT INTO Usuarios " +
+                "(NombreUsuario, CI, Nombres, Apellidos, Direccion, Fecha_nacimiento, Telefono, Correo, " +
+                "ClaveSalt, ClaveHash, IdRol, IdSucursal, IdSueldo, Foto, Activo) " +
+                "VALUES (@usuario, @ci, @nombres, @apellidos, N'Sin especificar', '2000-01-01', N'0', @correo, " +
+                "@salt, HASHBYTES('SHA2_256', CONCAT(@password, CONVERT(NVARCHAR(36), @salt))), " +
+                "@rol, @sucursal, ISNULL((SELECT TOP 1 IdSueldo FROM Sueldos WHERE IdSueldo = @rol), (SELECT TOP 1 IdSueldo FROM Sueldos)), " +
+                "@foto, 1)";
+
             Ejecutar(
-                "CREATE LOGIN " + loginSql +
-                " WITH PASSWORD = N'" + contraseñaSql +
-                "', CHECK_POLICY = ON, DEFAULT_DATABASE = CentralCelDB");
-
-            try
-            {
-                // Crea un usuario en la base y le asigna el rol
-                Ejecutar("CREATE USER " + loginSql + " FOR LOGIN " + loginSql);
-
-                string rolSql = ObtenerRolSql(idRol);
-                Ejecutar("ALTER ROLE [" + rolSql + "] ADD MEMBER " + loginSql);
-
-                //Guarda la información en la tabla Usuarios
-                Ejecutar(
-                    "INSERT INTO Usuarios " +
-                    "(NombreUsuario, NombreCompleto, Cargo, FotoPerfil, IdRol, IdSucursal, Activo) " +
-                    "VALUES (@usuario, @nombre, @cargo, @foto, @rol, @sucursal, 1)",
-                    new SqlParameter("@usuario", usuario),
-                    new SqlParameter("@nombre", nombre),
-                    new SqlParameter("@cargo", cargo),
-                    new SqlParameter("@foto", (object)foto ?? DBNull.Value),
-                    new SqlParameter("@rol", idRol),
-                    new SqlParameter("@sucursal", idSucursal));
-            }
-            catch
-            {
-                try { Ejecutar("DROP USER " + loginSql); } catch { }
-                try { Ejecutar("DROP LOGIN " + loginSql); } catch { }
-                throw;
-            }
-        }
-
-        private string ObtenerRolSql(int idRol)
-        {
-            string nombreRol = Convert.ToString(
-                Consultar(
-                    "SELECT Nombre FROM Roles WHERE IdRol = @id",
-                    new SqlParameter("@id", idRol)).Rows[0]["Nombre"]);
-
-            if (nombreRol == "Superadministrador")
-                return "RolSuperadministrador";
-
-            if (nombreRol == "Administrador")
-                return "RolAdministrador";
-
-            if (nombreRol == "Empleado")
-                return "RolEmpleado";
-
-            if (nombreRol == "Contador")
-                return "RolContador";
-
-            throw new Exception("No se encontró el rol SQL correspondiente.");
+                sql,
+                new SqlParameter("@usuario", usuario),
+                new SqlParameter("@ci", ciTemporal),
+                new SqlParameter("@nombres", nombres),
+                new SqlParameter("@apellidos", apellidos),
+                new SqlParameter("@correo", usuario + "@centralcel.com"),
+                new SqlParameter("@salt", salt),
+                new SqlParameter("@password", contrasena),
+                new SqlParameter("@rol", idRol),
+                new SqlParameter("@sucursal", idSucursal),
+                new SqlParameter("@foto", (object)foto ?? DBNull.Value));
         }
 
         private void ActualizarCuenta(
@@ -424,76 +410,57 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
             int idRol, int idSucursal, string nuevaContrasena,
             bool activo, byte[] foto)
         {
+            string nombres;
+            string apellidos;
+            SepararNombreCompleto(nombre, out nombres, out apellidos);
+
             if (EsSuperadministrador())
             {
-                string loginSql = "[" + usuario + "]";
-
                 if (nuevaContrasena.Trim() != "")
                 {
+                    Guid nuevoSalt = Guid.NewGuid();
                     Ejecutar(
-                        "ALTER LOGIN " + loginSql +
-                        " WITH PASSWORD = N'" +
-                        nuevaContrasena.Replace("'", "''") + "'");
+                        "UPDATE Usuarios SET Nombres = @nombres, Apellidos = @apellidos, " +
+                        "ClaveSalt = @salt, ClaveHash = HASHBYTES('SHA2_256', CONCAT(@password, CONVERT(NVARCHAR(36), @salt))), " +
+                        "Foto = @foto, IdRol = @rol, IdSucursal = @sucursal, Activo = @activo " +
+                        "WHERE NombreUsuario = @usuario",
+                        new SqlParameter("@nombres", nombres),
+                        new SqlParameter("@apellidos", apellidos),
+                        new SqlParameter("@salt", nuevoSalt),
+                        new SqlParameter("@password", nuevaContrasena),
+                        new SqlParameter("@foto", (object)foto ?? DBNull.Value),
+                        new SqlParameter("@rol", idRol),
+                        new SqlParameter("@sucursal", idSucursal),
+                        new SqlParameter("@activo", activo),
+                        new SqlParameter("@usuario", usuario));
                 }
-
-                if (activo)
-                    Ejecutar("ALTER LOGIN " + loginSql + " ENABLE");
                 else
-                    Ejecutar("ALTER LOGIN " + loginSql + " DISABLE");
-
-                CambiarRolSql(usuario, ObtenerRolSql(idRol));
-
-                Ejecutar(
-                    "UPDATE Usuarios SET NombreCompleto = @nombre, Cargo = @cargo, " +
-                    "FotoPerfil = @foto, IdRol = @rol, IdSucursal = @sucursal, Activo = @activo " +
-                    "WHERE NombreUsuario = @usuario",
-                    new SqlParameter("@nombre", nombre),
-                    new SqlParameter("@cargo", cargo),
-                    new SqlParameter("@foto", (object)foto ?? DBNull.Value),
-                    new SqlParameter("@rol", idRol),
-                    new SqlParameter("@sucursal", idSucursal),
-                    new SqlParameter("@activo", activo),
-                    new SqlParameter("@usuario", usuario));
+                {
+                    Ejecutar(
+                        "UPDATE Usuarios SET Nombres = @nombres, Apellidos = @apellidos, " +
+                        "Foto = @foto, IdRol = @rol, IdSucursal = @sucursal, Activo = @activo " +
+                        "WHERE NombreUsuario = @usuario",
+                        new SqlParameter("@nombres", nombres),
+                        new SqlParameter("@apellidos", apellidos),
+                        new SqlParameter("@foto", (object)foto ?? DBNull.Value),
+                        new SqlParameter("@rol", idRol),
+                        new SqlParameter("@sucursal", idSucursal),
+                        new SqlParameter("@activo", activo),
+                        new SqlParameter("@usuario", usuario));
+                }
             }
             else
             {
                 Ejecutar(
-                    "UPDATE Usuarios SET NombreCompleto = @nombre, Cargo = @cargo, " +
-                    "FotoPerfil = @foto, IdSucursal = @sucursal " +
+                    "UPDATE Usuarios SET Nombres = @nombres, Apellidos = @apellidos, " +
+                    "Foto = @foto, IdSucursal = @sucursal " +
                     "WHERE NombreUsuario = @usuario",
-                    new SqlParameter("@nombre", nombre),
-                    new SqlParameter("@cargo", cargo),
+                    new SqlParameter("@nombres", nombres),
+                    new SqlParameter("@apellidos", apellidos),
                     new SqlParameter("@foto", (object)foto ?? DBNull.Value),
                     new SqlParameter("@sucursal", idSucursal),
                     new SqlParameter("@usuario", usuario));
             }
-        }
-
-        private void CambiarRolSql(string usuario, string rolNuevo)
-        {
-            string usuarioSql = "[" + usuario + "]";
-
-            string[] roles =
-            {
-                "RolSuperadministrador",
-                "RolAdministrador",
-                "RolEmpleado",
-                "RolContador"
-            };
-
-            foreach (string rol in roles)
-            {
-                try
-                {
-                    Ejecutar("ALTER ROLE [" + rol + "] DROP MEMBER " + usuarioSql);
-                }
-                catch
-                {
-                    
-                }
-            }
-
-            Ejecutar("ALTER ROLE [" + rolNuevo + "] ADD MEMBER " + usuarioSql);
         }
 
         private void btnDesactivarUsuario_Click(object sender, EventArgs e)
@@ -534,7 +501,7 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
             txtNombreUsuario.Enabled = true;
         }
 
-        // PESTANIA SUCURSALES LOL
+        // PESTANIA SUCURSALES
 
         private void btnNuevaSucursal_Click(object sender, EventArgs e)
         {
@@ -695,7 +662,7 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
             chkSucursalActivo.Checked = true;
         }
 
-        // -------------------- CONFIGURACIÓN --------------------
+        // PESTANIA CONFIGURACION
 
         private void CargarConfiguracion()
         {

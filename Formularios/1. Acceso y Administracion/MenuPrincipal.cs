@@ -15,7 +15,6 @@ using ventas_historial_VENTAS.Formularios._3.Ventas;
 using CentralCel.Formularios._3_Reportes;
 using CentralCel.Formularios._1._Acceso_y_Administracion;
 
-
 namespace CentralCel.Formularios
 {
     public partial class MenuPrincipal : Form
@@ -29,7 +28,6 @@ namespace CentralCel.Formularios
             lblUsuarioMenuPrincipal.Text = "👥 Usuario: " + usuario;
             lblRolMenuPrincipal.Text = "⚙️ Rol: " + rol;
             lblFechaMenuPrincipal.Text = "🗓️ Fecha: " + DateTime.Now.ToString("dd/MM/yyyy");
-            
 
             this.ContextMenuStrip = ctxMenuPrincipal;
             pnlMenuPrincipal.ContextMenuStrip = ctxMenuPrincipal;
@@ -37,19 +35,43 @@ namespace CentralCel.Formularios
 
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
-            if (UsuarioSesion.Rol == "Empleado")
+            if (UsuarioSesion.Rol == "Superadministrador")
             {
-                menuUsuarios.Enabled = false;
-                menuSucursales.Enabled = false;
-                menuConfiguracion.Enabled = false;
-                menuReportesGenerales.Enabled = false;
-                menuAdministracion.Enabled = false;
-                menuReportes.Enabled = false; 
+                
+            }
+            else if (UsuarioSesion.Rol == "Administrador")
+            {
+                
+                menuSucursales.Visible = false;
+            }
+            else if (UsuarioSesion.Rol == "Empleado")
+            {
+                menuUsuarios.Visible = false;
+                menuSucursales.Visible = false;
+                menuConfiguracion.Visible = false;
+                menuReportesGenerales.Visible = false;
+                menuAdministracion.Visible = false;
+                menuReportes.Visible = false;
 
-                btnAdministracion.Enabled = false;
-                btnReportes.Enabled = false;
+                btnAdministracion.Visible = false;
+                btnReportes.Visible = false;
 
-                ctxReportes.Enabled = false;
+                ctxReportes.Visible = false;
+            }
+            else if (UsuarioSesion.Rol == "Contador")
+            {
+                menuUsuarios.Visible = false;
+                menuSucursales.Visible = false;
+                menuConfiguracion.Visible = false;
+                menuAdministracion.Visible = false;
+                menuNuevaVenta.Visible = false;
+                menuClientes.Visible = false;
+                menuCatalogos.Visible = false;
+
+                btnAdministracion.Visible = false;
+                btnPuntodeVenta.Visible = false;
+
+                ctxNuevaVenta.Visible = false;
             }
         }
 
@@ -70,8 +92,8 @@ namespace CentralCel.Formularios
 
         private void menuCerrarSesion_Click(object sender, EventArgs e)
         {
-            this.Close();
             SolicitoCerrarSesion = true;
+            this.Close();
         }
 
         private void menuSalir_Click(object sender, EventArgs e)
@@ -133,7 +155,7 @@ namespace CentralCel.Formularios
 
         private void menuClientes_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void menuReportesGenerales_Click(object sender, EventArgs e)
@@ -158,8 +180,8 @@ namespace CentralCel.Formularios
 
         private void ctxCerrarSesion_Click(object sender, EventArgs e)
         {
-            this.Close();
             SolicitoCerrarSesion = true;
+            this.Close();
         }
 
         private void ctxSalir_Click(object sender, EventArgs e)

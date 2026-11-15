@@ -94,8 +94,7 @@ namespace CentralCel.Formularios._3_Reportes
         {
             try
             {
-                using (SqlConnection conexion =
-                    Conexion.ObtenerConexion())
+                using (SqlConnection conexion = Conexion.ObtenerConexion())
                 {
                     conexion.Open();
 
@@ -105,8 +104,7 @@ namespace CentralCel.Formularios._3_Reportes
                         WHERE Activo = 1
                         ORDER BY Nombre";
 
-                    using (SqlDataAdapter adaptador =
-                        new SqlDataAdapter(consulta, conexion))
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion))
                     {
                         DataTable tabla = new DataTable();
                         adaptador.Fill(tabla);

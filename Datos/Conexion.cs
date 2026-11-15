@@ -9,28 +9,32 @@ namespace CentralCel.Datos
 {
     public class Conexion
     {
-        private static string cadenaConexion;
+        private static string cadenaConexion = ConstruirCadena();
 
-        // Configuracion de la conexión con el usuario que inicia sesión
-        public static void Configurar(string usuario, string contrasena)
+        private static string ConstruirCadena()
         {
-            SqlConnectionStringBuilder cadena =
-                new SqlConnectionStringBuilder();
+            SqlConnectionStringBuilder cadena = new SqlConnectionStringBuilder();
 
             cadena.DataSource = "localhost";
             cadena.InitialCatalog = "CentralCelDB";
             cadena.IntegratedSecurity = false;
 
-            cadena.UserID = usuario;
-            cadena.Password = contrasena;
-
+            cadena.UserID = "app_centralcel";
+            cadena.Password = "AppCentralCel2026#!";
             cadena.Encrypt = true;
             cadena.TrustServerCertificate = true;
 
-            cadenaConexion = cadena.ConnectionString;
+            return cadena.ConnectionString;
         }
 
-        // Devuelve una conexión nueva
+        public static void Configurar(string usuario, string contrasena)
+        {
+            if (string.IsNullOrEmpty(cadenaConexion))
+            {
+                cadenaConexion = ConstruirCadena();
+            }
+        }
+
         public static SqlConnection ObtenerConexion()
         {
             return new SqlConnection(cadenaConexion);
