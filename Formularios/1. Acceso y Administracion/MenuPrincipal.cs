@@ -33,6 +33,8 @@ namespace CentralCel.Formularios
             pnlMenuPrincipal.ContextMenuStrip = ctxMenuPrincipal;
         }
 
+
+
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
             if (UsuarioSesion.Rol == "Superadministrador")
@@ -74,6 +76,8 @@ namespace CentralCel.Formularios
                 ctxNuevaVenta.Visible = false;
             }
         }
+
+    
 
         private void AbrirFormulario(Form formulario)
         {

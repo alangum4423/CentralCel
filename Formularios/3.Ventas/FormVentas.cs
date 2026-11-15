@@ -1,14 +1,19 @@
-﻿using System;
+﻿using CentralCel.Datos;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CentralCel.Datos;
 
 namespace ventas_historial_VENTAS
 {
@@ -83,7 +88,7 @@ namespace ventas_historial_VENTAS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Nota al conectar con CentralCelDB: " + ex.Message, "Conexión BD", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Nota al conectar con bd: " + ex.Message, "Conexión BD", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -140,7 +145,7 @@ namespace ventas_historial_VENTAS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al consultar Productos en CentralCelDB: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al consultar Productos: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -254,6 +259,14 @@ namespace ventas_historial_VENTAS
 
             lblTotalPagar.Text = $"BS: {totalPagar:N2}";
             CalcularCambio();
+
+
+            if (cboFormaPago.Text.Equals("QR", StringComparison.OrdinalIgnoreCase) ||
+                 cboFormaPago.Text.Equals("tarjeta", StringComparison.OrdinalIgnoreCase))
+            {
+                txtEfectivoRecibido.Text = totalPagar.ToString("F2");
+                txtCambio.Text = "0.00";
+            }
         }
 
         private void txtEfectivoRecibido_TextChanged(object sender, EventArgs e)
@@ -275,6 +288,179 @@ namespace ventas_historial_VENTAS
         }
 
 
+
+        private string GenerarVoucherPDF(string numVenta, string cliente, string formaPago, decimal impuestoPct, decimal efectivoRecibido)
+        {
+            string carpeta = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "CentralCel_Vouchers");
+            Directory.CreateDirectory(carpeta);
+            string rutaArchivo = Path.Combine(carpeta, $"{numVenta}.pdf");
+
+            DataTable dtCopia = dtDetalle.Copy();
+            decimal totalFinal = totalPagar;
+            string cambioTexto = txtCambio.Text;
+            DateTime fechaVenta = DateTime.Now;
+
+            PrintDocument pd = new PrintDocument();
+            pd.DocumentName = numVenta;
+
+            int altoDinamico = 420 + (dtCopia.Rows.Count * 35);
+            pd.DefaultPageSettings.PaperSize = new PaperSize("Voucher", 315, altoDinamico);
+
+            pd.PrintPage += (s, ev) =>
+            {
+                Graphics g = ev.Graphics;
+                Font fTitulo = new Font("Consolas", 12, FontStyle.Bold);
+                Font fSubtitulo = new Font("Consolas", 8, FontStyle.Regular);
+                Font fNegrita = new Font("Consolas", 8, FontStyle.Bold);
+                Font fNormal = new Font("Consolas", 8, FontStyle.Regular);
+
+                float y = 15;
+                float margen = 10;
+                float ancho = 295;
+                StringFormat centrado = new StringFormat { Alignment = StringAlignment.Center };
+                StringFormat derecha = new StringFormat { Alignment = StringAlignment.Far };
+
+                g.DrawString("CENTRALCEL", fTitulo, Brushes.Black, new RectangleF(margen, y, ancho, 20), centrado);
+                y += 20;
+                g.DrawString("Herramientas y Repuestos", fSubtitulo, Brushes.Black, new RectangleF(margen, y, ancho, 15), centrado);
+                y += 18;
+                g.DrawString("COMPROBANTE DE VENTA", fNegrita, Brushes.Black, new RectangleF(margen, y, ancho, 15), centrado);
+                y += 18;
+                g.DrawLine(Pens.Black, margen, y, margen + ancho, y);
+                y += 8;
+
+                g.DrawString($"Nro:     {numVenta}", fNormal, Brushes.Black, margen, y); y += 14;
+                g.DrawString($"Fecha:   {fechaVenta:dd/MM/yyyy HH:mm}", fNormal, Brushes.Black, margen, y); y += 14;
+                g.DrawString($"Cliente: {cliente}", fNormal, Brushes.Black, margen, y); y += 14;
+                g.DrawString($"Pago:    {formaPago}", fNormal, Brushes.Black, margen, y); y += 18;
+
+                g.DrawLine(Pens.Black, margen, y, margen + ancho, y);
+                y += 6;
+
+                g.DrawString("Cant  Producto", fNegrita, Brushes.Black, margen, y);
+                g.DrawString("Subtotal", fNegrita, Brushes.Black, new RectangleF(margen, y, ancho, 15), derecha);
+                y += 16;
+                g.DrawLine(Pens.Black, margen, y, margen + ancho, y);
+                y += 6;
+
+                decimal subtotalSinImp = 0;
+                foreach (DataRow row in dtCopia.Rows)
+                {
+                    string nombre = row["Producto / variante"].ToString();
+                    if (nombre.Length > 24) nombre = nombre.Substring(0, 24) + ".";
+
+                    int cant = Convert.ToInt32(row["Cantidad"]);
+                    decimal sub = Convert.ToDecimal(row["Subtotal (Bs)"]);
+                    subtotalSinImp += sub;
+
+                    g.DrawString($"{cant}x   {nombre}", fNormal, Brushes.Black, margen, y);
+                    g.DrawString($"{sub:N2}", fNormal, Brushes.Black, new RectangleF(margen, y, ancho, 15), derecha);
+                    y += 16;
+                }
+
+                y += 4;
+                g.DrawLine(Pens.Black, margen, y, margen + ancho, y);
+                y += 8;
+
+                decimal montoImpuesto = totalFinal - subtotalSinImp;
+                g.DrawString("Subtotal:", fNormal, Brushes.Black, margen, y);
+                g.DrawString($"Bs {subtotalSinImp:N2}", fNormal, Brushes.Black, new RectangleF(margen, y, ancho, 15), derecha);
+                y += 15;
+
+                g.DrawString($"Impuesto ({impuestoPct}%):", fNormal, Brushes.Black, margen, y);
+                g.DrawString($"Bs {montoImpuesto:N2}", fNormal, Brushes.Black, new RectangleF(margen, y, ancho, 15), derecha);
+                y += 16;
+
+                g.DrawString("TOTAL A PAGAR:", fNegrita, Brushes.Black, margen, y);
+                g.DrawString($"Bs {totalFinal:N2}", fNegrita, Brushes.Black, new RectangleF(margen, y, ancho, 16), derecha);
+                y += 20;
+
+                g.DrawString("Efectivo recibido:", fNormal, Brushes.Black, margen, y);
+                g.DrawString($"Bs {efectivoRecibido:N2}", fNormal, Brushes.Black, new RectangleF(margen, y, ancho, 15), derecha);
+                y += 15;
+
+                g.DrawString("Cambio:", fNormal, Brushes.Black, margen, y);
+                g.DrawString($"Bs {cambioTexto}", fNormal, Brushes.Black, new RectangleF(margen, y, ancho, 15), derecha);
+                y += 24;
+
+                g.DrawLine(Pens.Black, margen, y, margen + ancho, y);
+                y += 10;
+                g.DrawString("¡Gracias por su compra!", fNegrita, Brushes.Black, new RectangleF(margen, y, ancho, 15), centrado);
+            };
+
+            pd.PrinterSettings.PrinterName = "Microsoft Print to PDF";
+            pd.PrinterSettings.PrintToFile = true;
+            pd.PrinterSettings.PrintFileName = rutaArchivo;
+            pd.Print();
+
+            if (chkVistaPrevia.Checked && File.Exists(rutaArchivo))
+            {
+                Process.Start(new ProcessStartInfo(rutaArchivo) { UseShellExecute = true });
+            }
+
+            return rutaArchivo;
+        }
+
+
+        private string ObtenerCorreoCliente(int idCliente)
+        {
+            try
+            {
+                using (SqlConnection con = Conexion.ObtenerConexion())
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT Correo FROM Clientes WHERE IdCliente = @id", con);
+                    cmd.Parameters.AddWithValue("@id", idCliente);
+                    object resultado = cmd.ExecuteScalar();
+                    return resultado != null && resultado != DBNull.Value ? resultado.ToString().Trim() : "";
+                }
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        private void EnviarVoucherPorCorreo(string correoDestino, string nombreCliente, string numVenta, string rutaPdf)
+        {
+            string correoRemitente = "centralcel.bolivia@gmail.com"; 
+            string claveAplicacion = "aryu cyca jrmj cvyn";
+
+            int intentos = 0;
+            while ((!System.IO.File.Exists(rutaPdf) || new System.IO.FileInfo(rutaPdf).Length == 0) && intentos < 8)
+            {
+                System.Threading.Thread.Sleep(500);
+                intentos++;
+            }
+
+            if (!System.IO.File.Exists(rutaPdf))
+            {
+                throw new Exception("No se encontró el archivo PDF en: " + rutaPdf);
+            }
+
+            using (MailMessage mensaje = new MailMessage())
+            {
+                mensaje.From = new MailAddress(correoRemitente, "CentralCel - Ventas");
+                mensaje.To.Add(correoDestino);
+                mensaje.Subject = $"Comprobante de Venta {numVenta} - CentralCel";
+                mensaje.Body = $"Hola {nombreCliente},\n\n" +
+                               $"Gracias por tu compra en CentralCel.\n" +
+                               $"Adjuntamos el comprobante de tu venta ({numVenta}) en formato PDF.\n\n" +
+                               $"Atentamente,\nEquipo CentralCel";
+
+                Attachment adjunto = new Attachment(rutaPdf, System.Net.Mime.MediaTypeNames.Application.Pdf);
+                mensaje.Attachments.Add(adjunto);
+
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    smtp.Credentials = new NetworkCredential(correoRemitente, claveAplicacion.Replace(" ", ""));
+                    smtp.EnableSsl = true;
+                    smtp.Send(mensaje);
+                }
+            }
+        }
+
+
         private void btnConfirmarVenta_Click(object sender, EventArgs e)
         {
             if (dtDetalle.Rows.Count == 0)
@@ -289,10 +475,28 @@ namespace ventas_historial_VENTAS
                 return;
             }
 
-            if (!decimal.TryParse(txtEfectivoRecibido.Text.Trim(), out decimal efectivo) || efectivo < totalPagar)
+            string seleccionPago = cboFormaPago.Text.Trim();
+            string formaPago;
+            decimal efectivo = 0;
+
+            if (seleccionPago.Equals("tarjeta", StringComparison.OrdinalIgnoreCase))
             {
-                MessageBox.Show("El efectivo recibido es menor al total a pagar.", "Pago Insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                formaPago = "Pago con tarjeta";
+                efectivo = totalPagar;
+            }
+            else if (seleccionPago.Equals("QR", StringComparison.OrdinalIgnoreCase))
+            {
+                formaPago = "Pago con QR";
+                efectivo = totalPagar;
+            }
+            else
+            {
+                formaPago = "Efectivo";
+                if (!decimal.TryParse(txtEfectivoRecibido.Text.Trim(), out efectivo) || efectivo < totalPagar)
+                {
+                    MessageBox.Show("El efectivo recibido es menor.", "Pago Insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             }
 
             decimal.TryParse(txtImpuesto.Text.Trim(), out decimal porcentajeImpuesto);
@@ -307,12 +511,11 @@ namespace ventas_historial_VENTAS
                         try
                         {
                             string numVenta = "VEN-" + DateTime.Now.ToString("yyyyMMddHHmmss");
-                            string formaPago = string.IsNullOrWhiteSpace(cboFormaPago.Text) ? "Efectivo" : cboFormaPago.Text.Trim();
 
                             string queryVenta = @"
-                                INSERT INTO Ventas (NumeroVenta, Fecha, IdSucursal, IdUsuario, IdCliente, FormaPago, MontoRecibido, Impuesto) 
-                                VALUES (@numVenta, GETDATE(), @idSucursal, @idUsuario, @idCliente, @formaPago, @montoRecibido, @impuesto); 
-                                SELECT SCOPE_IDENTITY();";
+                        INSERT INTO Ventas (NumeroVenta, Fecha, IdSucursal, IdUsuario, IdCliente, FormaPago, MontoRecibido, Impuesto) 
+                        VALUES (@numVenta, GETDATE(), @idSucursal, @idUsuario, @idCliente, @formaPago, @montoRecibido, @impuesto); 
+                        SELECT SCOPE_IDENTITY();";
 
                             SqlCommand cmdVenta = new SqlCommand(queryVenta, conexion, transaccion);
                             cmdVenta.Parameters.AddWithValue("@numVenta", numVenta);
@@ -332,8 +535,8 @@ namespace ventas_historial_VENTAS
                                 decimal precioUnitario = Convert.ToDecimal(fila["Precio (Bs)"]);
 
                                 string queryDetalle = @"
-                                    INSERT INTO DetalleVenta (IdVenta, IdProducto, Cantidad, PrecioUnitario) 
-                                    VALUES (@idVenta, @idProducto, @cantidad, @precioUnitario)";
+                            INSERT INTO DetalleVenta (IdVenta, IdProducto, Cantidad, PrecioUnitario) 
+                            VALUES (@idVenta, @idProducto, @cantidad, @precioUnitario)";
 
                                 SqlCommand cmdDetalle = new SqlCommand(queryDetalle, conexion, transaccion);
                                 cmdDetalle.Parameters.AddWithValue("@idVenta", idVenta);
@@ -343,9 +546,9 @@ namespace ventas_historial_VENTAS
                                 cmdDetalle.ExecuteNonQuery();
 
                                 string queryExistencias = @"
-                                    UPDATE Existencias 
-                                    SET StockActual = StockActual - @cantidad 
-                                    WHERE IdProducto = @idProducto AND IdSucursal = @idSucursal";
+                            UPDATE Existencias 
+                            SET StockActual = StockActual - @cantidad 
+                            WHERE IdProducto = @idProducto AND IdSucursal = @idSucursal";
 
                                 SqlCommand cmdStock = new SqlCommand(queryExistencias, conexion, transaccion);
                                 cmdStock.Parameters.AddWithValue("@cantidad", cantidad);
@@ -360,7 +563,47 @@ namespace ventas_historial_VENTAS
                             }
 
                             transaccion.Commit();
-                            MessageBox.Show($"Venta {numVenta} registrada con éxito en CentralCelDB.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            string rutaPdf = GenerarVoucherPDF(numVenta, cboCliente.Text, formaPago, porcentajeImpuesto, efectivo);
+
+
+                            string estadoCorreo = "";
+                            int idClienteActual = Convert.ToInt32(cboCliente.SelectedValue);
+                            string correoCliente = ObtenerCorreoCliente(idClienteActual);
+
+                            if (!string.IsNullOrWhiteSpace(correoCliente) && correoCliente.Contains("@"))
+                            {
+                                try
+                                {
+                                    Cursor.Current = Cursors.WaitCursor;
+                                    EnviarVoucherPorCorreo(correoCliente, cboCliente.Text, numVenta, rutaPdf);
+                                    estadoCorreo = $"\nComprobante enviado al correo: {correoCliente}";
+                                }
+                                catch (Exception exCorreo)
+                                {
+                                    estadoCorreo = $"\n(No se pudo enviar el correo: {exCorreo.Message})";
+                                }
+                                finally
+                                {
+                                    Cursor.Current = Cursors.Default;
+                                }
+                            }
+                            else
+                            {
+                                estadoCorreo = "\n(Cliente sin correo registrado, no se envió email)";
+                            }
+
+                            MessageBox.Show($"Venta {numVenta} registrada con éxito.\nForma de pago: {formaPago}\nVoucher guardado en:\n{rutaPdf}{estadoCorreo}",
+                                            "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            if (System.IO.File.Exists(rutaPdf))
+                            {
+                                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                                {
+                                    FileName = rutaPdf,
+                                    UseShellExecute = true
+                                });
+                            }
 
                             LimpiarFormulario();
                         }
@@ -374,7 +617,7 @@ namespace ventas_historial_VENTAS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al registrar la venta en la base de datos: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al registrar la venta en la BD: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -397,6 +640,18 @@ namespace ventas_historial_VENTAS
             txtCambio.Text = "0.00";
             totalPagar = 0;
             lblTotalPagar.Text = "BS: 0,00";
+
+
+
+            lblEfectivo.Visible = true;
+            txtEfectivoRecibido.Visible = true;
+            lblCambio.Visible = true;
+            txtCambio.Visible = true;
+
+            if (cboFormaPago.Items.Count > 0)
+                cboFormaPago.SelectedIndex = 0;
+
+            pbQR.Visible = false;
         }
 
         private void btnGestionarClientes_Click(object sender, EventArgs e)
@@ -503,17 +758,17 @@ namespace ventas_historial_VENTAS
                     if (esNuevoCliente || idClienteSeleccionado == 0)
                     {
                         string queryInsert = @"INSERT INTO Clientes (Codigo, Nombre, Documento, Telefono, Correo, Direccion, Activo) 
-                                               VALUES ('CLI' + RIGHT('000' + CAST((SELECT ISNULL(MAX(IdCliente), 0) + 1 FROM Clientes) AS NVARCHAR(10)), 3),
-                                                       @nombre, @documento, @telefono, @correo, @direccion, @activo);
-                                               SELECT SCOPE_IDENTITY();";
+                                       VALUES ('CLI' + RIGHT('000' + CAST((SELECT ISNULL(MAX(IdCliente), 0) + 1 FROM Clientes) AS NVARCHAR(10)), 3),
+                                               @nombre, @documento, @telefono, @correo, @direccion, @activo);
+                                       SELECT SCOPE_IDENTITY();";
                         cmd = new SqlCommand(queryInsert, conexion);
                     }
                     else
                     {
                         string queryUpdate = @"UPDATE Clientes 
-                                               SET Nombre = @nombre, Documento = @documento, Telefono = @telefono, 
-                                                   Correo = @correo, Direccion = @direccion, Activo = @activo 
-                                               WHERE IdCliente = @id";
+                                       SET Nombre = @nombre, Documento = @documento, Telefono = @telefono, 
+                                           Correo = @correo, Direccion = @direccion, Activo = @activo 
+                                       WHERE IdCliente = @id";
                         cmd = new SqlCommand(queryUpdate, conexion);
                         cmd.Parameters.AddWithValue("@id", idClienteSeleccionado);
                     }
@@ -535,7 +790,7 @@ namespace ventas_historial_VENTAS
                         cmd.ExecuteNonQuery();
                     }
 
-                    MessageBox.Show("Cliente guardado correctamente en CentralCelDB.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Cliente guardado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     CargarClientesTabla();
                     CargarClientesCombo();
@@ -550,7 +805,7 @@ namespace ventas_historial_VENTAS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al guardar el cliente en la base de datos: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al guardar el cliente: " + ex.Message, "Error BD", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -617,7 +872,50 @@ namespace ventas_historial_VENTAS
 
         private void txtBuscarProducto_TextChanged(object sender, EventArgs e) { }
         private void groupBox2_Enter(object sender, EventArgs e) { }
-        private void cboFormaPago_SelectedIndexChanged(object sender, EventArgs e) { }
+        private void cboFormaPago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string formaPago = cboFormaPago.Text.Trim();
+
+            if (formaPago.Equals("QR", StringComparison.OrdinalIgnoreCase))
+            {
+                pbQR.Visible = true;
+                pbQR.BringToFront();
+
+                lblEfectivo.Visible = false;
+                txtEfectivoRecibido.Visible = false;
+                lblCambio.Visible = false;
+                txtCambio.Visible = false;
+
+                txtEfectivoRecibido.Text = totalPagar.ToString("F2");
+                txtCambio.Text = "0.00";
+            }
+            else if (formaPago.Equals("tarjeta", StringComparison.OrdinalIgnoreCase))
+            {
+
+                pbQR.Visible = false;
+
+                lblEfectivo.Visible = false;
+                txtEfectivoRecibido.Visible = false;
+                lblCambio.Visible = false;
+                txtCambio.Visible = false;
+
+                txtEfectivoRecibido.Text = totalPagar.ToString("F2");
+                txtCambio.Text = "0.00";
+            }
+            else
+            {
+                pbQR.Visible = false;
+
+                lblEfectivo.Visible = true;
+                txtEfectivoRecibido.Visible = true;
+                lblCambio.Visible = true;
+                txtCambio.Visible = true;
+
+                txtEfectivoRecibido.Clear();
+                txtCambio.Text = "0.00";
+                txtEfectivoRecibido.Focus();
+            }
+        }
         private void chkVistaPrevia_CheckedChanged(object sender, EventArgs e) { }
         private void dgvDetalle_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
         private void txtDisponible_TextChanged(object sender, EventArgs e) { }
@@ -626,7 +924,35 @@ namespace ventas_historial_VENTAS
         private void txtCambio_TextChanged(object sender, EventArgs e) { }
         private void cboCliente_SelectedIndexChanged(object sender, EventArgs e) { }
         private void label6_Click(object sender, EventArgs e) { }
-        private void button2_Click(object sender, EventArgs e) { }
         private void label18_Click(object sender, EventArgs e) { }
+
+        private void btnVolverMenu_Click(object sender, EventArgs e)
+        {
+            Form menuPrincipal = Application.OpenForms["MenuPrincipal"];
+
+            if (menuPrincipal != null)
+            {
+                menuPrincipal.Show();
+            }
+            else
+            {
+            }
+
+            this.Close();
+
+        }
+
+        private void pbQR_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgvClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvClientes.Rows[e.RowIndex].Cells["Código"].Value != DBNull.Value)
+            {
+                DataGridViewRow row = dgvClientes.Rows[e.RowIndex];
+            }
+        }
     }
 }

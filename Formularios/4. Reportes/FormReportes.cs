@@ -1,15 +1,19 @@
 ﻿using CentralCel.Datos;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 namespace CentralCel.Formularios._3_Reportes
 {
     public partial class FormReportes : Form
@@ -80,7 +84,7 @@ namespace CentralCel.Formularios._3_Reportes
             btnLimpiar.Click -= btnLimpiar_Click;
             btnLimpiar.Click += btnLimpiar_Click;
 
-            btnExportarExcel.Click += btnExportarExcel_Click;
+            btnExportarPDF.Click += btnExportarExcel_Click;
             btnExportarCSV.Click += btnExportarCSV_Click;
             btnVolverMenu.Click += btnVolverMenu_Click;
 
@@ -94,7 +98,8 @@ namespace CentralCel.Formularios._3_Reportes
         {
             try
             {
-                using (SqlConnection conexion = Conexion.ObtenerConexion())
+                using (SqlConnection conexion =
+                    Conexion.ObtenerConexion())
                 {
                     conexion.Open();
 
@@ -104,7 +109,8 @@ namespace CentralCel.Formularios._3_Reportes
                         WHERE Activo = 1
                         ORDER BY Nombre";
 
-                    using (SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion))
+                    using (SqlDataAdapter adaptador =
+                        new SqlDataAdapter(consulta, conexion))
                     {
                         DataTable tabla = new DataTable();
                         adaptador.Fill(tabla);
@@ -742,74 +748,117 @@ namespace CentralCel.Formularios._3_Reportes
             ActualizarTituloReporte();
         }
 
-        private void btnExportarExcel_Click(
-            object sender, EventArgs e)
+        private void btnExportarPDF_Click(object sender, EventArgs e)
         {
             DataTable tabla = dgvReportes.DataSource as DataTable;
 
             if (tabla == null || tabla.Rows.Count == 0)
             {
-                MessageBox.Show("Primero debes generar un reporte.");
+                MessageBox.Show(
+                    "Primero debes generar un reporte.",
+                    "CentralCel",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
             }
 
             using (SaveFileDialog guardar = new SaveFileDialog())
             {
-                guardar.Filter =
-                    "Archivo de Excel (*.xls)|*.xls";
-
-                guardar.FileName = "ReporteCentralCel.xls";
+                guardar.Filter = "Archivo PDF (*.pdf)|*.pdf";
+                guardar.FileName = "ReporteCentralCel.pdf";
 
                 if (guardar.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
-                        StringBuilder html = new StringBuilder();
+                        Document documento = new Document(
+                            PageSize.A4.Rotate(),
+                            25, 25, 25, 25);
 
-                        html.Append(
-                            "<html><head><meta charset='UTF-8'></head><body>");
-
-                        html.Append("<h2>CentralCel - Reporte</h2>");
-                        html.Append("<table border='1'>");
-
-                        html.Append("<tr>");
-
-                        foreach (DataColumn columna in tabla.Columns)
+                        using (FileStream archivo = new FileStream(
+                            guardar.FileName, FileMode.Create))
                         {
-                            html.Append("<th>");
-                            html.Append(
-                                System.Net.WebUtility.HtmlEncode(
-                                    columna.ColumnName));
-                            html.Append("</th>");
-                        }
+                            PdfWriter.GetInstance(documento, archivo);
 
-                        html.Append("</tr>");
+                            documento.Open();
 
-                        foreach (DataRow fila in tabla.Rows)
-                        {
-                            html.Append("<tr>");
+                            // Título
+                            Paragraph titulo = new Paragraph(
+                                "CENTRALCEL - REPORTE",
+                                FontFactory.GetFont(
+                                    FontFactory.HELVETICA_BOLD, 18));
 
+                            titulo.Alignment = Element.ALIGN_CENTER;
+                            documento.Add(titulo);
+
+                            documento.Add(new Paragraph(" "));
+
+                            // Información del reporte
+                            documento.Add(new Paragraph(
+                                "Tipo de reporte: " + cmbTipoReporte.Text));
+
+                            documento.Add(new Paragraph(
+                                "Fecha de generación: " +
+                                DateTime.Now.ToString("dd/MM/yyyy HH:mm")));
+
+                            documento.Add(new Paragraph(
+                                "Periodo: " +
+                                dtpDesde.Value.ToString("dd/MM/yyyy") +
+                                " - " +
+                                dtpHasta.Value.ToString("dd/MM/yyyy")));
+
+                            documento.Add(new Paragraph(" "));
+
+                            // Crear tabla
+                            PdfPTable pdfTabla =
+                                new PdfPTable(tabla.Columns.Count);
+
+                            pdfTabla.WidthPercentage = 100;
+
+                            // Encabezados
                             foreach (DataColumn columna in tabla.Columns)
                             {
-                                html.Append("<td>");
-                                html.Append(
-                                    System.Net.WebUtility.HtmlEncode(
-                                        Convert.ToString(fila[columna])));
-                                html.Append("</td>");
+                                PdfPCell celda = new PdfPCell(
+                                    new Phrase(columna.ColumnName));
+
+                                celda.BackgroundColor =
+                                    new BaseColor(70, 130, 180);
+
+                                celda.HorizontalAlignment =
+                                    Element.ALIGN_CENTER;
+
+                                celda.Padding = 5;
+
+                                pdfTabla.AddCell(celda);
                             }
 
-                            html.Append("</tr>");
+                            // Datos
+                            foreach (DataRow fila in tabla.Rows)
+                            {
+                                foreach (DataColumn columna in tabla.Columns)
+                                {
+                                    PdfPCell celda = new PdfPCell(
+                                        new Phrase(
+                                            Convert.ToString(fila[columna])));
+
+                                    celda.Padding = 4;
+
+                                    pdfTabla.AddCell(celda);
+                                }
+                            }
+
+                            documento.Add(pdfTabla);
+
+                            documento.Add(new Paragraph(" "));
+
+                            documento.Add(new Paragraph(
+                                "Total de registros: " + tabla.Rows.Count));
+
+                            documento.Close();
                         }
 
-                        html.Append("</table></body></html>");
-
-                        File.WriteAllText(
-                            guardar.FileName,
-                            html.ToString(),
-                            new UTF8Encoding(true));
-
                         MessageBox.Show(
-                            "Reporte exportado correctamente.",
+                            "Reporte PDF exportado correctamente.",
                             "CentralCel",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
@@ -817,7 +866,10 @@ namespace CentralCel.Formularios._3_Reportes
                     catch (Exception ex)
                     {
                         MessageBox.Show(
-                            "Error al exportar: " + ex.Message);
+                            "Error al exportar PDF: " + ex.Message,
+                            "CentralCel",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
                     }
                 }
             }

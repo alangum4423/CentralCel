@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
+using System.Net.Mail;
 
 namespace ventas_historial_VENTAS.Formularios._3.Ventas
 {
@@ -167,6 +169,21 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
                             dgvHistorialVentas.Columns["Recibido (Bs)"].DefaultCellStyle.Format = "N2";
 
                         dgvHistorialVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+
+
+                        if (dgvHistorialVentas.Rows.Count > 0)
+                        {
+                            dgvHistorialVentas.Rows[0].Selected = true;
+                            idVentaSeleccionada = Convert.ToInt32(dgvHistorialVentas.Rows[0].Cells["IdVenta"].Value);
+                            numVentaSeleccionada = dgvHistorialVentas.Rows[0].Cells["Venta"].Value?.ToString();
+                            lblDetalleTitulo.Text = $"Detalle de la venta {numVentaSeleccionada}";
+                            CargarDetalleVenta(idVentaSeleccionada);
+                        }
+                        else
+                        {
+                            LimpiarResumen();
+                        }
                     }
                 }
             }
@@ -438,6 +455,12 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
             MessageBox.Show(ticket.ToString(), "Reimpresión de Nota de Venta", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+
+
+
+
+
+
         private void btnVolverMenu_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -453,5 +476,20 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
         private void txtBuscarVenta_TextChanged(object sender, EventArgs e) { }
         private void cboEstado_SelectedIndexChanged(object sender, EventArgs e) { }
         private void cboVendedor_SelectedIndexChanged(object sender, EventArgs e) { }
+
+        private void btnVolverMenu_Click_1(object sender, EventArgs e)
+        {
+            Form menuPrincipal = Application.OpenForms["MenuPrincipal"];
+
+            if (menuPrincipal != null)
+            {
+                menuPrincipal.Show();
+            }
+            else
+            {
+            }
+
+            this.Close();
+        }
     }
 }

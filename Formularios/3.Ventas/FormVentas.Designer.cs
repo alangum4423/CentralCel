@@ -28,16 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVentas));
             this.btnTabNuevaVenta = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.pbQR = new System.Windows.Forms.PictureBox();
             this.txtImpuesto = new System.Windows.Forms.TextBox();
             this.lblImpuesto = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.lblTotalPagar = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblCambio = new System.Windows.Forms.Label();
+            this.lblEfectivo = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.btnConfirmarVenta = new System.Windows.Forms.Button();
             this.btnCancelarVenta = new System.Windows.Forms.Button();
@@ -93,9 +95,11 @@
             this.txtBuscarCliente = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnVolverMenu = new System.Windows.Forms.Button();
             this.label21 = new System.Windows.Forms.Label();
             this.btnTabNuevaVenta.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbQR)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
@@ -120,7 +124,7 @@
             this.btnTabNuevaVenta.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnTabNuevaVenta.Name = "btnTabNuevaVenta";
             this.btnTabNuevaVenta.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnTabNuevaVenta.Size = new System.Drawing.Size(1412, 719);
+            this.btnTabNuevaVenta.Size = new System.Drawing.Size(1412, 718);
             this.btnTabNuevaVenta.TabIndex = 0;
             this.btnTabNuevaVenta.Text = "Nueva venta";
             // 
@@ -128,12 +132,13 @@
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.pbQR);
             this.groupBox4.Controls.Add(this.txtImpuesto);
             this.groupBox4.Controls.Add(this.lblImpuesto);
             this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Controls.Add(this.groupBox3);
-            this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.lblCambio);
+            this.groupBox4.Controls.Add(this.lblEfectivo);
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.btnConfirmarVenta);
             this.groupBox4.Controls.Add(this.btnCancelarVenta);
@@ -141,13 +146,27 @@
             this.groupBox4.Controls.Add(this.txtCambio);
             this.groupBox4.Controls.Add(this.txtEfectivoRecibido);
             this.groupBox4.Controls.Add(this.cboFormaPago);
-            this.groupBox4.Location = new System.Drawing.Point(1031, 8);
+            this.groupBox4.Location = new System.Drawing.Point(1030, 8);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox4.Size = new System.Drawing.Size(371, 703);
+            this.groupBox4.Size = new System.Drawing.Size(371, 702);
             this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
+            // 
+            // pbQR
+            // 
+            this.pbQR.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbQR.Image = ((System.Drawing.Image)(resources.GetObject("pbQR.Image")));
+            this.pbQR.Location = new System.Drawing.Point(25, 382);
+            this.pbQR.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pbQR.Name = "pbQR";
+            this.pbQR.Size = new System.Drawing.Size(330, 233);
+            this.pbQR.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbQR.TabIndex = 13;
+            this.pbQR.TabStop = false;
+            this.pbQR.Visible = false;
+            this.pbQR.Click += new System.EventHandler(this.pbQR_Click);
             // 
             // txtImpuesto
             // 
@@ -165,10 +184,10 @@
             // lblImpuesto
             // 
             this.lblImpuesto.AutoSize = true;
-            this.lblImpuesto.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblImpuesto.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.lblImpuesto.Location = new System.Drawing.Point(21, 270);
             this.lblImpuesto.Name = "lblImpuesto";
-            this.lblImpuesto.Size = new System.Drawing.Size(105, 21);
+            this.lblImpuesto.Size = new System.Drawing.Size(122, 25);
             this.lblImpuesto.TabIndex = 11;
             this.lblImpuesto.Text = "Impuesto (%):";
             // 
@@ -220,30 +239,30 @@
             this.lblTotalPagar.TabIndex = 0;
             this.lblTotalPagar.Click += new System.EventHandler(this.lblTotalPagar_Click);
             // 
-            // label8
+            // lblCambio
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.label8.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label8.Location = new System.Drawing.Point(20, 500);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(109, 25);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "cambio (bs):";
+            this.lblCambio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCambio.AutoSize = true;
+            this.lblCambio.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblCambio.ForeColor = System.Drawing.Color.DarkBlue;
+            this.lblCambio.Location = new System.Drawing.Point(20, 500);
+            this.lblCambio.Name = "lblCambio";
+            this.lblCambio.Size = new System.Drawing.Size(111, 25);
+            this.lblCambio.TabIndex = 9;
+            this.lblCambio.Text = "Cambio (Bs):";
             // 
-            // label7
+            // lblEfectivo
             // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblEfectivo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label7.Location = new System.Drawing.Point(20, 420);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(147, 25);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "efectivo recibido:";
+            this.lblEfectivo.AutoSize = true;
+            this.lblEfectivo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEfectivo.ForeColor = System.Drawing.Color.DarkBlue;
+            this.lblEfectivo.Location = new System.Drawing.Point(20, 420);
+            this.lblEfectivo.Name = "lblEfectivo";
+            this.lblEfectivo.Size = new System.Drawing.Size(151, 25);
+            this.lblEfectivo.TabIndex = 8;
+            this.lblEfectivo.Text = "Efectivo Recibido:";
             // 
             // label6
             // 
@@ -251,11 +270,11 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label6.Location = new System.Drawing.Point(20, 337);
+            this.label6.Location = new System.Drawing.Point(20, 348);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(136, 25);
+            this.label6.Size = new System.Drawing.Size(137, 25);
             this.label6.TabIndex = 7;
-            this.label6.Text = "forma de pago:";
+            this.label6.Text = "Forma de Pago:";
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // btnConfirmarVenta
@@ -297,14 +316,16 @@
             this.chkVistaPrevia.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chkVistaPrevia.AutoSize = true;
+            this.chkVistaPrevia.Checked = true;
+            this.chkVistaPrevia.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkVistaPrevia.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkVistaPrevia.ForeColor = System.Drawing.Color.DarkBlue;
-            this.chkVistaPrevia.Location = new System.Drawing.Point(56, 569);
+            this.chkVistaPrevia.Location = new System.Drawing.Point(26, 568);
             this.chkVistaPrevia.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkVistaPrevia.Name = "chkVistaPrevia";
-            this.chkVistaPrevia.Size = new System.Drawing.Size(299, 25);
+            this.chkVistaPrevia.Size = new System.Drawing.Size(304, 25);
             this.chkVistaPrevia.TabIndex = 4;
-            this.chkVistaPrevia.Text = "Abrir vista previa del comportamiento";
+            this.chkVistaPrevia.Text = "Abrir Vista Previa del Comportamiento";
             this.chkVistaPrevia.UseVisualStyleBackColor = true;
             this.chkVistaPrevia.CheckedChanged += new System.EventHandler(this.chkVistaPrevia_CheckedChanged);
             // 
@@ -339,13 +360,14 @@
             this.cboFormaPago.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cboFormaPago.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
             this.cboFormaPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFormaPago.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboFormaPago.Font = new System.Drawing.Font("Segoe UI", 7.8F);
             this.cboFormaPago.FormattingEnabled = true;
             this.cboFormaPago.Items.AddRange(new object[] {
             "efectivo",
             "tarjeta",
             "QR"});
-            this.cboFormaPago.Location = new System.Drawing.Point(181, 330);
+            this.cboFormaPago.Location = new System.Drawing.Point(181, 340);
             this.cboFormaPago.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cboFormaPago.Name = "cboFormaPago";
             this.cboFormaPago.Size = new System.Drawing.Size(174, 29);
@@ -374,7 +396,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox2.Size = new System.Drawing.Size(1019, 553);
+            this.groupBox2.Size = new System.Drawing.Size(1019, 552);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
@@ -384,7 +406,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold);
             this.label11.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label11.Location = new System.Drawing.Point(513, 91);
+            this.label11.Location = new System.Drawing.Point(541, 90);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(83, 21);
             this.label11.TabIndex = 12;
@@ -456,7 +478,7 @@
             this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregar.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold);
             this.btnAgregar.ForeColor = System.Drawing.Color.White;
-            this.btnAgregar.Location = new System.Drawing.Point(737, 85);
+            this.btnAgregar.Location = new System.Drawing.Point(785, 88);
             this.btnAgregar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(132, 34);
@@ -469,7 +491,7 @@
             // 
             this.numCantidad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
             this.numCantidad.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold);
-            this.numCantidad.Location = new System.Drawing.Point(595, 88);
+            this.numCantidad.Location = new System.Drawing.Point(633, 88);
             this.numCantidad.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numCantidad.Minimum = new decimal(new int[] {
             1,
@@ -490,7 +512,7 @@
             // 
             this.txtDisponible.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
             this.txtDisponible.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold);
-            this.txtDisponible.Location = new System.Drawing.Point(358, 88);
+            this.txtDisponible.Location = new System.Drawing.Point(386, 88);
             this.txtDisponible.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtDisponible.Name = "txtDisponible";
             this.txtDisponible.Size = new System.Drawing.Size(148, 28);
@@ -502,6 +524,7 @@
             this.cboProducto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.cboProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
+            this.cboProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboProducto.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold);
             this.cboProducto.FormattingEnabled = true;
             this.cboProducto.Location = new System.Drawing.Point(93, 88);
@@ -653,7 +676,7 @@
             this.TabVentas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.TabVentas.Name = "TabVentas";
             this.TabVentas.SelectedIndex = 0;
-            this.TabVentas.Size = new System.Drawing.Size(1420, 753);
+            this.TabVentas.Size = new System.Drawing.Size(1420, 752);
             this.TabVentas.TabIndex = 1;
             // 
             // btnTabClientes
@@ -666,7 +689,7 @@
             this.btnTabClientes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnTabClientes.Name = "btnTabClientes";
             this.btnTabClientes.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnTabClientes.Size = new System.Drawing.Size(1412, 719);
+            this.btnTabClientes.Size = new System.Drawing.Size(1412, 718);
             this.btnTabClientes.TabIndex = 1;
             this.btnTabClientes.Text = "Cientes";
             // 
@@ -694,7 +717,7 @@
             this.groupBox6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox6.Size = new System.Drawing.Size(483, 717);
+            this.groupBox6.Size = new System.Drawing.Size(483, 718);
             this.groupBox6.TabIndex = 0;
             this.groupBox6.TabStop = false;
             // 
@@ -706,10 +729,11 @@
             this.btnDesactivarCliente.Location = new System.Drawing.Point(367, 622);
             this.btnDesactivarCliente.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnDesactivarCliente.Name = "btnDesactivarCliente";
-            this.btnDesactivarCliente.Size = new System.Drawing.Size(111, 87);
+            this.btnDesactivarCliente.Size = new System.Drawing.Size(111, 88);
             this.btnDesactivarCliente.TabIndex = 17;
             this.btnDesactivarCliente.Text = "Desactivar";
             this.btnDesactivarCliente.UseVisualStyleBackColor = false;
+            this.btnDesactivarCliente.Click += new System.EventHandler(this.btnDesactivarCliente_Click);
             // 
             // btnCancelarCliente
             // 
@@ -719,42 +743,45 @@
             this.btnCancelarCliente.Location = new System.Drawing.Point(249, 622);
             this.btnCancelarCliente.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnCancelarCliente.Name = "btnCancelarCliente";
-            this.btnCancelarCliente.Size = new System.Drawing.Size(111, 87);
+            this.btnCancelarCliente.Size = new System.Drawing.Size(111, 88);
             this.btnCancelarCliente.TabIndex = 16;
             this.btnCancelarCliente.Text = "Cancelar";
             this.btnCancelarCliente.UseVisualStyleBackColor = false;
+            this.btnCancelarCliente.Click += new System.EventHandler(this.btnCancelarCliente_Click);
             // 
             // btnGuardarCliente
             // 
             this.btnGuardarCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.btnGuardarCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarCliente.ForeColor = System.Drawing.Color.White;
-            this.btnGuardarCliente.Location = new System.Drawing.Point(131, 622);
+            this.btnGuardarCliente.Location = new System.Drawing.Point(130, 622);
             this.btnGuardarCliente.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnGuardarCliente.Name = "btnGuardarCliente";
-            this.btnGuardarCliente.Size = new System.Drawing.Size(111, 87);
+            this.btnGuardarCliente.Size = new System.Drawing.Size(111, 88);
             this.btnGuardarCliente.TabIndex = 15;
             this.btnGuardarCliente.Text = "Guardar";
             this.btnGuardarCliente.UseVisualStyleBackColor = false;
+            this.btnGuardarCliente.Click += new System.EventHandler(this.btnGuardarCliente_Click);
             // 
             // btnNuevoCliente
             // 
             this.btnNuevoCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.btnNuevoCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevoCliente.ForeColor = System.Drawing.Color.White;
-            this.btnNuevoCliente.Location = new System.Drawing.Point(13, 622);
+            this.btnNuevoCliente.Location = new System.Drawing.Point(14, 622);
             this.btnNuevoCliente.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnNuevoCliente.Name = "btnNuevoCliente";
-            this.btnNuevoCliente.Size = new System.Drawing.Size(111, 87);
+            this.btnNuevoCliente.Size = new System.Drawing.Size(111, 88);
             this.btnNuevoCliente.TabIndex = 14;
             this.btnNuevoCliente.Text = "Nuevo";
             this.btnNuevoCliente.UseVisualStyleBackColor = false;
+            this.btnNuevoCliente.Click += new System.EventHandler(this.btnNuevoCliente_Click);
             // 
             // chkActivoCliente
             // 
             this.chkActivoCliente.AutoSize = true;
             this.chkActivoCliente.ForeColor = System.Drawing.Color.DarkBlue;
-            this.chkActivoCliente.Location = new System.Drawing.Point(13, 510);
+            this.chkActivoCliente.Location = new System.Drawing.Point(14, 510);
             this.chkActivoCliente.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkActivoCliente.Name = "chkActivoCliente";
             this.chkActivoCliente.Size = new System.Drawing.Size(85, 25);
@@ -813,7 +840,6 @@
             this.txtCodigoCliente.Location = new System.Drawing.Point(202, 84);
             this.txtCodigoCliente.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtCodigoCliente.Name = "txtCodigoCliente";
-            this.txtCodigoCliente.ReadOnly = true;
             this.txtCodigoCliente.Size = new System.Drawing.Size(260, 28);
             this.txtCodigoCliente.TabIndex = 7;
             // 
@@ -907,7 +933,7 @@
             this.groupBox5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox5.Size = new System.Drawing.Size(776, 717);
+            this.groupBox5.Size = new System.Drawing.Size(776, 718);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
             // 
@@ -923,9 +949,11 @@
             this.btnUsarClienteVenta.TabIndex = 5;
             this.btnUsarClienteVenta.Text = "Usar cliente en la venta";
             this.btnUsarClienteVenta.UseVisualStyleBackColor = false;
+            this.btnUsarClienteVenta.Click += new System.EventHandler(this.btnUsarClienteVenta_Click);
             // 
             // dgvClientes
             // 
+            this.dgvClientes.AllowUserToAddRows = false;
             this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvClientes.Location = new System.Drawing.Point(6, 109);
             this.dgvClientes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -934,6 +962,7 @@
             this.dgvClientes.RowTemplate.Height = 24;
             this.dgvClientes.Size = new System.Drawing.Size(763, 528);
             this.dgvClientes.TabIndex = 4;
+            this.dgvClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvClientes_CellContentClick);
             // 
             // btnLimpiarCliente
             // 
@@ -947,7 +976,7 @@
             this.btnLimpiarCliente.TabIndex = 3;
             this.btnLimpiarCliente.Text = "Limpiar";
             this.btnLimpiarCliente.UseVisualStyleBackColor = false;
-            this.btnLimpiarCliente.Click += new System.EventHandler(this.button2_Click);
+            this.btnLimpiarCliente.Click += new System.EventHandler(this.btnLimpiarCliente_Click);
             // 
             // btnBuscarCliente
             // 
@@ -961,15 +990,16 @@
             this.btnBuscarCliente.TabIndex = 2;
             this.btnBuscarCliente.Text = "Buscar";
             this.btnBuscarCliente.UseVisualStyleBackColor = false;
+            this.btnBuscarCliente.Click += new System.EventHandler(this.btnBuscarCliente_Click);
             // 
             // txtBuscarCliente
             // 
             this.txtBuscarCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
             this.txtBuscarCliente.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscarCliente.Location = new System.Drawing.Point(167, 46);
+            this.txtBuscarCliente.Location = new System.Drawing.Point(166, 46);
             this.txtBuscarCliente.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtBuscarCliente.Name = "txtBuscarCliente";
-            this.txtBuscarCliente.Size = new System.Drawing.Size(251, 36);
+            this.txtBuscarCliente.Size = new System.Drawing.Size(252, 36);
             this.txtBuscarCliente.TabIndex = 1;
             // 
             // label13
@@ -987,12 +1017,26 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.btnVolverMenu);
             this.panel1.Controls.Add(this.label21);
             this.panel1.Location = new System.Drawing.Point(3, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1446, 81);
             this.panel1.TabIndex = 7;
+            // 
+            // btnVolverMenu
+            // 
+            this.btnVolverMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            this.btnVolverMenu.ForeColor = System.Drawing.Color.White;
+            this.btnVolverMenu.Location = new System.Drawing.Point(1232, 15);
+            this.btnVolverMenu.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnVolverMenu.Name = "btnVolverMenu";
+            this.btnVolverMenu.Size = new System.Drawing.Size(199, 48);
+            this.btnVolverMenu.TabIndex = 8;
+            this.btnVolverMenu.Text = "Volver al menú";
+            this.btnVolverMenu.UseVisualStyleBackColor = false;
+            this.btnVolverMenu.Click += new System.EventHandler(this.btnVolverMenu_Click);
             // 
             // label21
             // 
@@ -1017,13 +1061,15 @@
             this.Controls.Add(this.TabVentas);
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FormVentas";
-            this.Text = "FormVentas";
+            this.Text = "lo";
             this.Load += new System.EventHandler(this.FormVentas_Load);
             this.btnTabNuevaVenta.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbQR)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1048,8 +1094,8 @@
         #endregion
         private System.Windows.Forms.TabPage btnTabNuevaVenta;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblCambio;
+        private System.Windows.Forms.Label lblEfectivo;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnConfirmarVenta;
         private System.Windows.Forms.Button btnCancelarVenta;
@@ -1112,6 +1158,8 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox txtImpuesto;
         private System.Windows.Forms.Label lblImpuesto;
+        private System.Windows.Forms.Button btnVolverMenu;
+        private System.Windows.Forms.PictureBox pbQR;
     }
 }
 
