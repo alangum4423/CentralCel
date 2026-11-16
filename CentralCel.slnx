@@ -1,3 +1,6 @@
 <Solution>
+  <Project Path="../CentralCelInstalador/CentralCelInstalador.vdproj" Type="Installer">
+    <Build />
+  </Project>
   <Project Path="CentralCel.csproj" Id="323bbc57-a132-4e05-8edc-ab84334a780b" />
 </Solution>

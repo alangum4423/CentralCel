@@ -69,10 +69,8 @@ namespace CentralCel.Formularios._3_Reportes
             dgvReportes.ReadOnly = true;
             dgvReportes.AllowUserToAddRows = false;
             dgvReportes.AllowUserToDeleteRows = false;
-            dgvReportes.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.Fill;
-            dgvReportes.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
+            dgvReportes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvReportes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvReportes.MultiSelect = false;
             dgvReportes.RowHeadersVisible = false;
 
@@ -84,7 +82,7 @@ namespace CentralCel.Formularios._3_Reportes
             btnLimpiar.Click -= btnLimpiar_Click;
             btnLimpiar.Click += btnLimpiar_Click;
 
-            btnExportarPDF.Click += btnExportarExcel_Click;
+            btnExportarPDF.Click += btnExportarPDF_Click;
             btnExportarCSV.Click += btnExportarCSV_Click;
             btnVolverMenu.Click += btnVolverMenu_Click;
 
@@ -98,8 +96,7 @@ namespace CentralCel.Formularios._3_Reportes
         {
             try
             {
-                using (SqlConnection conexion =
-                    Conexion.ObtenerConexion())
+                using (SqlConnection conexion = Conexion.ObtenerConexion())
                 {
                     conexion.Open();
 
@@ -109,8 +106,7 @@ namespace CentralCel.Formularios._3_Reportes
                         WHERE Activo = 1
                         ORDER BY Nombre";
 
-                    using (SqlDataAdapter adaptador =
-                        new SqlDataAdapter(consulta, conexion))
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion))
                     {
                         DataTable tabla = new DataTable();
                         adaptador.Fill(tabla);
@@ -146,10 +142,10 @@ namespace CentralCel.Formularios._3_Reportes
                     conexion.Open();
 
                     string consulta = @"
-                SELECT IdCategoria, Nombre
-                FROM Categorias
-                WHERE Activo = 1
-                ORDER BY Nombre";
+                                      SELECT IdCategoria, Nombre
+                                      FROM Categorias
+                                      WHERE Activo = 1
+                                      ORDER BY Nombre";
 
                     using (SqlDataAdapter adaptador =
                         new SqlDataAdapter(consulta, conexion))
@@ -193,10 +189,10 @@ namespace CentralCel.Formularios._3_Reportes
                     conexion.Open();
 
                     string consulta = @"
-                SELECT IdMarca, Nombre
-                FROM Marcas
-                WHERE Activo = 1
-                ORDER BY Nombre";
+                                    SELECT IdMarca, Nombre
+                                    FROM Marcas
+                                    WHERE Activo = 1
+                                    ORDER BY Nombre";
 
                     using (SqlDataAdapter adaptador =
                         new SqlDataAdapter(consulta, conexion))
@@ -232,10 +228,10 @@ namespace CentralCel.Formularios._3_Reportes
                     conexion.Open();
 
                     string consulta = @"
-                SELECT IdProducto, Nombre
-                FROM Productos
-                WHERE Activo = 1
-                ORDER BY Nombre";
+                                    SELECT IdProducto, Nombre
+                                    FROM Productos
+                                    WHERE Activo = 1
+                                    ORDER BY Nombre";
 
                     using (SqlDataAdapter adaptador =
                         new SqlDataAdapter(consulta, conexion))
@@ -271,10 +267,10 @@ namespace CentralCel.Formularios._3_Reportes
                     conexion.Open();
 
                     string consulta = @"
-                SELECT DISTINCT TipoMovimiento
-                FROM MovimientosManuales
-                WHERE TipoMovimiento IS NOT NULL
-                ORDER BY TipoMovimiento";
+                                    SELECT DISTINCT TipoMovimiento
+                                    FROM MovimientosManuales
+                                    WHERE TipoMovimiento IS NOT NULL
+                                    ORDER BY TipoMovimiento";
 
                     using (SqlDataAdapter adaptador =
                         new SqlDataAdapter(consulta, conexion))
@@ -340,12 +336,6 @@ namespace CentralCel.Formularios._3_Reportes
                     lblTituloTarjeta2.Text = "Stock disponible";
                     lblTituloTarjeta3.Text = "Stock mínimo";
                     break;
-
-                case "Movimientos de inventario":
-                    lblTituloTarjeta1.Text = "Movimientos";
-                    lblTituloTarjeta2.Text = "Entradas";
-                    lblTituloTarjeta3.Text = "Salidas";
-                    break;
             }
 
             lblValorTarjeta1.Text = "0";
@@ -385,7 +375,7 @@ namespace CentralCel.Formularios._3_Reportes
                                 v.Fecha,
                                 s.Nombre AS Sucursal,
                                 c.Nombre AS Cliente,
-                                u.NombreCompleto AS Usuario,
+                                u.Nombres AS Usuario,
                                 v.FormaPago AS [Forma de pago],
                                 ISNULL(
                                     SUM(dv.Cantidad * dv.PrecioUnitario), 0
@@ -421,7 +411,7 @@ namespace CentralCel.Formularios._3_Reportes
                                 v.Fecha,
                                 s.Nombre,
                                 c.Nombre,
-                                u.NombreCompleto,
+                                u.Nombres,
                                 v.FormaPago,
                                 v.FechaAnulacion
                             ORDER BY v.Fecha DESC";
@@ -489,107 +479,26 @@ namespace CentralCel.Formularios._3_Reportes
                             ORDER BY e.StockActual ASC";
                         break;
 
-                    case "Movimientos de inventario":
-                        sql = @"
-                            SELECT *
-                            FROM
-                            (
-                                SELECT
-                                    mm.Fecha,
-                                    mm.TipoMovimiento AS Movimiento,
-                                    p.Nombre AS Producto,
-                                    s.Nombre AS Sucursal,
-                                    mm.CantidadMovimiento AS Cantidad,
-                                    mm.Referencia
-                                FROM MovimientosManuales mm
-                                INNER JOIN Productos p
-                                    ON mm.IdProducto = p.IdProducto
-                                INNER JOIN Sucursales s
-                                    ON mm.IdSucursal = s.IdSucursal
-                                WHERE
-                                    mm.Fecha >= @desde
-                                    AND mm.Fecha < DATEADD(DAY, 1, @hasta)
-                                    AND (@sucursal = 0
-                                         OR mm.IdSucursal = @sucursal)
-
-                                UNION ALL
-
-                                SELECT
-                                    t.FechaEnvio,
-                                    'Traslado enviado',
-                                    p.Nombre,
-                                    so.Nombre,
-                                    -dt.Cantidad,
-                                    t.Referencia
-                                FROM Traslados t
-                                INNER JOIN DetalleTraslado dt
-                                    ON t.IdTraslado = dt.IdTraslado
-                                INNER JOIN Productos p
-                                    ON dt.IdProducto = p.IdProducto
-                                INNER JOIN Sucursales so
-                                    ON t.IdSucursalOrigen = so.IdSucursal
-                                WHERE
-                                    t.FechaEnvio >= @desde
-                                    AND t.FechaEnvio < DATEADD(DAY, 1, @hasta)
-                                    AND (@sucursal = 0
-                                         OR t.IdSucursalOrigen = @sucursal)
-
-                                UNION ALL
-
-                                SELECT
-                                    t.FechaRecepcion,
-                                    'Traslado recibido',
-                                    p.Nombre,
-                                    sd.Nombre,
-                                    dt.Cantidad,
-                                    t.Referencia
-                                FROM Traslados t
-                                INNER JOIN DetalleTraslado dt
-                                    ON t.IdTraslado = dt.IdTraslado
-                                INNER JOIN Productos p
-                                    ON dt.IdProducto = p.IdProducto
-                                INNER JOIN Sucursales sd
-                                    ON t.IdSucursalDestino = sd.IdSucursal
-                                WHERE
-                                    t.FechaRecepcion IS NOT NULL
-                                    AND t.FechaRecepcion >= @desde
-                                    AND t.FechaRecepcion < DATEADD(DAY, 1, @hasta)
-                                    AND (@sucursal = 0
-                                         OR t.IdSucursalDestino = @sucursal)
-                            ) AS Movimientos
-                            ORDER BY Fecha DESC";
-                        break;
-
                     default:
                         MessageBox.Show("Selecciona un tipo de reporte válido.");
                         return;
                 }
 
-                using (SqlConnection conexion =
-                    Conexion.ObtenerConexion())
-                using (SqlCommand cmd =
-                    new SqlCommand(sql, conexion))
+                using (SqlConnection conexion = Conexion.ObtenerConexion())
+                using (SqlCommand cmd = new SqlCommand(sql, conexion))
                 {
-                    cmd.Parameters.Add("@desde", SqlDbType.DateTime).Value =
-                        dtpDesde.Value.Date;
-
-                    cmd.Parameters.Add("@hasta", SqlDbType.DateTime).Value =
-                        dtpHasta.Value.Date;
-
-                    cmd.Parameters.Add("@sucursal", SqlDbType.Int).Value =
-                        sucursal;
+                    cmd.Parameters.Add("@desde", SqlDbType.DateTime).Value = dtpDesde.Value.Date;
+                    cmd.Parameters.Add("@hasta", SqlDbType.DateTime).Value = dtpHasta.Value.Date;
+                    cmd.Parameters.Add("@sucursal", SqlDbType.Int).Value = sucursal;
 
                     if (reporte == "Ventas")
                     {
-                        cmd.Parameters.Add(
-                            "@filtro", SqlDbType.NVarChar, 20).Value =
-                            cmbVendedor.Text;
+                        cmd.Parameters.Add("@filtro", SqlDbType.NVarChar, 20).Value = cmbVendedor.Text;
                     }
 
                     DataTable tabla = new DataTable();
 
-                    using (SqlDataAdapter adaptador =
-                        new SqlDataAdapter(cmd))
+                    using (SqlDataAdapter adaptador = new SqlDataAdapter(cmd))
                     {
                         adaptador.Fill(tabla);
                     }
@@ -614,8 +523,7 @@ namespace CentralCel.Formularios._3_Reportes
             }
         }
 
-        private void ActualizarTarjetas(
-            DataTable tabla, string reporte)
+        private void ActualizarTarjetas(DataTable tabla, string reporte)
         {
             int cantidad = tabla.Rows.Count;
 
@@ -654,8 +562,7 @@ namespace CentralCel.Formularios._3_Reportes
             lblValorTarjeta1.Text = total1.ToString("N0");
             lblValorTarjeta2.Text = total2.ToString("N0");
 
-            if (reporte == "Ventas" ||
-                reporte == "Productos más vendidos")
+            if (reporte == "Ventas" || reporte == "Productos más vendidos")
             {
                 lblValorTarjeta3.Text = "Bs " + total3.ToString("N2");
             }
@@ -665,8 +572,7 @@ namespace CentralCel.Formularios._3_Reportes
             }
         }
 
-        private decimal SumarColumna(
-            DataTable tabla, string columna)
+        private decimal SumarColumna(DataTable tabla, string columna)
         {
             if (!tabla.Columns.Contains(columna))
                 return 0;
@@ -771,12 +677,9 @@ namespace CentralCel.Formularios._3_Reportes
                 {
                     try
                     {
-                        Document documento = new Document(
-                            PageSize.A4.Rotate(),
-                            25, 25, 25, 25);
+                        Document documento = new Document(PageSize.A4.Rotate(), 25, 25, 25, 25);
 
-                        using (FileStream archivo = new FileStream(
-                            guardar.FileName, FileMode.Create))
+                        using (FileStream archivo = new FileStream(guardar.FileName, FileMode.Create))
                         {
                             PdfWriter.GetInstance(documento, archivo);
 
@@ -810,8 +713,7 @@ namespace CentralCel.Formularios._3_Reportes
                             documento.Add(new Paragraph(" "));
 
                             // Crear tabla
-                            PdfPTable pdfTabla =
-                                new PdfPTable(tabla.Columns.Count);
+                            PdfPTable pdfTabla = new PdfPTable(tabla.Columns.Count);
 
                             pdfTabla.WidthPercentage = 100;
 
@@ -837,22 +739,15 @@ namespace CentralCel.Formularios._3_Reportes
                             {
                                 foreach (DataColumn columna in tabla.Columns)
                                 {
-                                    PdfPCell celda = new PdfPCell(
-                                        new Phrase(
-                                            Convert.ToString(fila[columna])));
-
+                                    PdfPCell celda = new PdfPCell(new Phrase(Convert.ToString(fila[columna])));
                                     celda.Padding = 4;
-
                                     pdfTabla.AddCell(celda);
                                 }
                             }
 
                             documento.Add(pdfTabla);
-
                             documento.Add(new Paragraph(" "));
-
-                            documento.Add(new Paragraph(
-                                "Total de registros: " + tabla.Rows.Count));
+                            documento.Add(new Paragraph("Total de registros: " + tabla.Rows.Count));
 
                             documento.Close();
                         }
@@ -875,8 +770,7 @@ namespace CentralCel.Formularios._3_Reportes
             }
         }
 
-        private void btnExportarCSV_Click(
-            object sender, EventArgs e)
+        private void btnExportarCSV_Click(object sender, EventArgs e)
         {
             DataTable tabla = dgvReportes.DataSource as DataTable;
 
@@ -888,20 +782,14 @@ namespace CentralCel.Formularios._3_Reportes
 
             using (SaveFileDialog guardar = new SaveFileDialog())
             {
-                guardar.Filter =
-                    "Archivo CSV (*.csv)|*.csv";
-
+                guardar.Filter = "Archivo CSV (*.csv)|*.csv";
                 guardar.FileName = "ReporteCentralCel.csv";
 
                 if (guardar.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
-                        using (StreamWriter escritor =
-                            new StreamWriter(
-                                guardar.FileName,
-                                false,
-                                new UTF8Encoding(true)))
+                        using (StreamWriter escritor = new StreamWriter(guardar.FileName, false, new UTF8Encoding(true)))
                         {
                             for (int i = 0; i < tabla.Columns.Count; i++)
                             {
@@ -929,7 +817,6 @@ namespace CentralCel.Formularios._3_Reportes
                                     if (i < tabla.Columns.Count - 1)
                                         escritor.Write(";");
                                 }
-
                                 escritor.WriteLine();
                             }
                         }

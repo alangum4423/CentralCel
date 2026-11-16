@@ -19,7 +19,6 @@ namespace CentralCel.Formularios
 {
     public partial class MenuPrincipal : Form
     {
-        public bool SolicitoCerrarSesion = false;
 
         public MenuPrincipal(string usuario, string rol)
         {
@@ -96,8 +95,8 @@ namespace CentralCel.Formularios
 
         private void menuCerrarSesion_Click(object sender, EventArgs e)
         {
-            SolicitoCerrarSesion = true;
             this.Close();
+            AbrirFormulario(new Login());
         }
 
         private void menuSalir_Click(object sender, EventArgs e)
@@ -184,8 +183,8 @@ namespace CentralCel.Formularios
 
         private void ctxCerrarSesion_Click(object sender, EventArgs e)
         {
-            SolicitoCerrarSesion = true;
             this.Close();
+            AbrirFormulario(new Login());
         }
 
         private void ctxSalir_Click(object sender, EventArgs e)

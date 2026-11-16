@@ -80,7 +80,7 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
                     dtUsu.Rows.InsertAt(drUsu, 0);
 
                     cboVendedor.DataSource = dtUsu;
-                    cboVendedor.DisplayMember = "NombreCompleto";
+                    cboVendedor.DisplayMember = "Nombres";
                     cboVendedor.ValueMember = "IdUsuario";
                 }
             }
@@ -104,7 +104,7 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
                             v.NumeroVenta AS [Venta],
                             v.Fecha AS [Fecha],
                             s.Nombre AS [Sucursal],
-                            u.NombreCompleto AS [Vendedor],
+                            u.Nombres AS [Vendedor],
                             c.Nombre AS [Cliente],
                             v.FormaPago AS [Forma Pago],
                             v.MontoRecibido AS [Recibido (Bs)],
@@ -177,7 +177,6 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
                             dgvHistorialVentas.Rows[0].Selected = true;
                             idVentaSeleccionada = Convert.ToInt32(dgvHistorialVentas.Rows[0].Cells["IdVenta"].Value);
                             numVentaSeleccionada = dgvHistorialVentas.Rows[0].Cells["Venta"].Value?.ToString();
-                            lblDetalleTitulo.Text = $"Detalle de la venta {numVentaSeleccionada}";
                             CargarDetalleVenta(idVentaSeleccionada);
                         }
                         else
@@ -268,7 +267,6 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
 
         private void LimpiarResumen()
         {
-            lblDetalleTitulo.Text = "Detalle de la venta";
             lblResumenTotal.Text = "Bs 0.00";
             lblResumenPago.Text = "-";
             lblResumenRecibido.Text = "Bs 0.00";
@@ -290,7 +288,6 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
                 idVentaSeleccionada = Convert.ToInt32(row.Cells["IdVenta"].Value);
                 numVentaSeleccionada = row.Cells["Venta"].Value?.ToString();
 
-                lblDetalleTitulo.Text = $"Detalle de la venta {numVentaSeleccionada}";
                 CargarDetalleVenta(idVentaSeleccionada);
             }
         }
@@ -455,12 +452,6 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
             MessageBox.Show(ticket.ToString(), "Reimpresión de Nota de Venta", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-
-
-
-
-
-
         private void btnVolverMenu_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -490,6 +481,11 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
             }
 
             this.Close();
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
