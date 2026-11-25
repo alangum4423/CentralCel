@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using CentralCel.Datos;
@@ -195,7 +196,7 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
                 new SqlParameter("@buscar", "%" + txtBuscarSucursal.Text.Trim() + "%"));
         }
 
-        // PESTANIA USUARIOS
+        // PESTANIA USUARIOS lol
 
         private void btnNuevoUsuario_Click(object sender, EventArgs e)
         {
@@ -370,39 +371,68 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
             apellidos = partes.Length > 1 ? partes[1] : "-";
         }
 
+        private byte[] GenerarSalt16()
+        {
+            byte[] salt = new byte[16];
+            using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(salt);
+            }
+            return salt;
+        }
+
         private void CrearCuenta(
             string usuario, string nombre, string cargo,
             int idRol, int idSucursal, string contrasena, byte[] foto)
         {
-            Guid salt = Guid.NewGuid();
+            byte[] salt = GenerarSalt16();
             string nombres;
             string apellidos;
             SepararNombreCompleto(nombre, out nombres, out apellidos);
 
-            // Se usa el nombre de usuario en CI (máx. 30 caracteres) para respetar la restricción UNIQUE y NOT NULL
-            string ciTemporal = usuario.Length > 30 ? usuario.Substring(0, 30) : usuario;
+            const string fraseCifrado = "CentralCel2026!";
 
             string sql =
                 "INSERT INTO Usuarios " +
-                "(NombreUsuario, CI, Nombres, Apellidos, Direccion, Fecha_nacimiento, Telefono, Correo, " +
-                "ClaveSalt, ClaveHash, IdRol, IdSucursal, IdSueldo, Foto, Activo) " +
-                "VALUES (@usuario, @ci, @nombres, @apellidos, N'Sin especificar', '2000-01-01', N'0', @correo, " +
-                "@salt, HASHBYTES('SHA2_256', CONCAT(@password, CONVERT(NVARCHAR(36), @salt))), " +
-                "@rol, @sucursal, ISNULL((SELECT TOP 1 IdSueldo FROM Sueldos WHERE IdSueldo = @rol), (SELECT TOP 1 IdSueldo FROM Sueldos)), " +
+                "(NombreUsuario, CICifrado, CIHash, Nombres, Apellidos, " +
+                "DireccionCifrada, TelefonoCifrado, CorreoCifrado, Fecha_nacimiento, " +
+                "ClaveHash, ClaveSalt, IdRol, IdSucursal, IdSueldo, Foto, Activo) " +
+                "VALUES (" +
+                "@usuario, " +
+                "ENCRYPTBYPASSPHRASE(@frase, @ci), " +
+                "HASHBYTES('SHA2_256', @ci), " +
+                "@nombres, @apellidos, " +
+                "ENCRYPTBYPASSPHRASE(@frase, N'Sin especificar'), " +
+                "ENCRYPTBYPASSPHRASE(@frase, N'0'), " +
+                "ENCRYPTBYPASSPHRASE(@frase, @correo), " +
+                "'2000-01-01', " +
+                "HASHBYTES('SHA2_256', CONVERT(VARBINARY(MAX), @password) + @salt), " +
+                "@salt, " +
+                "@rol, @sucursal, " +
+                "COALESCE(" +
+                "  (SELECT TOP 1 s.IdSueldo FROM Sueldos s INNER JOIN Cargos c ON s.Cargo = c.IdCargo WHERE c.Nombre_Cargo = @cargo AND c.Activo_Cargo = 1), " +
+                "  (SELECT TOP 1 IdSueldo FROM Sueldos WHERE IdSueldo = @rol), " +
+                "  (SELECT TOP 1 IdSueldo FROM Sueldos)" +
+                "), " +
                 "@foto, 1)";
+
+            SqlParameter paramSalt = new SqlParameter("@salt", SqlDbType.VarBinary, 16) { Value = salt };
+            SqlParameter paramFoto = new SqlParameter("@foto", SqlDbType.VarBinary, -1) { Value = (object)foto ?? DBNull.Value };
 
             Ejecutar(
                 sql,
                 new SqlParameter("@usuario", usuario),
-                new SqlParameter("@ci", ciTemporal),
+                new SqlParameter("@frase", fraseCifrado),
+                new SqlParameter("@ci", usuario),
                 new SqlParameter("@nombres", nombres),
                 new SqlParameter("@apellidos", apellidos),
                 new SqlParameter("@correo", usuario + "@centralcel.com"),
-                new SqlParameter("@salt", salt),
                 new SqlParameter("@password", contrasena),
+                paramSalt,
                 new SqlParameter("@rol", idRol),
                 new SqlParameter("@sucursal", idSucursal),
-                new SqlParameter("@foto", (object)foto ?? DBNull.Value));
+                new SqlParameter("@cargo", cargo),
+                paramFoto);
         }
 
         private void ActualizarCuenta(
@@ -414,23 +444,34 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
             string apellidos;
             SepararNombreCompleto(nombre, out nombres, out apellidos);
 
+            string subconsultaSueldo =
+                "COALESCE(" +
+                "  (SELECT TOP 1 s.IdSueldo FROM Sueldos s INNER JOIN Cargos c ON s.Cargo = c.IdCargo WHERE c.Nombre_Cargo = @cargo AND c.Activo_Cargo = 1), " +
+                "  IdSueldo" +
+                ")";
+
+            SqlParameter paramFoto = new SqlParameter("@foto", SqlDbType.VarBinary, -1) { Value = (object)foto ?? DBNull.Value };
+
             if (EsSuperadministrador())
             {
                 if (nuevaContrasena.Trim() != "")
                 {
-                    Guid nuevoSalt = Guid.NewGuid();
+                    byte[] nuevoSalt = GenerarSalt16();
+                    SqlParameter paramSalt = new SqlParameter("@salt", SqlDbType.VarBinary, 16) { Value = nuevoSalt };
+
                     Ejecutar(
                         "UPDATE Usuarios SET Nombres = @nombres, Apellidos = @apellidos, " +
-                        "ClaveSalt = @salt, ClaveHash = HASHBYTES('SHA2_256', CONCAT(@password, CONVERT(NVARCHAR(36), @salt))), " +
-                        "Foto = @foto, IdRol = @rol, IdSucursal = @sucursal, Activo = @activo " +
+                        "ClaveSalt = @salt, ClaveHash = HASHBYTES('SHA2_256', CONVERT(VARBINARY(MAX), @password) + @salt), " +
+                        "Foto = @foto, IdRol = @rol, IdSucursal = @sucursal, IdSueldo = " + subconsultaSueldo + ", Activo = @activo " +
                         "WHERE NombreUsuario = @usuario",
                         new SqlParameter("@nombres", nombres),
                         new SqlParameter("@apellidos", apellidos),
-                        new SqlParameter("@salt", nuevoSalt),
+                        paramSalt,
                         new SqlParameter("@password", nuevaContrasena),
-                        new SqlParameter("@foto", (object)foto ?? DBNull.Value),
+                        paramFoto,
                         new SqlParameter("@rol", idRol),
                         new SqlParameter("@sucursal", idSucursal),
+                        new SqlParameter("@cargo", cargo),
                         new SqlParameter("@activo", activo),
                         new SqlParameter("@usuario", usuario));
                 }
@@ -438,13 +479,14 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
                 {
                     Ejecutar(
                         "UPDATE Usuarios SET Nombres = @nombres, Apellidos = @apellidos, " +
-                        "Foto = @foto, IdRol = @rol, IdSucursal = @sucursal, Activo = @activo " +
+                        "Foto = @foto, IdRol = @rol, IdSucursal = @sucursal, IdSueldo = " + subconsultaSueldo + ", Activo = @activo " +
                         "WHERE NombreUsuario = @usuario",
                         new SqlParameter("@nombres", nombres),
                         new SqlParameter("@apellidos", apellidos),
-                        new SqlParameter("@foto", (object)foto ?? DBNull.Value),
+                        paramFoto,
                         new SqlParameter("@rol", idRol),
                         new SqlParameter("@sucursal", idSucursal),
+                        new SqlParameter("@cargo", cargo),
                         new SqlParameter("@activo", activo),
                         new SqlParameter("@usuario", usuario));
                 }
@@ -453,12 +495,13 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
             {
                 Ejecutar(
                     "UPDATE Usuarios SET Nombres = @nombres, Apellidos = @apellidos, " +
-                    "Foto = @foto, IdSucursal = @sucursal " +
+                    "Foto = @foto, IdSucursal = @sucursal, IdSueldo = " + subconsultaSueldo + " " +
                     "WHERE NombreUsuario = @usuario",
                     new SqlParameter("@nombres", nombres),
                     new SqlParameter("@apellidos", apellidos),
-                    new SqlParameter("@foto", (object)foto ?? DBNull.Value),
+                    paramFoto,
                     new SqlParameter("@sucursal", idSucursal),
+                    new SqlParameter("@cargo", cargo),
                     new SqlParameter("@usuario", usuario));
             }
         }
@@ -703,6 +746,11 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
 
             try
             {
+                SqlParameter paramLogo = new SqlParameter("@logo", SqlDbType.VarBinary, -1)
+                {
+                    Value = (object)logoNegocio ?? DBNull.Value
+                };
+
                 int filas = Ejecutar(
                     "UPDATE ConfiguracionNegocio SET NombreComercial=@nombre, " +
                     "RazonSocial=@razon, NIT=@nit, Telefono=@telefono, Correo=@correo, " +
@@ -714,12 +762,17 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
                     new SqlParameter("@telefono", txtTelefonoNegocio.Text.Trim()),
                     new SqlParameter("@correo", txtCorreoNegocio.Text.Trim()),
                     new SqlParameter("@direccion", txtDireccionPrincipal.Text.Trim()),
-                    new SqlParameter("@logo", (object)logoNegocio ?? DBNull.Value),
+                    paramLogo,
                     new SqlParameter("@moneda", txtMoneda.Text.Trim()),
                     new SqlParameter("@mensaje", txtMensajeComprobante.Text.Trim()));
 
                 if (filas == 0)
                 {
+                    SqlParameter paramLogoInsert = new SqlParameter("@logo", SqlDbType.VarBinary, -1)
+                    {
+                        Value = (object)logoNegocio ?? DBNull.Value
+                    };
+
                     Ejecutar(
                         "INSERT INTO ConfiguracionNegocio " +
                         "(IdConfiguracion, NombreComercial, RazonSocial, NIT, Telefono, " +
@@ -732,7 +785,7 @@ namespace CentralCel.Formularios._1._Acceso_y_Administracion
                         new SqlParameter("@telefono", txtTelefonoNegocio.Text.Trim()),
                         new SqlParameter("@correo", txtCorreoNegocio.Text.Trim()),
                         new SqlParameter("@direccion", txtDireccionPrincipal.Text.Trim()),
-                        new SqlParameter("@logo", (object)logoNegocio ?? DBNull.Value),
+                        paramLogoInsert,
                         new SqlParameter("@moneda", txtMoneda.Text.Trim()),
                         new SqlParameter("@mensaje", txtMensajeComprobante.Text.Trim()));
                 }

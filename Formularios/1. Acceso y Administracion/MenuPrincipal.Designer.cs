@@ -279,9 +279,11 @@
             this.pctCajeros.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
             this.pctCajeros.Dock = System.Windows.Forms.DockStyle.Right;
             this.pctCajeros.ErrorImage = null;
+            this.pctCajeros.Image = global::CentralCel.Properties.Resources.image_rest;
             this.pctCajeros.Location = new System.Drawing.Point(1032, 0);
             this.pctCajeros.Name = "pctCajeros";
             this.pctCajeros.Size = new System.Drawing.Size(336, 630);
+            this.pctCajeros.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pctCajeros.TabIndex = 15;
             this.pctCajeros.TabStop = false;
             // 
