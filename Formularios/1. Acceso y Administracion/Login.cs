@@ -97,7 +97,7 @@ namespace CentralCel
                     }
                 }
             }
-            catch (SqlException)
+            catch (SqlException ex)
             {
                 MessageBox.Show("Error SQL (" + ex.Number + "): " + ex.Message);
                 lblAlerta.Text = "No se pudo ingresar. Revise sus credenciales";
