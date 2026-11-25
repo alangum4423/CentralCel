@@ -42,7 +42,6 @@ namespace CentralCel
 
             try
             {
-                // Se conecta con el usuario fijo de servicio (app_centralcel)
                 using (SqlConnection conn = Conexion.ObtenerConexion())
                 {
                     conn.Open();
@@ -100,6 +99,7 @@ namespace CentralCel
             }
             catch (SqlException)
             {
+                MessageBox.Show("Error SQL (" + ex.Number + "): " + ex.Message);
                 lblAlerta.Text = "No se pudo ingresar. Revise sus credenciales";
                 lblAlerta.ForeColor = Color.Red;
                 return;
