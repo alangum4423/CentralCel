@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.SqlClient;
 
 namespace CentralCel.Datos
 {
@@ -17,12 +12,8 @@ namespace CentralCel.Datos
 
             cadena.DataSource = "localhost";
             cadena.InitialCatalog = "CentralCelDB";
-            cadena.IntegratedSecurity = false;
-
-            cadena.UserID = "app_centralcel";
-            cadena.Password = "AppCentralCel2026#!";
-            cadena.Encrypt = true;
-            cadena.TrustServerCertificate = true;
+            cadena.IntegratedSecurity = true;
+            cadena.Encrypt = false;
 
             return cadena.ConnectionString;
         }
