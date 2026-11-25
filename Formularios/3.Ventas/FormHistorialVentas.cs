@@ -70,13 +70,13 @@ namespace ventas_historial_VENTAS.Formularios._3.Ventas
                     cboSucursal.DisplayMember = "Nombre";
                     cboSucursal.ValueMember = "IdSucursal";
 
-                    SqlDataAdapter daUsu = new SqlDataAdapter("SELECT IdUsuario, NombreCompleto FROM Usuarios", con);
+                    SqlDataAdapter daUsu = new SqlDataAdapter("SELECT IdUsuario, Nombres FROM Usuarios", con);
                     DataTable dtUsu = new DataTable();
                     daUsu.Fill(dtUsu);
 
                     DataRow drUsu = dtUsu.NewRow();
                     drUsu["IdUsuario"] = 0;
-                    drUsu["NombreCompleto"] = "Todos";
+                    drUsu["Nombres"] = "Todos";
                     dtUsu.Rows.InsertAt(drUsu, 0);
 
                     cboVendedor.DataSource = dtUsu;

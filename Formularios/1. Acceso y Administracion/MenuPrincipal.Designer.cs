@@ -49,6 +49,7 @@
             this.menuReportes = new System.Windows.Forms.ToolStripMenuItem();
             this.menuReportesGenerales = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMenuPrincipal = new System.Windows.Forms.Panel();
+            this.pctCajeros = new System.Windows.Forms.PictureBox();
             this.btnReportes = new System.Windows.Forms.Button();
             this.btnAdministracion = new System.Windows.Forms.Button();
             this.btnPuntodeVenta = new System.Windows.Forms.Button();
@@ -70,6 +71,7 @@
             this.ctxSalir = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMenuPrincipal.SuspendLayout();
             this.pnlMenuPrincipal.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pctCajeros)).BeginInit();
             this.pnlBienvenida.SuspendLayout();
             this.pnlPrincipal.SuspendLayout();
             this.ctxMenuPrincipal.SuspendLayout();
@@ -79,7 +81,6 @@
             // 
             this.menuMenuPrincipal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuMenuPrincipal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.menuMenuPrincipal.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuMenuPrincipal.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuMenuPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuArchivo,
@@ -260,6 +261,7 @@
             // pnlMenuPrincipal
             // 
             this.pnlMenuPrincipal.BackColor = System.Drawing.Color.Transparent;
+            this.pnlMenuPrincipal.Controls.Add(this.pctCajeros);
             this.pnlMenuPrincipal.Controls.Add(this.btnReportes);
             this.pnlMenuPrincipal.Controls.Add(this.btnAdministracion);
             this.pnlMenuPrincipal.Controls.Add(this.btnPuntodeVenta);
@@ -270,6 +272,17 @@
             this.pnlMenuPrincipal.Name = "pnlMenuPrincipal";
             this.pnlMenuPrincipal.Size = new System.Drawing.Size(1368, 630);
             this.pnlMenuPrincipal.TabIndex = 1;
+            // 
+            // pctCajeros
+            // 
+            this.pctCajeros.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
+            this.pctCajeros.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pctCajeros.ErrorImage = null;
+            this.pctCajeros.Location = new System.Drawing.Point(1032, 0);
+            this.pctCajeros.Name = "pctCajeros";
+            this.pctCajeros.Size = new System.Drawing.Size(336, 630);
+            this.pctCajeros.TabIndex = 15;
+            this.pctCajeros.TabStop = false;
             // 
             // btnReportes
             // 
@@ -521,6 +534,7 @@
             this.menuMenuPrincipal.ResumeLayout(false);
             this.menuMenuPrincipal.PerformLayout();
             this.pnlMenuPrincipal.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pctCajeros)).EndInit();
             this.pnlBienvenida.ResumeLayout(false);
             this.pnlBienvenida.PerformLayout();
             this.pnlPrincipal.ResumeLayout(false);
@@ -570,5 +584,6 @@
         private System.Windows.Forms.Button btnInventario;
         private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.Button btnAdministracion;
+        private System.Windows.Forms.PictureBox pctCajeros;
     }
 }

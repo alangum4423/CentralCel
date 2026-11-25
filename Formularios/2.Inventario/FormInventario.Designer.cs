@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormInventario));
             this.pnlEncabezado = new System.Windows.Forms.Panel();
             this.btnVolverMenu = new System.Windows.Forms.Button();
             this.lblTitulo = new System.Windows.Forms.Label();
@@ -73,11 +74,6 @@
             this.lblNombreProducto = new System.Windows.Forms.Label();
             this.lblCodigoProducto = new System.Windows.Forms.Label();
             this.grpListado = new System.Windows.Forms.GroupBox();
-            this.btnAgregarMercaderia = new System.Windows.Forms.Button();
-            this.btnVerKardex = new System.Windows.Forms.Button();
-            this.btnDesactivarProducto = new System.Windows.Forms.Button();
-            this.btnEditarProducto = new System.Windows.Forms.Button();
-            this.btnNuevaProducto = new System.Windows.Forms.Button();
             this.lblAlertasStock = new System.Windows.Forms.Label();
             this.dgvInventario = new System.Windows.Forms.DataGridView();
             this.colIdProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -104,6 +100,11 @@
             this.txtBuscarProducto = new System.Windows.Forms.TextBox();
             this.lblBuscarProducto = new System.Windows.Forms.Label();
             this.tabInventario = new System.Windows.Forms.TabControl();
+            this.btnAgregarMercaderia = new System.Windows.Forms.Button();
+            this.btnVerKardex = new System.Windows.Forms.Button();
+            this.btnDesactivarProducto = new System.Windows.Forms.Button();
+            this.btnEditarProducto = new System.Windows.Forms.Button();
+            this.btnNuevaProducto = new System.Windows.Forms.Button();
             this.pnlEncabezado.SuspendLayout();
             this.pnlAccesos.SuspendLayout();
             this.tabProductos.SuspendLayout();
@@ -160,7 +161,8 @@
             // 
             // pnlAccesos
             // 
-            this.pnlAccesos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlAccesos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlAccesos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
             this.pnlAccesos.Controls.Add(this.lblSesion);
             this.pnlAccesos.Controls.Add(this.btnCatalogo);
@@ -615,67 +617,6 @@
             this.grpListado.TabStop = false;
             this.grpListado.Text = "Catalogo y Existencias";
             // 
-            // btnAgregarMercaderia
-            // 
-            this.btnAgregarMercaderia.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAgregarMercaderia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnAgregarMercaderia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregarMercaderia.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarMercaderia.Location = new System.Drawing.Point(817, 369);
-            this.btnAgregarMercaderia.Name = "btnAgregarMercaderia";
-            this.btnAgregarMercaderia.Size = new System.Drawing.Size(234, 44);
-            this.btnAgregarMercaderia.TabIndex = 10;
-            this.btnAgregarMercaderia.Text = "Agregar Mercaderia";
-            this.btnAgregarMercaderia.UseVisualStyleBackColor = false;
-            // 
-            // btnVerKardex
-            // 
-            this.btnVerKardex.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnVerKardex.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVerKardex.ForeColor = System.Drawing.Color.White;
-            this.btnVerKardex.Location = new System.Drawing.Point(611, 368);
-            this.btnVerKardex.Name = "btnVerKardex";
-            this.btnVerKardex.Size = new System.Drawing.Size(200, 44);
-            this.btnVerKardex.TabIndex = 9;
-            this.btnVerKardex.Text = "Ver Kardex";
-            this.btnVerKardex.UseVisualStyleBackColor = false;
-            // 
-            // btnDesactivarProducto
-            // 
-            this.btnDesactivarProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnDesactivarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDesactivarProducto.ForeColor = System.Drawing.Color.White;
-            this.btnDesactivarProducto.Location = new System.Drawing.Point(411, 368);
-            this.btnDesactivarProducto.Name = "btnDesactivarProducto";
-            this.btnDesactivarProducto.Size = new System.Drawing.Size(190, 44);
-            this.btnDesactivarProducto.TabIndex = 8;
-            this.btnDesactivarProducto.Text = "Desactivar";
-            this.btnDesactivarProducto.UseVisualStyleBackColor = false;
-            // 
-            // btnEditarProducto
-            // 
-            this.btnEditarProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnEditarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditarProducto.ForeColor = System.Drawing.Color.White;
-            this.btnEditarProducto.Location = new System.Drawing.Point(211, 368);
-            this.btnEditarProducto.Name = "btnEditarProducto";
-            this.btnEditarProducto.Size = new System.Drawing.Size(190, 44);
-            this.btnEditarProducto.TabIndex = 7;
-            this.btnEditarProducto.Text = "Editar Producto";
-            this.btnEditarProducto.UseVisualStyleBackColor = false;
-            // 
-            // btnNuevaProducto
-            // 
-            this.btnNuevaProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnNuevaProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNuevaProducto.ForeColor = System.Drawing.Color.White;
-            this.btnNuevaProducto.Location = new System.Drawing.Point(11, 368);
-            this.btnNuevaProducto.Name = "btnNuevaProducto";
-            this.btnNuevaProducto.Size = new System.Drawing.Size(190, 44);
-            this.btnNuevaProducto.TabIndex = 6;
-            this.btnNuevaProducto.Text = "Nuevo Producto";
-            this.btnNuevaProducto.UseVisualStyleBackColor = false;
-            // 
             // lblAlertasStock
             // 
             this.lblAlertasStock.AutoSize = true;
@@ -699,14 +640,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvInventario.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvInventario.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvInventario.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvInventario.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dgvInventario.ColumnHeadersHeight = 35;
             this.dgvInventario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvInventario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -718,14 +659,14 @@
             this.colStock,
             this.colStockMinimo,
             this.colEstadoStock});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 10F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvInventario.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvInventario.DefaultCellStyle = dataGridViewCellStyle15;
             this.dgvInventario.EnableHeadersVisualStyles = false;
             this.dgvInventario.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(225)))), ((int)(((byte)(235)))));
             this.dgvInventario.Location = new System.Drawing.Point(12, 55);
@@ -779,9 +720,9 @@
             // colPrecioVenta
             // 
             this.colPrecioVenta.DataPropertyName = "PrecioVenta";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            this.colPrecioVenta.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "N2";
+            this.colPrecioVenta.DefaultCellStyle = dataGridViewCellStyle12;
             this.colPrecioVenta.FillWeight = 90F;
             this.colPrecioVenta.HeaderText = "Precio (Bs.)";
             this.colPrecioVenta.MinimumWidth = 8;
@@ -791,9 +732,9 @@
             // colStock
             // 
             this.colStock.DataPropertyName = "Stock";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.Format = "N0";
-            this.colStock.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.Format = "N0";
+            this.colStock.DefaultCellStyle = dataGridViewCellStyle13;
             this.colStock.FillWeight = 55F;
             this.colStock.HeaderText = "Stock";
             this.colStock.MinimumWidth = 8;
@@ -803,9 +744,9 @@
             // colStockMinimo
             // 
             this.colStockMinimo.DataPropertyName = "StockMinimo";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.Format = "N0";
-            this.colStockMinimo.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.Format = "N0";
+            this.colStockMinimo.DefaultCellStyle = dataGridViewCellStyle14;
             this.colStockMinimo.FillWeight = 55F;
             this.colStockMinimo.HeaderText = "Minimo";
             this.colStockMinimo.MinimumWidth = 8;
@@ -1022,6 +963,67 @@
             this.tabInventario.Size = new System.Drawing.Size(1594, 624);
             this.tabInventario.TabIndex = 6;
             // 
+            // btnAgregarMercaderia
+            // 
+            this.btnAgregarMercaderia.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAgregarMercaderia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            this.btnAgregarMercaderia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarMercaderia.ForeColor = System.Drawing.Color.White;
+            this.btnAgregarMercaderia.Location = new System.Drawing.Point(818, 368);
+            this.btnAgregarMercaderia.Name = "btnAgregarMercaderia";
+            this.btnAgregarMercaderia.Size = new System.Drawing.Size(234, 44);
+            this.btnAgregarMercaderia.TabIndex = 15;
+            this.btnAgregarMercaderia.Text = "Agregar Mercaderia";
+            this.btnAgregarMercaderia.UseVisualStyleBackColor = false;
+            // 
+            // btnVerKardex
+            // 
+            this.btnVerKardex.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            this.btnVerKardex.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVerKardex.ForeColor = System.Drawing.Color.White;
+            this.btnVerKardex.Location = new System.Drawing.Point(612, 367);
+            this.btnVerKardex.Name = "btnVerKardex";
+            this.btnVerKardex.Size = new System.Drawing.Size(200, 44);
+            this.btnVerKardex.TabIndex = 14;
+            this.btnVerKardex.Text = "Ver Kardex";
+            this.btnVerKardex.UseVisualStyleBackColor = false;
+            // 
+            // btnDesactivarProducto
+            // 
+            this.btnDesactivarProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            this.btnDesactivarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDesactivarProducto.ForeColor = System.Drawing.Color.White;
+            this.btnDesactivarProducto.Location = new System.Drawing.Point(412, 367);
+            this.btnDesactivarProducto.Name = "btnDesactivarProducto";
+            this.btnDesactivarProducto.Size = new System.Drawing.Size(190, 44);
+            this.btnDesactivarProducto.TabIndex = 13;
+            this.btnDesactivarProducto.Text = "Desactivar";
+            this.btnDesactivarProducto.UseVisualStyleBackColor = false;
+            // 
+            // btnEditarProducto
+            // 
+            this.btnEditarProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            this.btnEditarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditarProducto.ForeColor = System.Drawing.Color.White;
+            this.btnEditarProducto.Location = new System.Drawing.Point(212, 367);
+            this.btnEditarProducto.Name = "btnEditarProducto";
+            this.btnEditarProducto.Size = new System.Drawing.Size(190, 44);
+            this.btnEditarProducto.TabIndex = 12;
+            this.btnEditarProducto.Text = "Editar Producto";
+            this.btnEditarProducto.UseVisualStyleBackColor = false;
+            // 
+            // btnNuevaProducto
+            // 
+            this.btnNuevaProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            this.btnNuevaProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNuevaProducto.ForeColor = System.Drawing.Color.White;
+            this.btnNuevaProducto.Location = new System.Drawing.Point(12, 367);
+            this.btnNuevaProducto.Name = "btnNuevaProducto";
+            this.btnNuevaProducto.Size = new System.Drawing.Size(190, 44);
+            this.btnNuevaProducto.TabIndex = 11;
+            this.btnNuevaProducto.Text = "Nuevo Producto";
+            this.btnNuevaProducto.UseVisualStyleBackColor = false;
+            // 
             // FormInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
@@ -1035,6 +1037,7 @@
             this.Controls.Add(this.tabInventario);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(1303, 795);
             this.Name = "FormInventario";
@@ -1107,10 +1110,6 @@
         private System.Windows.Forms.Label lblNombreProducto;
         private System.Windows.Forms.Label lblCodigoProducto;
         private System.Windows.Forms.GroupBox grpListado;
-        private System.Windows.Forms.Button btnVerKardex;
-        private System.Windows.Forms.Button btnDesactivarProducto;
-        private System.Windows.Forms.Button btnEditarProducto;
-        private System.Windows.Forms.Button btnNuevaProducto;
         private System.Windows.Forms.Label lblAlertasStock;
         private System.Windows.Forms.DataGridView dgvInventario;
         private System.Windows.Forms.DataGridViewTextBoxColumn colIdProducto;
@@ -1121,7 +1120,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colStock;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStockMinimo;
         private System.Windows.Forms.DataGridViewTextBoxColumn colEstadoStock;
-        private System.Windows.Forms.Button btnAgregarMercaderia;
         private System.Windows.Forms.GroupBox grpMercaderia;
         private System.Windows.Forms.Button btnCancelarProducto;
         private System.Windows.Forms.Button btnGuardarProducto;
@@ -1134,5 +1132,10 @@
         private System.Windows.Forms.DateTimePicker dtpFechaEntrada;
         private System.Windows.Forms.Label lblFechaEntrada;
         private System.Windows.Forms.NumericUpDown nudCantidadEntrada;
+        private System.Windows.Forms.Button btnAgregarMercaderia;
+        private System.Windows.Forms.Button btnVerKardex;
+        private System.Windows.Forms.Button btnDesactivarProducto;
+        private System.Windows.Forms.Button btnEditarProducto;
+        private System.Windows.Forms.Button btnNuevaProducto;
     }
 }

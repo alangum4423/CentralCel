@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVentas));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnTabNuevaVenta = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.pbQR = new System.Windows.Forms.PictureBox();
@@ -158,10 +159,10 @@
             // pbQR
             // 
             this.pbQR.Image = ((System.Drawing.Image)(resources.GetObject("pbQR.Image")));
-            this.pbQR.Location = new System.Drawing.Point(25, 342);
+            this.pbQR.Location = new System.Drawing.Point(25, 328);
             this.pbQR.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pbQR.Name = "pbQR";
-            this.pbQR.Size = new System.Drawing.Size(330, 263);
+            this.pbQR.Size = new System.Drawing.Size(330, 246);
             this.pbQR.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbQR.TabIndex = 13;
             this.pbQR.TabStop = false;
@@ -173,7 +174,7 @@
             this.txtImpuesto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
             this.txtImpuesto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtImpuesto.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtImpuesto.Location = new System.Drawing.Point(181, 238);
+            this.txtImpuesto.Location = new System.Drawing.Point(181, 205);
             this.txtImpuesto.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtImpuesto.Name = "txtImpuesto";
             this.txtImpuesto.Size = new System.Drawing.Size(174, 34);
@@ -186,7 +187,7 @@
             this.lblImpuesto.AutoSize = true;
             this.lblImpuesto.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblImpuesto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.lblImpuesto.Location = new System.Drawing.Point(21, 234);
+            this.lblImpuesto.Location = new System.Drawing.Point(21, 201);
             this.lblImpuesto.Name = "lblImpuesto";
             this.lblImpuesto.Size = new System.Drawing.Size(131, 28);
             this.lblImpuesto.TabIndex = 11;
@@ -212,7 +213,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox3.Size = new System.Drawing.Size(358, 152);
+            this.groupBox3.Size = new System.Drawing.Size(358, 125);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             // 
@@ -244,11 +245,11 @@
             // 
             this.lblCambio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCambio.AutoSize = true;
-            this.lblCambio.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblCambio.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblCambio.Location = new System.Drawing.Point(20, 505);
+            this.lblCambio.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblCambio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            this.lblCambio.Location = new System.Drawing.Point(21, 401);
             this.lblCambio.Name = "lblCambio";
-            this.lblCambio.Size = new System.Drawing.Size(111, 25);
+            this.lblCambio.Size = new System.Drawing.Size(120, 28);
             this.lblCambio.TabIndex = 9;
             this.lblCambio.Text = "Cambio (Bs):";
             // 
@@ -257,11 +258,11 @@
             this.lblEfectivo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEfectivo.AutoSize = true;
-            this.lblEfectivo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEfectivo.ForeColor = System.Drawing.Color.DarkBlue;
-            this.lblEfectivo.Location = new System.Drawing.Point(20, 425);
+            this.lblEfectivo.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblEfectivo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            this.lblEfectivo.Location = new System.Drawing.Point(21, 334);
             this.lblEfectivo.Name = "lblEfectivo";
-            this.lblEfectivo.Size = new System.Drawing.Size(151, 25);
+            this.lblEfectivo.Size = new System.Drawing.Size(166, 28);
             this.lblEfectivo.TabIndex = 8;
             this.lblEfectivo.Text = "Efectivo Recibido:";
             // 
@@ -271,7 +272,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.label6.Location = new System.Drawing.Point(21, 292);
+            this.label6.Location = new System.Drawing.Point(21, 273);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(148, 28);
             this.label6.TabIndex = 7;
@@ -319,14 +320,14 @@
             this.chkVistaPrevia.AutoSize = true;
             this.chkVistaPrevia.Checked = true;
             this.chkVistaPrevia.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkVistaPrevia.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkVistaPrevia.ForeColor = System.Drawing.Color.DarkBlue;
-            this.chkVistaPrevia.Location = new System.Drawing.Point(26, 573);
+            this.chkVistaPrevia.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.chkVistaPrevia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            this.chkVistaPrevia.Location = new System.Drawing.Point(26, 588);
             this.chkVistaPrevia.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkVistaPrevia.Name = "chkVistaPrevia";
-            this.chkVistaPrevia.Size = new System.Drawing.Size(304, 25);
+            this.chkVistaPrevia.Size = new System.Drawing.Size(297, 32);
             this.chkVistaPrevia.TabIndex = 4;
-            this.chkVistaPrevia.Text = "Abrir Vista Previa del Comportamiento";
+            this.chkVistaPrevia.Text = "Vista Previa del Comprobante";
             this.chkVistaPrevia.UseVisualStyleBackColor = true;
             this.chkVistaPrevia.CheckedChanged += new System.EventHandler(this.chkVistaPrevia_CheckedChanged);
             // 
@@ -335,11 +336,11 @@
             this.txtCambio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCambio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
             this.txtCambio.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCambio.Font = new System.Drawing.Font("Segoe UI", 7.8F);
-            this.txtCambio.Location = new System.Drawing.Point(181, 499);
+            this.txtCambio.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtCambio.Location = new System.Drawing.Point(181, 399);
             this.txtCambio.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtCambio.Name = "txtCambio";
-            this.txtCambio.Size = new System.Drawing.Size(174, 28);
+            this.txtCambio.Size = new System.Drawing.Size(174, 34);
             this.txtCambio.TabIndex = 3;
             this.txtCambio.TextChanged += new System.EventHandler(this.txtCambio_TextChanged);
             // 
@@ -348,11 +349,11 @@
             this.txtEfectivoRecibido.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.txtEfectivoRecibido.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
             this.txtEfectivoRecibido.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtEfectivoRecibido.Font = new System.Drawing.Font("Segoe UI", 7.8F);
-            this.txtEfectivoRecibido.Location = new System.Drawing.Point(181, 419);
+            this.txtEfectivoRecibido.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtEfectivoRecibido.Location = new System.Drawing.Point(200, 328);
             this.txtEfectivoRecibido.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtEfectivoRecibido.Name = "txtEfectivoRecibido";
-            this.txtEfectivoRecibido.Size = new System.Drawing.Size(174, 28);
+            this.txtEfectivoRecibido.Size = new System.Drawing.Size(155, 34);
             this.txtEfectivoRecibido.TabIndex = 2;
             this.txtEfectivoRecibido.TextChanged += new System.EventHandler(this.txtEfectivoRecibido_TextChanged);
             // 
@@ -365,10 +366,10 @@
             this.cboFormaPago.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboFormaPago.FormattingEnabled = true;
             this.cboFormaPago.Items.AddRange(new object[] {
-            "efectivo",
-            "tarjeta",
+            "Efectivo",
+            "Tarjeta",
             "QR"});
-            this.cboFormaPago.Location = new System.Drawing.Point(182, 288);
+            this.cboFormaPago.Location = new System.Drawing.Point(182, 269);
             this.cboFormaPago.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cboFormaPago.Name = "cboFormaPago";
             this.cboFormaPago.Size = new System.Drawing.Size(173, 36);
@@ -429,8 +430,7 @@
             // 
             // btnVaciarDetalle
             // 
-            this.btnVaciarDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVaciarDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVaciarDetalle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.btnVaciarDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVaciarDetalle.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold);
@@ -446,8 +446,7 @@
             // 
             // btnQuitarProducto
             // 
-            this.btnQuitarProducto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnQuitarProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnQuitarProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.btnQuitarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnQuitarProducto.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold);
@@ -466,6 +465,15 @@
             this.dgvDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvDetalle.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDetalle.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvDetalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDetalle.Location = new System.Drawing.Point(15, 174);
             this.dgvDetalle.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);

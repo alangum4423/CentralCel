@@ -40,16 +40,6 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.tabCatalogos = new System.Windows.Forms.TabControl();
             this.tabCategorias = new System.Windows.Forms.TabPage();
-            this.grpCategorias = new System.Windows.Forms.GroupBox();
-            this.btnDesactivarCategoria = new System.Windows.Forms.Button();
-            this.btnNuevaCategoria = new System.Windows.Forms.Button();
-            this.btnCancelarCategoria = new System.Windows.Forms.Button();
-            this.btnGuardarCategoria = new System.Windows.Forms.Button();
-            this.chkCategoriaActivo = new System.Windows.Forms.CheckBox();
-            this.txtNombreCategoria = new System.Windows.Forms.TextBox();
-            this.txtCodigoCategoria = new System.Windows.Forms.TextBox();
-            this.lblNombreCategoria = new System.Windows.Forms.Label();
-            this.lblCodigoCategoria = new System.Windows.Forms.Label();
             this.dgvCategorias = new System.Windows.Forms.DataGridView();
             this.colIdCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCodigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -110,10 +100,19 @@
             this.btnBuscarProveedor = new System.Windows.Forms.Button();
             this.txtBuscarProveedor = new System.Windows.Forms.TextBox();
             this.lblBuscarProveedor = new System.Windows.Forms.Label();
+            this.grpCategorias = new System.Windows.Forms.GroupBox();
+            this.btnDesactivarCategoria = new System.Windows.Forms.Button();
+            this.btnNuevaCategoria = new System.Windows.Forms.Button();
+            this.btnCancelarCategoria = new System.Windows.Forms.Button();
+            this.btnGuardarCategoria = new System.Windows.Forms.Button();
+            this.chkCategoriaActivo = new System.Windows.Forms.CheckBox();
+            this.txtNombreCategoria = new System.Windows.Forms.TextBox();
+            this.txtCodigoCategoria = new System.Windows.Forms.TextBox();
+            this.lblNombreCategoria = new System.Windows.Forms.Label();
+            this.lblCodigoCategoria = new System.Windows.Forms.Label();
             this.pnlEncabezado.SuspendLayout();
             this.tabCatalogos.SuspendLayout();
             this.tabCategorias.SuspendLayout();
-            this.grpCategorias.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategorias)).BeginInit();
             this.tabMarcas.SuspendLayout();
             this.grpDatosMarca.SuspendLayout();
@@ -121,6 +120,7 @@
             this.tabProveedores.SuspendLayout();
             this.grpDatosProveedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).BeginInit();
+            this.grpCategorias.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlEncabezado
@@ -193,129 +193,6 @@
             this.tabCategorias.Size = new System.Drawing.Size(1242, 574);
             this.tabCategorias.TabIndex = 0;
             this.tabCategorias.Text = "Categorias";
-            // 
-            // grpCategorias
-            // 
-            this.grpCategorias.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.grpCategorias.Controls.Add(this.btnDesactivarCategoria);
-            this.grpCategorias.Controls.Add(this.btnNuevaCategoria);
-            this.grpCategorias.Controls.Add(this.btnCancelarCategoria);
-            this.grpCategorias.Controls.Add(this.btnGuardarCategoria);
-            this.grpCategorias.Controls.Add(this.chkCategoriaActivo);
-            this.grpCategorias.Controls.Add(this.txtNombreCategoria);
-            this.grpCategorias.Controls.Add(this.txtCodigoCategoria);
-            this.grpCategorias.Controls.Add(this.lblNombreCategoria);
-            this.grpCategorias.Controls.Add(this.lblCodigoCategoria);
-            this.grpCategorias.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.grpCategorias.Location = new System.Drawing.Point(20, 380);
-            this.grpCategorias.Name = "grpCategorias";
-            this.grpCategorias.Size = new System.Drawing.Size(1195, 170);
-            this.grpCategorias.TabIndex = 29;
-            this.grpCategorias.TabStop = false;
-            this.grpCategorias.Text = "Datos de la Categoria";
-            // 
-            // btnDesactivarCategoria
-            // 
-            this.btnDesactivarCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnDesactivarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDesactivarCategoria.ForeColor = System.Drawing.Color.White;
-            this.btnDesactivarCategoria.Location = new System.Drawing.Point(712, 92);
-            this.btnDesactivarCategoria.Name = "btnDesactivarCategoria";
-            this.btnDesactivarCategoria.Size = new System.Drawing.Size(228, 53);
-            this.btnDesactivarCategoria.TabIndex = 42;
-            this.btnDesactivarCategoria.Text = "Desactivar";
-            this.btnDesactivarCategoria.UseVisualStyleBackColor = false;
-            // 
-            // btnNuevaCategoria
-            // 
-            this.btnNuevaCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnNuevaCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNuevaCategoria.ForeColor = System.Drawing.Color.White;
-            this.btnNuevaCategoria.Location = new System.Drawing.Point(712, 33);
-            this.btnNuevaCategoria.Name = "btnNuevaCategoria";
-            this.btnNuevaCategoria.Size = new System.Drawing.Size(228, 53);
-            this.btnNuevaCategoria.TabIndex = 41;
-            this.btnNuevaCategoria.Text = "Nueva";
-            this.btnNuevaCategoria.UseVisualStyleBackColor = false;
-            // 
-            // btnCancelarCategoria
-            // 
-            this.btnCancelarCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnCancelarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelarCategoria.ForeColor = System.Drawing.Color.White;
-            this.btnCancelarCategoria.Location = new System.Drawing.Point(946, 92);
-            this.btnCancelarCategoria.Name = "btnCancelarCategoria";
-            this.btnCancelarCategoria.Size = new System.Drawing.Size(228, 53);
-            this.btnCancelarCategoria.TabIndex = 40;
-            this.btnCancelarCategoria.Text = "Cancelar";
-            this.btnCancelarCategoria.UseVisualStyleBackColor = false;
-            // 
-            // btnGuardarCategoria
-            // 
-            this.btnGuardarCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
-            this.btnGuardarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGuardarCategoria.ForeColor = System.Drawing.Color.White;
-            this.btnGuardarCategoria.Location = new System.Drawing.Point(946, 33);
-            this.btnGuardarCategoria.Name = "btnGuardarCategoria";
-            this.btnGuardarCategoria.Size = new System.Drawing.Size(228, 53);
-            this.btnGuardarCategoria.TabIndex = 39;
-            this.btnGuardarCategoria.Text = "Guardar";
-            this.btnGuardarCategoria.UseVisualStyleBackColor = false;
-            // 
-            // chkCategoriaActivo
-            // 
-            this.chkCategoriaActivo.AutoSize = true;
-            this.chkCategoriaActivo.Checked = true;
-            this.chkCategoriaActivo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkCategoriaActivo.Location = new System.Drawing.Point(545, 113);
-            this.chkCategoriaActivo.Name = "chkCategoriaActivo";
-            this.chkCategoriaActivo.Size = new System.Drawing.Size(94, 32);
-            this.chkCategoriaActivo.TabIndex = 38;
-            this.chkCategoriaActivo.Text = "Activo";
-            this.chkCategoriaActivo.UseVisualStyleBackColor = true;
-            // 
-            // txtNombreCategoria
-            // 
-            this.txtNombreCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            this.txtNombreCategoria.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNombreCategoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.txtNombreCategoria.Location = new System.Drawing.Point(118, 102);
-            this.txtNombreCategoria.MaxLength = 100;
-            this.txtNombreCategoria.Name = "txtNombreCategoria";
-            this.txtNombreCategoria.Size = new System.Drawing.Size(372, 34);
-            this.txtNombreCategoria.TabIndex = 27;
-            // 
-            // txtCodigoCategoria
-            // 
-            this.txtCodigoCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
-            this.txtCodigoCategoria.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtCodigoCategoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.txtCodigoCategoria.Location = new System.Drawing.Point(118, 43);
-            this.txtCodigoCategoria.MaxLength = 100;
-            this.txtCodigoCategoria.Name = "txtCodigoCategoria";
-            this.txtCodigoCategoria.Size = new System.Drawing.Size(372, 34);
-            this.txtCodigoCategoria.TabIndex = 26;
-            // 
-            // lblNombreCategoria
-            // 
-            this.lblNombreCategoria.AutoSize = true;
-            this.lblNombreCategoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.lblNombreCategoria.Location = new System.Drawing.Point(23, 104);
-            this.lblNombreCategoria.Name = "lblNombreCategoria";
-            this.lblNombreCategoria.Size = new System.Drawing.Size(89, 28);
-            this.lblNombreCategoria.TabIndex = 2;
-            this.lblNombreCategoria.Text = "Nombre:";
-            // 
-            // lblCodigoCategoria
-            // 
-            this.lblCodigoCategoria.AutoSize = true;
-            this.lblCodigoCategoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
-            this.lblCodigoCategoria.Location = new System.Drawing.Point(28, 45);
-            this.lblCodigoCategoria.Name = "lblCodigoCategoria";
-            this.lblCodigoCategoria.Size = new System.Drawing.Size(81, 28);
-            this.lblCodigoCategoria.TabIndex = 1;
-            this.lblCodigoCategoria.Text = "Codigo:";
             // 
             // dgvCategorias
             // 
@@ -1113,6 +990,129 @@
             this.lblBuscarProveedor.TabIndex = 36;
             this.lblBuscarProveedor.Text = "Buscar proveedores:";
             // 
+            // grpCategorias
+            // 
+            this.grpCategorias.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpCategorias.Controls.Add(this.btnDesactivarCategoria);
+            this.grpCategorias.Controls.Add(this.btnNuevaCategoria);
+            this.grpCategorias.Controls.Add(this.btnCancelarCategoria);
+            this.grpCategorias.Controls.Add(this.btnGuardarCategoria);
+            this.grpCategorias.Controls.Add(this.chkCategoriaActivo);
+            this.grpCategorias.Controls.Add(this.txtNombreCategoria);
+            this.grpCategorias.Controls.Add(this.txtCodigoCategoria);
+            this.grpCategorias.Controls.Add(this.lblNombreCategoria);
+            this.grpCategorias.Controls.Add(this.lblCodigoCategoria);
+            this.grpCategorias.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
+            this.grpCategorias.Location = new System.Drawing.Point(20, 388);
+            this.grpCategorias.Name = "grpCategorias";
+            this.grpCategorias.Size = new System.Drawing.Size(1195, 170);
+            this.grpCategorias.TabIndex = 30;
+            this.grpCategorias.TabStop = false;
+            this.grpCategorias.Text = "Datos de la Categoria";
+            // 
+            // btnDesactivarCategoria
+            // 
+            this.btnDesactivarCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            this.btnDesactivarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDesactivarCategoria.ForeColor = System.Drawing.Color.White;
+            this.btnDesactivarCategoria.Location = new System.Drawing.Point(712, 92);
+            this.btnDesactivarCategoria.Name = "btnDesactivarCategoria";
+            this.btnDesactivarCategoria.Size = new System.Drawing.Size(228, 53);
+            this.btnDesactivarCategoria.TabIndex = 42;
+            this.btnDesactivarCategoria.Text = "Desactivar";
+            this.btnDesactivarCategoria.UseVisualStyleBackColor = false;
+            // 
+            // btnNuevaCategoria
+            // 
+            this.btnNuevaCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            this.btnNuevaCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNuevaCategoria.ForeColor = System.Drawing.Color.White;
+            this.btnNuevaCategoria.Location = new System.Drawing.Point(712, 33);
+            this.btnNuevaCategoria.Name = "btnNuevaCategoria";
+            this.btnNuevaCategoria.Size = new System.Drawing.Size(228, 53);
+            this.btnNuevaCategoria.TabIndex = 41;
+            this.btnNuevaCategoria.Text = "Nueva";
+            this.btnNuevaCategoria.UseVisualStyleBackColor = false;
+            // 
+            // btnCancelarCategoria
+            // 
+            this.btnCancelarCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            this.btnCancelarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelarCategoria.ForeColor = System.Drawing.Color.White;
+            this.btnCancelarCategoria.Location = new System.Drawing.Point(946, 92);
+            this.btnCancelarCategoria.Name = "btnCancelarCategoria";
+            this.btnCancelarCategoria.Size = new System.Drawing.Size(228, 53);
+            this.btnCancelarCategoria.TabIndex = 40;
+            this.btnCancelarCategoria.Text = "Cancelar";
+            this.btnCancelarCategoria.UseVisualStyleBackColor = false;
+            // 
+            // btnGuardarCategoria
+            // 
+            this.btnGuardarCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
+            this.btnGuardarCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardarCategoria.ForeColor = System.Drawing.Color.White;
+            this.btnGuardarCategoria.Location = new System.Drawing.Point(946, 33);
+            this.btnGuardarCategoria.Name = "btnGuardarCategoria";
+            this.btnGuardarCategoria.Size = new System.Drawing.Size(228, 53);
+            this.btnGuardarCategoria.TabIndex = 39;
+            this.btnGuardarCategoria.Text = "Guardar";
+            this.btnGuardarCategoria.UseVisualStyleBackColor = false;
+            // 
+            // chkCategoriaActivo
+            // 
+            this.chkCategoriaActivo.AutoSize = true;
+            this.chkCategoriaActivo.Checked = true;
+            this.chkCategoriaActivo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkCategoriaActivo.Location = new System.Drawing.Point(545, 113);
+            this.chkCategoriaActivo.Name = "chkCategoriaActivo";
+            this.chkCategoriaActivo.Size = new System.Drawing.Size(94, 32);
+            this.chkCategoriaActivo.TabIndex = 38;
+            this.chkCategoriaActivo.Text = "Activo";
+            this.chkCategoriaActivo.UseVisualStyleBackColor = true;
+            // 
+            // txtNombreCategoria
+            // 
+            this.txtNombreCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
+            this.txtNombreCategoria.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtNombreCategoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
+            this.txtNombreCategoria.Location = new System.Drawing.Point(118, 102);
+            this.txtNombreCategoria.MaxLength = 100;
+            this.txtNombreCategoria.Name = "txtNombreCategoria";
+            this.txtNombreCategoria.Size = new System.Drawing.Size(372, 34);
+            this.txtNombreCategoria.TabIndex = 27;
+            // 
+            // txtCodigoCategoria
+            // 
+            this.txtCodigoCategoria.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(229)))), ((int)(((byte)(249)))));
+            this.txtCodigoCategoria.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCodigoCategoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
+            this.txtCodigoCategoria.Location = new System.Drawing.Point(118, 43);
+            this.txtCodigoCategoria.MaxLength = 100;
+            this.txtCodigoCategoria.Name = "txtCodigoCategoria";
+            this.txtCodigoCategoria.Size = new System.Drawing.Size(372, 34);
+            this.txtCodigoCategoria.TabIndex = 26;
+            // 
+            // lblNombreCategoria
+            // 
+            this.lblNombreCategoria.AutoSize = true;
+            this.lblNombreCategoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
+            this.lblNombreCategoria.Location = new System.Drawing.Point(23, 104);
+            this.lblNombreCategoria.Name = "lblNombreCategoria";
+            this.lblNombreCategoria.Size = new System.Drawing.Size(89, 28);
+            this.lblNombreCategoria.TabIndex = 2;
+            this.lblNombreCategoria.Text = "Nombre:";
+            // 
+            // lblCodigoCategoria
+            // 
+            this.lblCodigoCategoria.AutoSize = true;
+            this.lblCodigoCategoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(55)))), ((int)(((byte)(105)))));
+            this.lblCodigoCategoria.Location = new System.Drawing.Point(28, 45);
+            this.lblCodigoCategoria.Name = "lblCodigoCategoria";
+            this.lblCodigoCategoria.Size = new System.Drawing.Size(81, 28);
+            this.lblCodigoCategoria.TabIndex = 1;
+            this.lblCodigoCategoria.Text = "Codigo:";
+            // 
             // FormCatalogosInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 28F);
@@ -1133,8 +1133,6 @@
             this.tabCatalogos.ResumeLayout(false);
             this.tabCategorias.ResumeLayout(false);
             this.tabCategorias.PerformLayout();
-            this.grpCategorias.ResumeLayout(false);
-            this.grpCategorias.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCategorias)).EndInit();
             this.tabMarcas.ResumeLayout(false);
             this.tabMarcas.PerformLayout();
@@ -1146,6 +1144,8 @@
             this.grpDatosProveedor.ResumeLayout(false);
             this.grpDatosProveedor.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).EndInit();
+            this.grpCategorias.ResumeLayout(false);
+            this.grpCategorias.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1164,16 +1164,6 @@
         private System.Windows.Forms.Button btnLimpiarBusquedaCategoria;
         private System.Windows.Forms.Button btnBuscarCategoria;
         private System.Windows.Forms.DataGridView dgvCategorias;
-        private System.Windows.Forms.GroupBox grpCategorias;
-        private System.Windows.Forms.Label lblNombreCategoria;
-        private System.Windows.Forms.Label lblCodigoCategoria;
-        private System.Windows.Forms.TextBox txtNombreCategoria;
-        private System.Windows.Forms.TextBox txtCodigoCategoria;
-        private System.Windows.Forms.Button btnCancelarCategoria;
-        private System.Windows.Forms.Button btnGuardarCategoria;
-        private System.Windows.Forms.CheckBox chkCategoriaActivo;
-        private System.Windows.Forms.Button btnDesactivarCategoria;
-        private System.Windows.Forms.Button btnNuevaCategoria;
         private System.Windows.Forms.GroupBox grpDatosMarca;
         private System.Windows.Forms.Button btnDesactivarMarca;
         private System.Windows.Forms.Button btnNuevaMarca;
@@ -1227,5 +1217,15 @@
         private System.Windows.Forms.Label lblCorreoProveedor;
         private System.Windows.Forms.CheckedListBox clbProductosProveedor;
         private System.Windows.Forms.Label lblProductosProveedor;
+        private System.Windows.Forms.GroupBox grpCategorias;
+        private System.Windows.Forms.Button btnDesactivarCategoria;
+        private System.Windows.Forms.Button btnNuevaCategoria;
+        private System.Windows.Forms.Button btnCancelarCategoria;
+        private System.Windows.Forms.Button btnGuardarCategoria;
+        private System.Windows.Forms.CheckBox chkCategoriaActivo;
+        private System.Windows.Forms.TextBox txtNombreCategoria;
+        private System.Windows.Forms.TextBox txtCodigoCategoria;
+        private System.Windows.Forms.Label lblNombreCategoria;
+        private System.Windows.Forms.Label lblCodigoCategoria;
     }
 }
