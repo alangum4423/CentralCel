@@ -91,7 +91,7 @@
             this.menuReportes});
             this.menuMenuPrincipal.Location = new System.Drawing.Point(0, 0);
             this.menuMenuPrincipal.Name = "menuMenuPrincipal";
-            this.menuMenuPrincipal.Size = new System.Drawing.Size(1368, 40);
+            this.menuMenuPrincipal.Size = new System.Drawing.Size(1368, 42);
             this.menuMenuPrincipal.TabIndex = 0;
             this.menuMenuPrincipal.Text = "menuStrip1";
             // 
@@ -104,7 +104,7 @@
             this.menuArchivo.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuArchivo.ForeColor = System.Drawing.Color.White;
             this.menuArchivo.Name = "menuArchivo";
-            this.menuArchivo.Size = new System.Drawing.Size(112, 36);
+            this.menuArchivo.Size = new System.Drawing.Size(112, 38);
             this.menuArchivo.Text = "Archivo";
             // 
             // menuCerrarSesion
@@ -142,7 +142,7 @@
             this.menuConfiguracion});
             this.menuAdministracion.ForeColor = System.Drawing.Color.White;
             this.menuAdministracion.Name = "menuAdministracion";
-            this.menuAdministracion.Size = new System.Drawing.Size(189, 36);
+            this.menuAdministracion.Size = new System.Drawing.Size(189, 38);
             this.menuAdministracion.Text = "Administracion";
             // 
             // menuUsuarios
@@ -180,7 +180,7 @@
             this.menuInventario.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuInventario.ForeColor = System.Drawing.Color.White;
             this.menuInventario.Name = "menuInventario";
-            this.menuInventario.Size = new System.Drawing.Size(151, 36);
+            this.menuInventario.Size = new System.Drawing.Size(151, 38);
             this.menuInventario.Text = "Inventarios";
             // 
             // menuProductosExistencias
@@ -210,7 +210,7 @@
             this.menuVentas.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuVentas.ForeColor = System.Drawing.Color.White;
             this.menuVentas.Name = "menuVentas";
-            this.menuVentas.Size = new System.Drawing.Size(102, 36);
+            this.menuVentas.Size = new System.Drawing.Size(102, 38);
             this.menuVentas.Text = "Ventas";
             // 
             // menuNuevaVenta
@@ -247,7 +247,7 @@
             this.menuReportes.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuReportes.ForeColor = System.Drawing.Color.White;
             this.menuReportes.Name = "menuReportes";
-            this.menuReportes.Size = new System.Drawing.Size(127, 36);
+            this.menuReportes.Size = new System.Drawing.Size(127, 38);
             this.menuReportes.Text = "Reportes";
             // 
             // menuReportesGenerales
@@ -269,9 +269,9 @@
             this.pnlMenuPrincipal.Controls.Add(this.btnInventario);
             this.pnlMenuPrincipal.Controls.Add(this.pnlBienvenida);
             this.pnlMenuPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMenuPrincipal.Location = new System.Drawing.Point(0, 40);
+            this.pnlMenuPrincipal.Location = new System.Drawing.Point(0, 42);
             this.pnlMenuPrincipal.Name = "pnlMenuPrincipal";
-            this.pnlMenuPrincipal.Size = new System.Drawing.Size(1368, 630);
+            this.pnlMenuPrincipal.Size = new System.Drawing.Size(1368, 628);
             this.pnlMenuPrincipal.TabIndex = 1;
             // 
             // pctCajeros
@@ -282,7 +282,7 @@
             this.pctCajeros.Image = global::CentralCel.Properties.Resources.image_rest;
             this.pctCajeros.Location = new System.Drawing.Point(1032, 0);
             this.pctCajeros.Name = "pctCajeros";
-            this.pctCajeros.Size = new System.Drawing.Size(336, 630);
+            this.pctCajeros.Size = new System.Drawing.Size(336, 628);
             this.pctCajeros.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pctCajeros.TabIndex = 15;
             this.pctCajeros.TabStop = false;
@@ -419,7 +419,7 @@
             this.pnlPrincipal.Controls.Add(this.lblDescripcion);
             this.pnlPrincipal.Controls.Add(this.lblNombre);
             this.pnlPrincipal.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlPrincipal.Location = new System.Drawing.Point(0, 40);
+            this.pnlPrincipal.Location = new System.Drawing.Point(0, 42);
             this.pnlPrincipal.Name = "pnlPrincipal";
             this.pnlPrincipal.Size = new System.Drawing.Size(1368, 120);
             this.pnlPrincipal.TabIndex = 2;
