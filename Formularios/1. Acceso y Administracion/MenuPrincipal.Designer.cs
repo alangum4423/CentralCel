@@ -81,6 +81,7 @@
             // 
             this.menuMenuPrincipal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(116)))), ((int)(((byte)(197)))));
             this.menuMenuPrincipal.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuMenuPrincipal.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuMenuPrincipal.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuMenuPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuArchivo,

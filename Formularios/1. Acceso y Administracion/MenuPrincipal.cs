@@ -37,10 +37,12 @@ namespace CentralCel.Formularios
             if (UsuarioSesion.Rol == "Superadministrador")
             {
                 AlertarStockBajo();
+                pctCajeros.Visible = false;
             }
             else if (UsuarioSesion.Rol == "Administrador")
             {
                 AlertarStockBajo();
+                pctCajeros.Visible = false;
             }
             else if (UsuarioSesion.Rol == "Empleado")
             {
@@ -53,7 +55,7 @@ namespace CentralCel.Formularios
 
                 btnAdministracion.Visible = false;
                 btnReportes.Visible = false;
-                pctCajeros.Visible = false;
+                pctCajeros.Visible = true;
 
                 ctxReportes.Visible = false;
 
@@ -71,7 +73,7 @@ namespace CentralCel.Formularios
 
                 btnAdministracion.Visible = false;
                 btnPuntodeVenta.Visible = false;
-                pctCajeros.Visible = false;
+                pctCajeros.Visible = true;
 
                 ctxNuevaVenta.Visible = false;
             }
